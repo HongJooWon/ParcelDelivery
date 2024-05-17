@@ -19,6 +19,7 @@ int gen = 0;
 int nparcels = 500;
 bool flagArrangedDepot = false;
 bool OngoingMission = false;
+// int selectionMethod = 0;
 
 std::vector<parcel> parcel_depot;
 
@@ -40,82 +41,73 @@ bool SortDepotByWeight (parcel i, parcel j) {
     return (i.weight > j.weight);
 }
 
-//path optimization through branch and bound accroding to the distance
-// struct parcel{
-//     int parcelID;
-//     double weight;
-//     int priority;
-//     double exp_time;
-//     Coord parceldest;
-// };
-
-//std::vector<parcel> parcel_depot;
-
 double dist(Coord a, Coord b) {
     double dx = a.x - b.x;
     double dy = a.y - b.y;
     return sqrt(dx*dx + dy*dy);
 }
 
-// double tsp(vector<parcel>& parcels, int pos, int visited, vector<vector<double>>& dp, vector<vector<double>>& distance, double currDist, double& ans) {
-//     if(visited == ((1<<parcels.size()) - 1)) {
-//         ans = min(ans, currDist + distance[pos][0]); // update the minimum distance
-//         return ans;
-//     }
-//     if(dp[pos][visited] != -1 && currDist >= dp[pos][visited]) {
-//         return ans; // prune the branch if the current distance is already greater than the previously calculated distance
-//     }
-
-//     for(int i=0; i<parcels.size(); i++) {
-//         if((visited & (1<<i)) == 0) { // if not visited
-//             double newDist = currDist + distance[pos][i];
-//             if(newDist < ans) { // only explore the branch if the new distance is less than the current minimum distance
-//                 tsp(parcels, i, visited | (1<<i), dp, distance, newDist, ans);
-//             }
-//         }
-//     }
-//     dp[pos][visited] = currDist; // update the previously calculated distance
-//     return ans;
-// }
-
-// void solveTSP(vector<parcel>& parcels) {
-
-//     cout << "Solving TSP" << endl;
-//     int n = parcels.size();
-//     vector<vector<double>> distance(n, vector<double>(n));
-//     for(int i=0; i<n; i++) {
-//         for(int j=0; j<n; j++) {
-//             distance[i][j] = dist(parcels[i].parceldest, parcels[j].parceldest);
-//         }
-//     }
-
-//     vector<vector<double>> dp(n, vector<double>(1<<n, -1));
-//     double ans = 1e9;
-//     tsp(parcels, 0, 1, dp, distance, 0, ans);
-//     cout << "Minimum distance: " << ans << endl;
-// }
-
-double tsp(vector<parcel>& parcels, int pos, int visited, vector<vector<double>>& dp, vector<vector<double>>& distance) {
-    if(visited == ((1<<parcels.size()) - 1)) {
-        return distance[pos][0]; // return to the start
-    }
-    if(dp[pos][visited] != -1) {
-        return dp[pos][visited]; // already calculated
-    }
-
-    double ans = 1e9;
-    for(int i=0; i<parcels.size(); i++) {
-        if((visited & (1<<i)) == 0) { // if not visited
-            double newAns = distance[pos][i] + tsp(parcels, i, visited | (1<<i), dp, distance);
-            ans = min(ans, newAns);
+//greedy algorithm for TSP
+vector<parcel> greedyTSP(vector<parcel>& parcels){
+    vector<parcel> sortedParcels;
+    vector<bool> visited(parcels.size(), false);
+    Coord currPos = originPos;
+    double totalDist = 0;
+    while(sortedParcels.size() < parcels.size()) {
+        double minDist = 1e9;
+        int nextParcel = -1;
+        for(int i=0; i<parcels.size(); i++) {
+            if(!visited[i]) {
+                double d = dist(currPos, parcels[i].parceldest);
+                if(d < minDist) {
+                    minDist = d;
+                    nextParcel = i;
+                }
+            }
         }
+        totalDist += minDist;
+        visited[nextParcel] = true;
+        sortedParcels.push_back(parcels[nextParcel]);
+        currPos = parcels[nextParcel].parceldest;
     }
-    return dp[pos][visited] = ans;
+    totalDist += dist(currPos, originPos);
+    cout << "Greedy TSP distance: " << totalDist << endl;
+    return sortedParcels;
 }
 
-void solveTSP(vector<parcel>& parcels) {
+//optimal path가 수행되는지 확인
+double tsp(vector<parcel>& parcels, int pos, int visited, vector<vector<double>>& dp, vector<vector<double>>& distance, double currDist, double& ans, vector<int>& optimalPath, vector<int>& path) {
+    path.push_back(pos); // add the current position to the path
+    if(visited == ((1<<parcels.size()) - 1)) {
+        ans = min(ans, currDist + distance[pos][0]); // update the minimum distance
+        if(currDist + distance[pos][0] == ans) {
+            optimalPath = path; // update the optimal path
+        }
+    }
+    if(dp[pos][visited] != -1 && currDist >= dp[pos][visited]) {
+        path.pop_back(); // remove the current position from the path
+        return ans; // prune the branch if the current distance is already greater than the previously calculated distance
+    }
 
+    for(int i=0; i<parcels.size(); i++) {
+        if((visited & (1<<i)) == 0) { // if not visited
+            double newDist = currDist + distance[pos][i];
+            if(newDist < ans) { // only explore the branch if the new distance is less than the current minimum distance
+                tsp(parcels, i, visited | (1<<i), dp, distance, newDist, ans, optimalPath, path);
+            }
+        }
+    }
+    dp[pos][visited] = currDist; // update the previously calculated distance
+    path.pop_back(); // remove the current position from the path
+    return ans;
+}
+
+vector<parcel> solveTSP(vector<parcel>& parcels) {
     cout << "Solving TSP" << endl;
+    //print the parcels
+    for(int i=0; i<parcels.size(); i++) {
+        cout << "Parcel to solve" << parcels[i].parcelID << " : " << parcels[i].parceldest.x << " " << parcels[i].parceldest.y << endl;
+    }
     int n = parcels.size();
     vector<vector<double>> distance(n, vector<double>(n));
     for(int i=0; i<n; i++) {
@@ -125,8 +117,26 @@ void solveTSP(vector<parcel>& parcels) {
     }
 
     vector<vector<double>> dp(n, vector<double>(1<<n, -1));
-    double ans = tsp(parcels, 0, 1, dp, distance);
+    double ans = 1e9;
+    vector<int> optimalPath;
+    vector<int> path;
+    tsp(parcels, 0, 1, dp, distance, 0, ans, optimalPath, path);
+
+    // Sort parcels based on the optimal path
+    vector<parcel> sortedParcels;
+    for(int i=optimalPath.size()-1; i>=0; i--) {
+        sortedParcels.push_back(parcels[optimalPath[i]]);
+    }
+
+    //print the optimal path
+    cout << "Optimal path: ";
+    for(int i=0; i<optimalPath.size(); i++) {
+        cout << optimalPath[i] << " ";
+    }
+    cout << endl;
+
     cout << "Minimum distance: " << ans << endl;
+    return sortedParcels;
 }
 
 DroneNetMob::DroneNetMob()
@@ -355,15 +365,9 @@ std::vector<parcel> DroneNetMob::droneParcelsSelectionFromSource(int parcelSel){
          * First deliver the ones closer to source*/
         case CNPF:{
             cout <<" CNPF ----- > working------------"  << endl;
-            //print all the parcel_depots.parceldest.x and parcel_depots.parceldest.y
-            // for (unsigned int i = 0; i < parcel_depot.size(); i++){
-            //     cout << " destination of parcels in depot: " <<parcel_depot[i].parceldest.x <<"; "<<parcel_depot[i].parceldest.y <<"; " << endl;
-            // }
 
-            // solveTSP(parcel_depot);
             if (!flagArrangedDepot){
-                //tsp parcel_depot
-                //solveTSP(parcel_depot);
+
                 cout << "--------------sorted destination list----------------" << endl;
                 // std::sort (parcel_depot.begin(), parcel_depot.end(),sortDepotByDestination);
                 for (unsigned int i = 0; i < parcel_depot.size(); i++){
@@ -494,8 +498,25 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
     if (!OngoingMission){
         MissionParcels  = droneParcelsSelectionFromSource(selectionMethod);
         OngoingMission = true;
-        //tsp test
-        solveTSP(MissionParcels);
+
+        switch (selectionMethod) {
+            case 0:
+                //Greedy
+                MissionParcels = greedyTSP(MissionParcels);
+                //print the destination of the parcels
+                for (unsigned int i = 0; i < MissionParcels.size(); i++){
+                    cout << " destination of Greedy: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<"; " << endl;
+                }
+                break;
+            case 1:
+                // BnB TSP
+                MissionParcels = solveTSP(MissionParcels);
+                //print the destination of the parcels
+                for (unsigned int i = 0; i < MissionParcels.size(); i++){
+                    cout << " destination of TSP: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<"; " << endl;
+                }
+                break;
+        }
     }
     else{
         if (MissionParcels.size() == 0){
