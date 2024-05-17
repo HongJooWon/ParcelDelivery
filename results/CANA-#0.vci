@@ -1,0 +1,550 @@
+file 22854 1623129268                                           
+version 2
+run CANA-0-20210608-14:13:48-13477
+attr configname CANA
+attr datetime 20210608-14:13:48
+attr experiment CANA
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network CANANetwork
+attr processid 13477
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config *.numdrones 30
+config **.drone*.mobility.typename "\"DroneMobility\""
+config **.drone*.mobility.ndst 30
+config **.drone*.mobility.initFromDisplayString false
+config **.drone*.mobility.changeInterval "truncnormal(2s, 0.5s)"
+config *.drone[*].mobility.angleDelta "normal(0deg, 30deg)"
+config **.drone*.mobility.speed "truncnormal(15mps, 5mps)"
+config **.drone[*0].mobility.initialX 300m
+config **.drone[*0].mobility.initialY 20m
+config **.drone[*0].mobility.initialZ 0m
+config **.drone[*1].mobility.initialX 300m
+config **.drone[*1].mobility.initialY 20m
+config **.drone[*1].mobility.initialZ 0m
+config **.drone[*2].mobility.initialX 300m
+config **.drone[*2].mobility.initialY 20m
+config **.drone[*2].mobility.initialZ 0m
+config **.drone[*3].mobility.initialX 20m
+config **.drone[*3].mobility.initialY 200m
+config **.drone[*3].mobility.initialZ 0m
+config **.drone[*4].mobility.initialX 20m
+config **.drone[*4].mobility.initialY 200m
+config **.drone[*4].mobility.initialZ 0m
+config **.drone[*5].mobility.initialX 580m
+config **.drone[*5].mobility.initialY 190m
+config **.drone[*5].mobility.initialZ 0m
+config **.drone[*6].mobility.initialX 580m
+config **.drone[*6].mobility.initialY 190m
+config **.drone[*6].mobility.initialZ 0m
+config **.drone[*7].mobility.initialX 300m
+config **.drone[*7].mobility.initialY 380m
+config **.drone[*7].mobility.initialZ 0m
+config **.drone[*8].mobility.initialX 300m
+config **.drone[*8].mobility.initialY 380m
+config **.drone[*8].mobility.initialZ 0m
+config **.drone[*9].mobility.initialX 300m
+config **.drone[*9].mobility.initialY 380m
+config **.drone[*9].mobility.initialZ 0m
+config *.ndst 6
+config **.dest[0].mobility.initialX 100m
+config **.dest[0].mobility.initialY 200m
+config **.dest[0].mobility.initialZ 0m
+config **.dest[1].mobility.initialX 500m
+config **.dest[1].mobility.initialY 150m
+config **.dest[1].mobility.initialZ 0m
+config **.dest[2].mobility.initialX 250m
+config **.dest[2].mobility.initialY 200m
+config **.dest[2].mobility.initialZ 0m
+config **.dest[3].mobility.initialX 300m
+config **.dest[3].mobility.initialY 200m
+config **.dest[3].mobility.initialZ 0m
+config **.dest[4].mobility.initialX 100m
+config **.dest[4].mobility.initialY 100m
+config **.dest[4].mobility.initialZ 0m
+config **.dest[5].mobility.initialX 100m
+config **.dest[5].mobility.initialY 200m
+config **.dest[5].mobility.initialZ 0m
+config **.constraintAreaMinX 0m
+config **.constraintAreaMinY 0m
+config **.constraintAreaMinZ 0m
+config **.constraintAreaMaxX 600m
+config **.constraintAreaMaxY 400m
+config **.constraintAreaMaxZ 0m
+config **.updateInterval 0.1s
+
+vector 0 CANANetwork.drone[0] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+0	18168 59 0 31 0 0.2 3 300 324.34797243516 936.52195865274 292654.20489377
+vector 1 CANANetwork.drone[0] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+1	18227 58 0 31 0 0.2 3 20 25.678325726927 68.517488590391 1581.003772442
+vector 2 CANANetwork.drone[0] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+2	18285 29 0 31 0 0.2 3 0 0 0 0
+vector 3 CANANetwork.drone[1] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+3	18314 59 0 31 0 0.2 3 285.24266650423 300 877.86399975635 256990.62346869
+vector 4 CANANetwork.drone[1] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+4	18373 58 0 31 0 0.2 3 20 31.397940504863 77.096910757294 2046.2677399823
+vector 5 CANANetwork.drone[1] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+5	18431 29 0 31 0 0.2 3 0 0 0 0
+vector 6 CANANetwork.drone[2] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+6	18460 59 0 31 0 0.2 3 300 337.76381697369 956.64572546054 305770.06761685
+vector 7 CANANetwork.drone[2] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+7	18519 58 0 31 0 0.2 3 20 60.599325415405 120.89898812311 5696.3410551568
+vector 8 CANANetwork.drone[2] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+8	18577 29 0 31 0 0.2 3 0 0 0 0
+vector 9 CANANetwork.drone[3] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+9	18606 58 0 31 0 0.2 3 20 90.790632689983 166.18594903497 11711.580057209
+vector 10 CANANetwork.drone[3] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+10	18664 62 0 31 0 0.2 3 186.49224676587 200 579.7383701488 112123.42230631
+vector 11 CANANetwork.drone[3] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+11	18726 32 0 31 0 0.2 3 0 0 0 0
+vector 12 CANANetwork.drone[4] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+12	18758 61 0 31 0 0.2 3 20 44.487826960362 96.731740440543 3418.8367041725
+vector 13 CANANetwork.drone[4] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+13	18819 62 0 31 0 0.2 3 200 202.24560858588 603.36841287882 121353.66859893
+vector 14 CANANetwork.drone[4] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+14	18881 32 0 31 0 0.2 3 0 0 0 0
+vector 15 CANANetwork.drone[5] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+15	18913 62 0 31 0 0.2 3 563.89532334365 580 1715.8429850155 981502.06338071
+vector 16 CANANetwork.drone[5] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+16	18975 62 0 31 0 0.2 3 177.95842983952 190 551.93764475928 101617.55427344
+vector 17 CANANetwork.drone[5] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+17	19037 32 0 31 0 0.2 3 0 0 0 0
+vector 18 CANANetwork.drone[6] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+18	19069 62 0 31 0 0.2 3 560.74740043996 580 1711.1211006599 976163.8050028
+vector 19 CANANetwork.drone[6] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+19	19131 62 0 31 0 0.2 3 181.30313606081 190 556.95470409122 103437.33185763
+vector 20 CANANetwork.drone[6] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+20	19193 32 0 31 0 0.2 3 0 0 0 0
+vector 21 CANANetwork.drone[7] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+21	19225 62 0 31 0 0.2 3 300 324.06408391736 936.09612587604 292381.5256941
+vector 22 CANANetwork.drone[7] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+22	19287 62 0 31 0 0.2 3 375.05908543142 380 1132.5886281471 427597.87318779
+vector 23 CANANetwork.drone[7] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+23	19349 32 0 31 0 0.2 3 0 0 0 0
+vector 24 CANANetwork.drone[8] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+24	19381 62 0 31 0 0.2 3 300 320.20662845309 930.30994267963 288696.35039958
+vector 25 CANANetwork.drone[8] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+25	19443 62 0 31 0 0.2 3 367.03408007594 380 1120.5511201139 418628.99513592
+vector 26 CANANetwork.drone[8] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+26	19505 32 0 31 0 0.2 3 0 0 0 0
+vector 27 CANANetwork.drone[9] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+27	19537 62 0 31 0 0.2 3 275.93517392007 300 863.9027608801 249065.55134588
+vector 28 CANANetwork.drone[9] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+28	19599 62 0 31 0 0.2 3 334.12642528513 380 1071.1896379277 383534.60589645
+vector 29 CANANetwork.drone[9] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+29	19661 32 0 31 0 0.2 3 0 0 0 0
+vector 30 CANANetwork.drone[10] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+30	19693 62 0 31 0 0.2 3 270.90133493947 300 856.35200240921 244869.61683091
+vector 31 CANANetwork.drone[10] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+31	19755 61 0 31 0 0.2 3 20 34.901738508504 82.352607762756 2371.68157373
+vector 32 CANANetwork.drone[10] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+32	19816 32 0 31 0 0.2 3 0 0 0 0
+vector 33 CANANetwork.drone[11] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+33	19848 62 0 31 0 0.2 3 300 335.73557393702 953.60336090553 303758.30559908
+vector 34 CANANetwork.drone[11] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+34	19910 61 0 31 0 0.2 3 20 21.204569907989 61.806854861984 1274.0879303084
+vector 35 CANANetwork.drone[11] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+35	19971 32 0 31 0 0.2 3 0 0 0 0
+vector 36 CANANetwork.drone[12] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+36	20003 62 0 31 0 0.2 3 288.31606554776 300 882.47409832164 259655.10189834
+vector 37 CANANetwork.drone[12] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+37	20065 61 0 31 0 0.2 3 20 50.695082035535 106.0426230533 4219.4399985924
+vector 38 CANANetwork.drone[12] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+38	20126 32 0 31 0 0.2 3 0 0 0 0
+vector 39 CANANetwork.drone[13] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+39	20158 61 0 31 0 0.2 3 20 23.531948457783 65.297922686674 1427.5102323525
+vector 40 CANANetwork.drone[13] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+40	20219 62 0 31 0 0.2 3 200 210.34356334065 615.51534501097 126339.87463262
+vector 41 CANANetwork.drone[13] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+41	20281 32 0 31 0 0.2 3 0 0 0 0
+vector 42 CANANetwork.drone[14] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+42	20313 61 0 31 0 0.2 3 20 24.001287362161 66.001931043242 1460.0901174229
+vector 43 CANANetwork.drone[14] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+43	20374 62 0 31 0 0.2 3 200 211.49305944451 617.23958916676 127060.94868595
+vector 44 CANANetwork.drone[14] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+44	20436 32 0 31 0 0.2 3 0 0 0 0
+vector 45 CANANetwork.drone[15] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+45	20468 62 0 31 0 0.2 3 548.30754723573 580 1692.4613208536 955310.64664293
+vector 46 CANANetwork.drone[15] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+46	20530 62 0 31 0 0.2 3 190 191.51517702459 572.27276553688 109166.52060578
+vector 47 CANANetwork.drone[15] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+47	20592 32 0 31 0 0.2 3 0 0 0 0
+vector 48 CANANetwork.drone[16] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+48	20624 62 0 31 0 0.2 3 548.62729923934 580 1692.940948859 955841.80861772
+vector 49 CANANetwork.drone[16] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+49	20686 62 0 31 0 0.2 3 190 195.95906047968 578.93859071952 111741.05247567
+vector 50 CANANetwork.drone[16] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+50	20748 32 0 31 0 0.2 3 0 0 0 0
+vector 51 CANANetwork.drone[17] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+51	20780 61 0 31 0 0.2 3 297.2876850945 300 895.93152764175 267568.11240023
+vector 52 CANANetwork.drone[17] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+52	20841 62 0 31 0 0.2 3 361.36377177831 380 1112.0456576675 412388.83608018
+vector 53 CANANetwork.drone[17] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+53	20903 32 0 31 0 0.2 3 0 0 0 0
+vector 54 CANANetwork.drone[18] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+54	20935 62 0 31 0 0.2 3 281.71813911481 300 872.57720867222 253964.10825011
+vector 55 CANANetwork.drone[18] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+55	20997 60 0 31 0 0.2 3 324.6418418056 380 1056.9627627084 373922.35675673
+vector 56 CANANetwork.drone[18] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+56	21057 32 0 31 0 0.2 3 0 0 0 0
+vector 57 CANANetwork.drone[19] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+57	21089 62 0 31 0 0.2 3 292.32078343167 300 888.4811751475 263162.41804738
+vector 58 CANANetwork.drone[19] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+58	21151 62 0 31 0 0.2 3 350.83623370678 380 1096.2543505602 401016.46300624
+vector 59 CANANetwork.drone[19] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+59	21213 32 0 31 0 0.2 3 0 0 0 0
+vector 60 CANANetwork.drone[20] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+60	21245 62 0 31 0 0.2 3 300 312.47735937282 918.71603905923 281424.22905669
+vector 61 CANANetwork.drone[20] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+61	21307 61 0 31 0 0.2 3 20 34.798728558462 82.198092837693 2361.6766721915
+vector 62 CANANetwork.drone[20] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+62	21368 32 0 31 0 0.2 3 0 0 0 0
+vector 63 CANANetwork.drone[21] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+63	21400 62 0 31 0 0.2 3 276.42084167198 300 864.63126250797 249473.7283891
+vector 64 CANANetwork.drone[21] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+64	21462 61 0 31 0 0.2 3 20 28.366798116393 72.55019717459 1789.5120253842
+vector 65 CANANetwork.drone[21] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+65	21523 32 0 31 0 0.2 3 0 0 0 0
+vector 66 CANANetwork.drone[22] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+66	21555 62 0 31 0 0.2 3 300 321.71285582506 932.56928373759 290130.88037765
+vector 67 CANANetwork.drone[22] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+67	21617 61 0 31 0 0.2 3 20 28.945084970185 73.417627455277 1836.7232796159
+vector 68 CANANetwork.drone[22] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+68	21678 32 0 31 0 0.2 3 0 0 0 0
+vector 69 CANANetwork.drone[23] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+69	21710 61 0 31 0 0.2 3 20 42.756586694251 94.134880041377 3212.7229991213
+vector 70 CANANetwork.drone[23] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+70	21771 62 0 31 0 0.2 3 200 207.46512367748 611.19768551622 124548.73429589
+vector 71 CANANetwork.drone[23] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+71	21833 32 0 31 0 0.2 3 0 0 0 0
+vector 72 CANANetwork.drone[24] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+72	21865 61 0 31 0 0.2 3 20 119.61300942089 209.41951413134 19580.220122611
+vector 73 CANANetwork.drone[24] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+73	21926 62 0 31 0 0.2 3 200 234.21052848798 651.31579273197 141989.26741707
+vector 74 CANANetwork.drone[24] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+74	21988 32 0 31 0 0.2 3 0 0 0 0
+vector 75 CANANetwork.drone[25] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+75	22020 62 0 31 0 0.2 3 567.10698548297 580 1720.6604782245 986973.94201954
+vector 76 CANANetwork.drone[25] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+76	22082 61 0 31 0 0.2 3 190 200.49970044501 585.74955066751 114422.63389045
+vector 77 CANANetwork.drone[25] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+77	22143 32 0 31 0 0.2 3 0 0 0 0
+vector 78 CANANetwork.drone[26] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+78	22175 62 0 31 0 0.2 3 527.59190224979 580 1661.3878533747 921443.17080187
+vector 79 CANANetwork.drone[26] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+79	22237 62 0 31 0 0.2 3 188.92825975971 190 568.39238963956 107690.54384696
+vector 80 CANANetwork.drone[26] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+80	22299 32 0 31 0 0.2 3 0 0 0 0
+vector 81 CANANetwork.drone[27] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+81	22331 62 0 31 0 0.2 3 300 305.70531763597 908.55797645396 275175.47418404
+vector 82 CANANetwork.drone[27] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+82	22393 61 0 31 0 0.2 3 369.09876808841 380 1123.6481521326 420921.14169227
+vector 83 CANANetwork.drone[27] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+83	22454 32 0 31 0 0.2 3 0 0 0 0
+vector 84 CANANetwork.drone[28] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+84	22486 62 0 31 0 0.2 3 277.30570964512 300 865.95856446768 250218.927199
+vector 85 CANANetwork.drone[28] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+85	22548 62 0 31 0 0.2 3 379.04645838845 380 1138.5696875827 432114.09911484
+vector 86 CANANetwork.drone[28] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+86	22610 32 0 31 0 0.2 3 0 0 0 0
+vector 87 CANANetwork.drone[29] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+87	22642 62 0 31 0 0.2 3 288.99182994616 300 883.48774491924 260244.12171146
+vector 88 CANANetwork.drone[29] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+88	22704 62 0 31 0 0.2 3 348.35151109521 380 1092.5272666428 398372.75621099
+vector 89 CANANetwork.drone[29] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+89	22766 32 0 31 0 0.2 3 0 0 0 0
+vector 90 CANANetwork.gcs.wlan[0].radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr source radioModeChanged
+attr title "Radio mode, vector"
+90	22798 27 0 0 0 0 3 0 2 2 4
+vector 91 CANANetwork.gcs.wlan[0].radio radioChannel:vector ETV
+attr interpolationmode sample-hold
+attr source radioChannelChanged
+attr title "Radio channel, vector"
+91	22825 9 0 0 0 0 1 0 0 0 0
+vector 92 CANANetwork.gcs.wlan[0].radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr source receptionStateChanged
+attr title "Radio reception state, vector"
+92	22834 9 0 0 0 0 1 1 1 1 1
+vector 93 CANANetwork.gcs.wlan[0].mac.dcf.recoveryProcedure contentionWindowChanged:vector ETV
+attr interpolationmode sample-hold
+attr title "contention window, vector"
+93	22843 11 0 0 0 0 1 31 31 31 961

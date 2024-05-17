@@ -1,0 +1,145 @@
+file 121566 1623832164                                          
+version 2
+run DNM-0-20210616-17:28:58-2950
+attr configname DNM
+attr datetime 20210616-17:28:58
+attr experiment DNM
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network ParcelDeliveryNetwork
+attr processid 2950
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config *.numdrones 6
+config *.ndst 6
+config **.drone*.mobility.typename "\"DroneMobility\""
+config **.drone[*].mobility.ndst 5
+config **.drone[*].mobility.initFromDisplayString false
+config **.drone[*].mobility.changeInterval "truncnormal(2s, 0.5s)"
+config **.drone[*].mobility.angleDelta "normal(0deg, 30deg)"
+config **.drone[*].mobility.speed "truncnormal(15mps, 5mps)"
+config **.drone[*].mobility.initialX 300m
+config **.drone[*].mobility.initialY 20m
+config **.drone[*].mobility.initialZ 0m
+config **.constraintAreaMinX 0m
+config **.constraintAreaMinY 0m
+config **.constraintAreaMinZ 0m
+config **.constraintAreaMaxX 600m
+config **.constraintAreaMaxY 400m
+config **.constraintAreaMaxZ 0m
+config **.updateInterval 0.1s
+
+vector 0 ParcelDeliveryNetwork.drone[0] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+0	4853 7883 0 320 0 5.268805588386 229 300 583 103648.00316139 48685633.405296
+vector 1 ParcelDeliveryNetwork.drone[0] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+1	12736 7866 0 320 0 5.268805588386 229 20 86 12730.417698416 804153.66121184
+vector 2 ParcelDeliveryNetwork.drone[0] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+2	20602 4888 0 320 0 5.268805588386 229 0 0 0 0
+vector 3 ParcelDeliveryNetwork.drone[1] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+3	25490 7084 0 320 0 5.268805588386 229 177 300 59052.710370432 15635787.854514
+vector 4 ParcelDeliveryNetwork.drone[1] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+4	32574 6999 0 320 0 5.268805588386 229 20 115 12031.158656984 875323.43869164
+vector 5 ParcelDeliveryNetwork.drone[1] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+5	39573 4888 0 320 0 5.268805588386 229 0 0 0 0
+vector 6 ParcelDeliveryNetwork.drone[2] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+6	44461 6773 0 320 0 5.268805588386 229 300 593 83493.572872306 32041196.107604
+vector 7 ParcelDeliveryNetwork.drone[2] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+7	51234 6664 0 320 0 5.268805588386 229 20 335 20484.353087974 3680925.2705825
+vector 8 ParcelDeliveryNetwork.drone[2] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+8	57898 4888 0 320 0 5.268805588386 229 0 0 0 0
+vector 9 ParcelDeliveryNetwork.drone[3] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+9	62786 6583 0 320 0 5.268805588386 229 300 586 84848.468408689 33494475.122865
+vector 10 ParcelDeliveryNetwork.drone[3] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+10	69369 6685 0 320 0 5.268805588386 229 20 92 8645.3486902993 456729.0204584
+vector 11 ParcelDeliveryNetwork.drone[3] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+11	76054 5117 0 320 0 5.268805588386 229 0 0 0 0
+vector 12 ParcelDeliveryNetwork.drone[4] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+12	81171 7715 0 320 0 5.268805588386 229 249 300 63558.514367741 17710993.471178
+vector 13 ParcelDeliveryNetwork.drone[4] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+13	88886 7681 0 320 0 5.268805588386 229 20 221 24843.502197725 3789465.6728345
+vector 14 ParcelDeliveryNetwork.drone[4] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+14	96567 5117 0 320 0 5.268805588386 229 0 0 0 0
+vector 15 ParcelDeliveryNetwork.drone[5] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+15	101684 7394 0 320 0 5.268805588386 229 300 362 73097.272775958 23418812.15633
+vector 16 ParcelDeliveryNetwork.drone[5] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+16	109078 7315 0 320 0 5.268805588386 229 20 27 5076.4662811566 113631.38174757
+vector 17 ParcelDeliveryNetwork.drone[5] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+17	116393 5117 0 320 0 5.268805588386 229 0 0 0 0
+vector 18 ParcelDeliveryNetwork.gcs.wlan[0].radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr source radioModeChanged
+attr title "Radio mode, vector"
+18	121510 27 0 0 0 0 3 0 2 2 4
+vector 19 ParcelDeliveryNetwork.gcs.wlan[0].radio radioChannel:vector ETV
+attr interpolationmode sample-hold
+attr source radioChannelChanged
+attr title "Radio channel, vector"
+19	121537 9 0 0 0 0 1 0 0 0 0
+vector 20 ParcelDeliveryNetwork.gcs.wlan[0].radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr source receptionStateChanged
+attr title "Radio reception state, vector"
+20	121546 9 0 0 0 0 1 1 1 1 1
+vector 21 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recoveryProcedure contentionWindowChanged:vector ETV
+attr interpolationmode sample-hold
+attr title "contention window, vector"
+21	121555 11 0 0 0 0 1 31 31 31 961

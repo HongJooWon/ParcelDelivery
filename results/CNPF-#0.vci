@@ -1,0 +1,185 @@
+file 19082 1715427439                                           
+version 3
+run CNPF-0-20240511-20:27:29-4641
+attr configname CNPF
+attr datetime 20240511-20:27:29
+attr datetimef 20240511-202729
+attr experiment CNPF
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network ParcelDeliveryNetwork
+attr processid 4641
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config image-path ../inet/images
+config network ParcelDeliveryNetwork
+config description "1 drones, 10 destinations, 100 parcels, "
+config *.numdrones 1
+config **.drone*.mobility.typename DroneNetMob
+config **.drone[*].mobility.ndst 6
+config **.drone[*].mobility.nd 8
+config **.drone[*].mobility.npar 100
+config **.drone[*].mobility.initFromDisplayString false
+config **.drone[*].mobility.changeInterval "truncnormal(2s, 0.5s)"
+config **.drone[*].mobility.angleDelta "normal(0deg, 30deg)"
+config **.drone[*].mobility.speed 10mps
+config **.drone[*].mobility.remainingBattery 480
+config **.drone[*].mobility.weightCapacity 100
+config **.drone[*].mobility.parcelSelectionMethod 1
+config **.drone[*].mobility.initialX 0m
+config **.drone[*].mobility.initialY 0m
+config **.drone[*].mobility.initialZ 0m
+config *.numdst 6
+config **.dst*.mobility.typename StatNodeMob
+config **.dst[0].mobility.initialX 200m
+config **.dst[0].mobility.initialY 100m
+config **.dst[0].mobility.initialZ 0m
+config **.dst[1].mobility.initialX 100m
+config **.dst[1].mobility.initialY 250m
+config **.dst[1].mobility.initialZ 0m
+config **.dst[2].mobility.initialX 260m
+config **.dst[2].mobility.initialY 220m
+config **.dst[2].mobility.initialZ 0m
+config **.dst[3].mobility.initialX 200m
+config **.dst[3].mobility.initialY 330m
+config **.dst[3].mobility.initialZ 0m
+config **.dst[4].mobility.initialX 400m
+config **.dst[4].mobility.initialY 300m
+config **.dst[4].mobility.initialZ 0m
+config **.dst[5].mobility.initialX 400m
+config **.dst[5].mobility.initialY 200m
+config **.dst[5].mobility.initialZ 0m
+config **.dst[*].mobility.initFromDisplayString false
+config sim-time-limit 10day
+config **.constraintAreaMinX 0m
+config **.constraintAreaMinY 0m
+config **.constraintAreaMinZ 0m
+config **.constraintAreaMaxX 600m
+config **.constraintAreaMaxY 400m
+config **.constraintAreaMaxZ 0m
+config **.updateInterval 0.2s
+
+vector 0 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf frameSequenceActive:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source warmup(count(frameSequenceStarted)-count(frameSequenceFinished))
+attr title "frame sequence active"
+vector 1 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 2 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 3 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.inProgressFrames queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(count(packetEnqueued) - count(packetDequeued))"
+attr title "queue length"
+vector 4 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.contention backoffActive:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source warmup(count(backoffStarted)-count(backoffStopped))
+attr title "backoff active"
+vector 5 ParcelDeliveryNetwork.gcs.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+vector 6 ParcelDeliveryNetwork.gcs.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+vector 7 ParcelDeliveryNetwork.gcs.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+vector 8 ParcelDeliveryNetwork.gcs.wlan[0].radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 9 ParcelDeliveryNetwork.gcs.wlan[0].radio radioChannel:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioChannelChanged
+attr title "Radio channel"
+vector 10 ParcelDeliveryNetwork.drone[0] coordX:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X"
+vector 11 ParcelDeliveryNetwork.drone[0] coordY:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y"
+vector 12 ParcelDeliveryNetwork.drone[0] coordZ:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z"
+vector 13 ParcelDeliveryNetwork.gcs.wlan[0].radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 14 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.contention stateChanged:vector ETV
+attr enum IDLE,DEFER,IFS_AND_BACKOFF
+attr interpolationmode none
+attr recordingmode vector
+attr title "contention state changed"
+attr type enum
+vector 15 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recoveryProcedure contentionWindowChanged:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr title "contention window"
+0	6248 16 0 0 0 0 2 0 0 0 0
+1	6264 40 0 0 0 0 5 0 0 0 0
+2	6304 40 0 0 0 0 5 0 0 0 0
+3	6344 16 0 0 0 0 2 0 0 0 0
+4	6360 16 0 0 0 0 2 0 0 0 0
+5	6376 8 0 0 0 0 1 0 0 0 0
+6	6384 8 0 0 0 0 1 0 0 0 0
+7	6392 8 0 0 0 0 1 0 0 0 0
+8	6400 24 0 0 0 0 3 0 2 2 4
+9	6424 8 0 0 0 0 1 0 0 0 0
+10	6432 2703 0 98 0 18.571158061929 99 0 583 25376.997482915 9056043.5723215
+11	9135 2663 0 98 0 18.571158061929 99 0 115 5038.5189280861 410755.79771991
+12	11798 2163 0 98 0 18.571158061929 99 0 0 0 0
+13	13961 9 0 0 0 0 1 1 1 1 1
+14	13970 18 0 0 0 0 2 0 0 0 0
+15	13988 10 0 0 0 0 1 31 31 31 961
+vector 16 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 17 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+16	14493 2294 98 98 0.1 18.571158061929 186 0 0 0 0
+17	16787 2294 98 98 0.1 18.571158061929 186 0 0 0 0
+

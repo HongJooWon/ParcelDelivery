@@ -1,0 +1,416 @@
+file 1763846 1619437032                                         
+version 2
+run DroneMassMobility-0-20210426-20:35:48-29795
+attr configname DroneMassMobility
+attr datetime 20210426-20:35:48
+attr experiment DroneMassMobility
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network ParcelDeliveryNetwork
+attr processid 29795
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config *.numdrones 20
+config *.drone[0].mobility.ndst 20
+config *.drone[*].mobility.typename "\"DroneMobility\""
+config **.drone*.mobility.initFromDisplayString false
+config **.drone*.mobility.changeInterval "truncnormal(2s, 0.5s)"
+config *.drone[*].mobility.angleDelta "normal(0deg, 30deg)"
+config **.drone*.mobility.speed "truncnormal(15mps, 5mps)"
+config **.drone*.mobility.initialX 2m
+config **.drone*.mobility.initialY 2m
+config **.drone*.mobility.initialZ 0m
+config *.numdrones 2
+config **.constraintAreaMinX 0m
+config **.constraintAreaMinY 0m
+config **.constraintAreaMinZ 0m
+config **.constraintAreaMaxX 600m
+config **.constraintAreaMaxY 400m
+config **.constraintAreaMaxZ 0m
+config **.updateInterval 0.1s
+config **.mobility.initFromDisplayString false
+
+vector 0 ParcelDeliveryNetwork.drone[0] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+0	12188 32 0 0 0 0.1 2 2 41.265276375809 43.265276375809 1706.8230343719
+0	13976 29379 21 1447 0.2 7.143434268745 1057 2 583 88232.214731176 29096276.194483
+vector 1 ParcelDeliveryNetwork.drone[0] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+1	12220 32 0 0 0 0.1 2 2 7.6769074278277 9.6769074278277 62.934907655436
+1	43355 29373 21 1447 0.2 7.143434268745 1057 2 86 14564.826226194 654938.67147763
+vector 2 ParcelDeliveryNetwork.drone[0] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+2	12252 18 0 0 0 0.1 2 0 0 0 0
+2	72728 24380 21 1447 0.2 7.143434268745 1057 0 0 0 0
+vector 3 ParcelDeliveryNetwork.drone[1] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+3	12270 32 0 0 0 0.1 2 2 9.1549846504891 11.154984650489 87.813743950691
+3	97108 32318 21 1447 0.2 7.143434268745 1057 2 177 56242.427750117 6840412.7553153
+vector 4 ParcelDeliveryNetwork.drone[1] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+4	12302 32 0 0 0 0.1 2 2 6.6200758028873 8.6200758028873 47.825403635974
+4	129426 32319 21 1447 0.2 7.143434268745 1057 2 115 37065.499061504 2904085.573874
+vector 5 ParcelDeliveryNetwork.drone[1] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+5	12334 18 0 0 0 0.1 2 0 0 0 0
+5	161745 24380 21 1447 0.2 7.143434268745 1057 0 0 0 0
+vector 6 ParcelDeliveryNetwork.drone[2] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+6	12352 32 0 0 0 0.1 2 2 22.680722671701 24.680722671701 518.41518091061
+6	186125 34551 21 1447 0.2 7.143434268745 1057 2 593 247384.20492924 104967874.14706
+vector 7 ParcelDeliveryNetwork.drone[2] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+7	12384 32 0 0 0 0.1 2 2 13.652589931771 15.652589931771 190.39321184509
+7	220676 34556 21 1447 0.2 7.143434268745 1057 2 335 140311.93272663 33569186.686979
+vector 8 ParcelDeliveryNetwork.drone[2] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+8	12416 18 0 0 0 0.1 2 0 0 0 0
+8	255232 24380 21 1447 0.2 7.143434268745 1057 0 0 0 0
+vector 9 ParcelDeliveryNetwork.drone[3] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+9	12434 31 0 0 0 0.1 2 2 26.46234695266 28.46234695266 704.25580624295
+9	279612 30200 21 1447 0.2 7.143434268745 1057 2 586 137001.70275532 55969599.132738
+vector 10 ParcelDeliveryNetwork.drone[3] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+10	12465 34 0 0 0 0.1 2 2 5.7698822358551 7.7698822358551 37.291541015636
+10	309812 31242 21 1447 0.2 7.143434268745 1057 2 92 22901.488438321 1403728.1854041
+vector 11 ParcelDeliveryNetwork.drone[3] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+11	12499 20 0 0 0 0.1 2 0 0 0 0
+11	341054 25437 21 1447 0.2 7.143434268745 1057 0 0 0 0
+vector 12 ParcelDeliveryNetwork.drone[4] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+12	12519 34 0 0 0 0.1 2 2 11.091297742747 13.091297742747 127.01688561826
+12	366491 32056 21 1447 0.2 7.143434268745 1057 2 249 71187.045137142 12732560.000631
+vector 13 ParcelDeliveryNetwork.drone[4] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+13	12553 34 0 0 0 0.1 2 2 10.060705286079 12.060705286079 105.21779085334
+13	398547 32052 21 1447 0.2 7.143434268745 1057 2 221 63356.902368559 10038120.61803
+vector 14 ParcelDeliveryNetwork.drone[4] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+14	12587 20 0 0 0 0.1 2 0 0 0 0
+14	430599 25437 21 1447 0.2 7.143434268745 1057 0 0 0 0
+vector 15 ParcelDeliveryNetwork.drone[5] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+15	12607 34 0 0 0 0.1 2 2 18.087712192275 20.087712192275 331.16533235057
+15	456036 32460 21 1447 0.2 7.143434268745 1057 2 362 96658.325271893 23492509.71555
+vector 16 ParcelDeliveryNetwork.drone[5] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+16	12641 34 0 0 0 0.1 2 2 3.1172022355746 5.1172022355746 13.716949777471
+16	488496 32468 21 1447 0.2 7.143434268745 1057 2 27 8679.5781438814 141939.5043891
+vector 17 ParcelDeliveryNetwork.drone[5] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+17	12675 20 0 0 0 0.1 2 0 0 0 0
+17	520964 25437 21 1447 0.2 7.143434268745 1057 0 0 0 0
+vector 18 ParcelDeliveryNetwork.drone[6] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+18	12695 34 0 0 0 0.1 2 2 14.967861490334 16.967861490334 228.03687759382
+18	546401 30841 21 1447 0.2 7.143434268745 1057 2 290 60604.396431873 11755504.854955
+vector 19 ParcelDeliveryNetwork.drone[6] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+19	12729 33 0 0 0 0.1 2 2 4.566555919962 6.566555919962 24.85343297014
+19	577242 30826 21 1447 0.2 7.143434268745 1057 2 59 13690.224293808 501677.73356751
+vector 20 ParcelDeliveryNetwork.drone[6] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+20	12762 20 0 0 0 0.1 2 0 0 0 0
+20	608068 25437 21 1447 0.2 7.143434268745 1057 0 0 0 0
+vector 21 ParcelDeliveryNetwork.drone[7] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+21	12782 34 0 0 0 0.1 2 2 27.636879553983 29.636879553983 767.79711148136
+21	633505 29901 21 1447 0.2 7.143434268745 1057 2 563 96945.469705025 36848326.296302
+vector 22 ParcelDeliveryNetwork.drone[7] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+22	12816 34 0 0 0 0.1 2 2 16.806326159519 18.806326159519 286.45259898013
+22	663406 29899 21 1447 0.2 7.143434268745 1057 2 326 56882.977155843 12386222.650295
+vector 23 ParcelDeliveryNetwork.drone[7] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+23	12850 20 0 0 0 0.1 2 0 0 0 0
+23	693305 25437 21 1447 0.2 7.143434268745 1057 0 0 0 0
+vector 24 ParcelDeliveryNetwork.drone[8] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+24	12870 34 0 0 0 0.1 2 2 19.926945592242 21.926945592242 401.08316063617
+24	718742 36863 21 1447 0.2 7.143434268745 1057 2 540 253915.63637232 98204088.151145
+vector 25 ParcelDeliveryNetwork.drone[8] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+25	12904 34 0 0 0 0.1 2 2 9.4640070867328 11.464007086733 93.567430137729
+25	755605 36867 21 1447 0.2 7.143434268745 1057 2 226 106953.34302491 17272228.243665
+vector 26 ParcelDeliveryNetwork.drone[8] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+26	12938 20 0 0 0 0.1 2 0 0 0 0
+26	792472 25437 21 1447 0.2 7.143434268745 1057 0 0 0 0
+vector 27 ParcelDeliveryNetwork.drone[9] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+27	12958 33 0 0 0 0.1 2 2 9.826206300037 11.826206300037 100.55433025089
+27	817909 30673 21 1447 0.2 7.143434268745 1057 2 172 35288.765758904 3954671.6022355
+vector 28 ParcelDeliveryNetwork.drone[9] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+28	12991 33 0 0 0 0.1 2 2 8.168892024735 10.168892024735 70.730796911779
+28	848582 30672 21 1447 0.2 7.143434268745 1057 2 136 28263.521245253 2480847.5709974
+vector 29 ParcelDeliveryNetwork.drone[9] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+29	13024 20 0 0 0 0.1 2 0 0 0 0
+29	879254 25437 21 1447 0.2 7.143434268745 1057 0 0 0 0
+vector 30 ParcelDeliveryNetwork.drone[10] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+30	13044 34 0 0 0 0.1 2 2 2.7979774418837 4.7979774418837 11.82867776529
+30	904691 26663 21 1447 0.2 7.143434268745 1057 2 11 2426.9289883161 7159.7929327004
+vector 31 ParcelDeliveryNetwork.drone[10] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+31	13078 34 0 0 0 0.1 2 2 16.718250594744 18.718250594744 283.49990294866
+31	931354 26662 21 1447 0.2 7.143434268745 1057 2 168 7885.8013400522 598873.24542614
+vector 32 ParcelDeliveryNetwork.drone[10] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+32	13112 20 0 0 0 0.1 2 0 0 0 0
+32	958016 25437 21 1447 0.2 7.143434268745 1057 0 0 0 0
+vector 33 ParcelDeliveryNetwork.drone[11] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+33	13132 34 0 0 0 0.1 2 2 28.706745719954 30.706745719954 828.0772498301
+33	983453 30228 21 1447 0.2 7.143434268745 1057 2 567 101385.74227062 38002290.426073
+vector 34 ParcelDeliveryNetwork.drone[11] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+34	13166 34 0 0 0 0.1 2 2 3.2762515653783 5.2762515653783 14.733824319644
+34	1013681 30223 21 1447 0.2 7.143434268745 1057 2 29 6857.9593651447 109071.52046832
+vector 35 ParcelDeliveryNetwork.drone[11] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+35	13200 20 0 0 0 0.1 2 0 0 0 0
+35	1043904 25437 21 1447 0.2 7.143434268745 1057 0 0 0 0
+vector 36 ParcelDeliveryNetwork.drone[12] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+36	13220 34 0 0 0 0.1 2 2 9.0451775986465 11.045177598647 85.815237791056
+36	1069341 31787 21 1447 0.2 7.143434268745 1057 2 182 48968.113292131 6248576.1047929
+vector 37 ParcelDeliveryNetwork.drone[12] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+37	13254 34 0 0 0 0.1 2 2 14.837879179756 16.837879179756 224.16265855304
+37	1101128 31784 21 1447 0.2 7.143434268745 1057 2 330 87492.606443439 20457746.586525
+vector 38 ParcelDeliveryNetwork.drone[12] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+38	13288 20 0 0 0 0.1 2 0 0 0 0
+38	1132912 25437 21 1447 0.2 7.143434268745 1057 0 0 0 0
+vector 39 ParcelDeliveryNetwork.drone[13] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+39	13308 34 0 0 0 0.1 2 2 6.0249356994146 8.0249356994146 40.29985018208
+39	1158349 28811 21 1447 0.2 7.143434268745 1057 2 62 7972.2842288675 232724.31417484
+vector 40 ParcelDeliveryNetwork.drone[13] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+40	13342 34 0 0 0 0.1 2 2 23.533405991868 25.533405991868 557.82119757809
+40	1187160 28812 21 1447 0.2 7.143434268745 1057 2 323 33455.820624441 5999016.0736041
+vector 41 ParcelDeliveryNetwork.drone[13] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+41	13376 20 0 0 0 0.1 2 0 0 0 0
+41	1215972 25437 21 1447 0.2 7.143434268745 1057 0 0 0 0
+vector 42 ParcelDeliveryNetwork.drone[14] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+42	13396 34 0 0 0 0.1 2 2 4.6969204591607 6.6969204591607 26.061061799682
+42	1241409 32600 21 1447 0.2 7.143434268745 1057 2 67 20176.034244322 896931.28411471
+vector 43 ParcelDeliveryNetwork.drone[14] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+43	13430 32 0 0 0 0.1 2 2 15.8165309677 17.8165309677 254.16265185221
+43	1274009 32581 21 1447 0.2 7.143434268745 1057 2 335 94647.19082091 21907958.588354
+vector 44 ParcelDeliveryNetwork.drone[14] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+44	13462 20 0 0 0 0.1 2 0 0 0 0
+44	1306590 25437 21 1447 0.2 7.143434268745 1057 0 0 0 0
+vector 45 ParcelDeliveryNetwork.drone[15] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+45	13482 33 0 0 0 0.1 2 2 14.65637218187 16.65637218187 218.80924553349
+45	1332027 31520 21 1447 0.2 7.143434268745 1057 2 329 84920.312280721 19913255.512022
+vector 46 ParcelDeliveryNetwork.drone[15] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+46	13515 34 0 0 0 0.1 2 2 9.7409004170457 11.740900417046 98.885140934801
+46	1363547 31527 21 1447 0.2 7.143434268745 1057 2 202 52760.062557016 7530476.462144
+vector 47 ParcelDeliveryNetwork.drone[15] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+47	13549 20 0 0 0 0.1 2 0 0 0 0
+47	1395074 25437 21 1447 0.2 7.143434268745 1057 0 0 0 0
+vector 48 ParcelDeliveryNetwork.drone[16] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+48	13569 34 0 0 0 0.1 2 2 20.885561096751 22.885561096751 440.20666232612
+48	1420511 27897 21 1447 0.2 7.143434268745 1057 2 222 16006.834897704 1734814.6991117
+vector 49 ParcelDeliveryNetwork.drone[16] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+49	13603 34 0 0 0 0.1 2 2 23.975925639856 25.975925639856 578.8450102879
+49	1448408 27900 21 1447 0.2 7.143434268745 1057 2 258 18280.207880965 2336946.6869281
+vector 50 ParcelDeliveryNetwork.drone[16] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+50	13637 20 0 0 0 0.1 2 0 0 0 0
+50	1476308 25437 21 1447 0.2 7.143434268745 1057 0 0 0 0
+vector 51 ParcelDeliveryNetwork.drone[17] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+51	13657 34 0 0 0 0.1 2 2 16.861268465455 18.861268465455 288.30237426415
+51	1501745 29969 21 1447 0.2 7.143434268745 1057 2 269 41803.625624352 6734650.1942641
+vector 52 ParcelDeliveryNetwork.drone[17] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+52	13691 34 0 0 0 0.1 2 2 11.183929950562 13.183929950562 129.08028913908
+52	1531714 29970 21 1447 0.2 7.143434268745 1057 2 167 26641.29673415 2612030.7442645
+vector 53 ParcelDeliveryNetwork.drone[17] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+53	13725 20 0 0 0 0.1 2 0 0 0 0
+53	1561684 25437 21 1447 0.2 7.143434268745 1057 0 0 0 0
+vector 54 ParcelDeliveryNetwork.drone[18] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+54	13745 34 0 0 0 0.1 2 2 11.803576205641 13.803576205641 143.32441124237
+54	1587121 30308 21 1447 0.2 7.143434268745 1057 2 193 34048.190597923 4050453.3313867
+vector 55 ParcelDeliveryNetwork.drone[18] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+55	13779 34 0 0 0 0.1 2 2 4.7716917021185 6.7716917021185 26.769041700067
+55	1617429 30304 21 1447 0.2 7.143434268745 1057 2 56 11142.514619308 353554.76282167
+vector 56 ParcelDeliveryNetwork.drone[18] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+56	13813 20 0 0 0 0.1 2 0 0 0 0
+56	1647733 25437 21 1447 0.2 7.143434268745 1057 0 0 0 0
+vector 57 ParcelDeliveryNetwork.drone[19] coordX:vector ETV
+attr interpolationmode linear
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X, vector"
+57	13833 34 0 0 0 0.1 2 2 12.201578002829 14.201578002829 152.87850575912
+57	1673170 32624 21 1447 0.2 7.143434268745 1057 2 211 55601.505521755 7522710.6325038
+vector 58 ParcelDeliveryNetwork.drone[19] coordY:vector ETV
+attr interpolationmode linear
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y, vector"
+58	13867 34 0 0 0 0.1 2 2 3.9524551201587 5.9524551201587 19.621901476869
+58	1705794 32614 21 1447 0.2 7.143434268745 1057 2 42 12350.843162058 312734.54429419
+vector 59 ParcelDeliveryNetwork.drone[19] coordZ:vector ETV
+attr interpolationmode linear
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z, vector"
+59	13901 20 0 0 0 0.1 2 0 0 0 0
+59	1738408 25438 21 1447 0.2 7.143434268745 1057 0 0 0 0
+vector 60 ParcelDeliveryNetwork.gcs.wlan[0].radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr source radioModeChanged
+attr title "Radio mode, vector"
+60	13921 27 0 0 0 0 3 0 2 2 4
+vector 61 ParcelDeliveryNetwork.gcs.wlan[0].radio radioChannel:vector ETV
+attr interpolationmode sample-hold
+attr source radioChannelChanged
+attr title "Radio channel, vector"
+61	13948 9 0 0 0 0 1 0 0 0 0
+vector 62 ParcelDeliveryNetwork.gcs.wlan[0].radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr source receptionStateChanged
+attr title "Radio reception state, vector"
+62	13957 9 0 0 0 0 1 1 1 1 1
+vector 63 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recoveryProcedure contentionWindowChanged:vector ETV
+attr interpolationmode sample-hold
+attr title "contention window, vector"
+63	13966 10 0 0 0 0 1 31 31 31 961
