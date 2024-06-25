@@ -22,8 +22,11 @@ import inet.mobility.base.MovingMobilityBase;
 simple DroneNetMob extends MovingMobilityBase
 {
     parameters:
+        @signal[tspDistance](type=double);
+        @signal[missionTime](type=double); 
         int ndst = default (0);
         int nd = default (0);
+        int npar = default(10);
         double weightCapacity = default(20);
         double remainingBattery = default(100);
         int parcelSelectionMethod = default(1);

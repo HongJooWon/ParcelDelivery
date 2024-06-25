@@ -8,6 +8,7 @@
 
 #include "inet/common/INETMath.h"
 #include "DroneNetMob.h"
+#include <bitset>
 
 using namespace std;
 namespace inet {
@@ -16,9 +17,10 @@ bool flag_original = false;
 Coord originPos;
 std::vector<Coord> dst; //Destination Positions
 int gen = 0;
-int nparcels = 500;
+int nparcels = 100;//what is this for
 bool flagArrangedDepot = false;
 bool OngoingMission = false;
+bool isEnd = false;
 // int selectionMethod = 0;
 
 std::vector<parcel> parcel_depot;
@@ -48,7 +50,7 @@ double dist(Coord a, Coord b) {
 }
 
 //greedy algorithm for TSP
-vector<parcel> greedyTSP(vector<parcel>& parcels){
+vector<parcel> greedyTSP(vector<parcel>& parcels, double& distance){
     vector<parcel> sortedParcels;
     vector<bool> visited(parcels.size(), false);
     Coord currPos = originPos;
@@ -72,6 +74,8 @@ vector<parcel> greedyTSP(vector<parcel>& parcels){
     }
     totalDist += dist(currPos, originPos);
     cout << "Greedy TSP distance: " << totalDist << endl;
+    distance += totalDist;
+    cout << "Total distance increased " << distance << endl;
     return sortedParcels;
 }
 
@@ -94,6 +98,7 @@ double tsp(vector<parcel>& parcels, int pos, int visited, vector<vector<double>>
             double newDist = currDist + distance[pos][i];
             if(newDist < ans) { // only explore the branch if the new distance is less than the current minimum distance
                 tsp(parcels, i, visited | (1<<i), dp, distance, newDist, ans, optimalPath, path);
+                cout << "visited: " << bitset<32>(visited | (1<<i)) << endl;
             }
         }
     }
@@ -146,6 +151,9 @@ DroneNetMob::DroneNetMob()
 void DroneNetMob::initialize(int stage)
 {
     LineSegmentsMobilityBase::initialize(stage);
+
+    missionTimeSignal = registerSignal("missionTime");
+    tspDistanceSignal = registerSignal("tspDistance");
 //    std::cout << "initializing DroneMobility stage " << stage << endl;
 
 //    EV_TRACE << "initializing DroneMobility stage " << stage << endl;
@@ -157,6 +165,8 @@ void DroneNetMob::initialize(int stage)
         rotationAxisAngleParameter = &par("rotationAxisAngle");
         speedParameter = &par("speed");
         quaternion = Quaternion(EulerAngles(heading, -elevation, rad(0)));
+        int np = (&par("npar"))->intValue();
+        cout <<" npar = " << np <<std::endl;
         WATCH(quaternion);
         numdst = &par("ndst");
         ox =&par("initialX");
@@ -175,7 +185,7 @@ void DroneNetMob::initialize(int stage)
             if (numdst->intValue() > 0){
                 destGen (numdst->intValue());
             }
-            int numParcel = 500;
+            int numParcel = 30;
             parcelsDefinition(numParcel);
 /*           for (auto i:parcel_depot){
                std::cout << i.parcelID <<" ; W =" <<i.weight <<"; P = " << i.priority << "; Exp = " <<i.exp_time
@@ -254,6 +264,13 @@ void DroneNetMob::move()
             EV_INFO << "reached current target position = " << lastPosition << endl;
             setTargetPosition();
             EV_INFO << "new target position = " << targetPosition << ", next change = " << nextChange << endl;
+            // if(isEnd == true && timeRecorded == false){
+            //     //record the time
+            //     timeRecorded = true;
+            //     cout << "------------------------------------------time recorded-----------------------------------" << endl;
+            //     EV_INFO << "Recorded distance" << tspDistance << endl;
+            //     cout << "Recorded distance" << tspDistance << endl;
+            // }
             lastVelocity = (targetPosition - lastPosition) / (nextChange - simTime()).dbl();
             handleIfOutside(REFLECT, targetPosition, lastVelocity, dummyAngle, dummyAngle, quaternion);
             std::cout <<"Vel = " << lastVelocity.x <<"  ; " << lastVelocity.x << "  ; " << lastVelocity.z << std::endl;
@@ -266,6 +283,7 @@ void DroneNetMob::move()
             if (std::strcmp(getParentModule()->getFullName(), "drone[1]") == 0){
                 std::cout <<"Vel = " << lastVelocity.x <<"  ; " << lastVelocity.x << "  ; " << lastVelocity.z << std::endl;
             }
+
 
 /*           std::cout << " Name -----> " << getParentModule()->getFullName() << " , Velocity = ("
                             << getCurrentVelocity().x << "; " << getCurrentVelocity().y << "; "<< getCurrentVelocity().z <<"), Position = ("
@@ -338,9 +356,14 @@ std::vector<parcel> DroneNetMob::droneParcelsSelectionFromSource(int parcelSel){
                         break;
                     }
                 }
-                std::cout <<"11111 Number of removed Parcels = " <<k<< "|| Depot = " <<parcel_depot.size() <<std::endl;
+                std::cout <<"Remaining Parcels = " <<parcel_depot.size() <<std::endl;
                 parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
-                std::cout <<"11111 Number of removed Parcels = " <<k<< "|| Depot = " <<parcel_depot.size() <<std::endl;
+                std::cout <<"Number of removed Parcels = " <<k<< "|| Remaining Parcels = " <<parcel_depot.size() <<std::endl;
+                if(isEnd == false && parcel_depot.size() == 0){
+                    isEnd = true;
+                    cout << "------------------------------------------Last Parcels----------------------------------" << endl;
+                    totalParcels = k + 2; // 2 is for the start and the end
+                }
             }
             else{
                 int k=0;
@@ -502,7 +525,7 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
         switch (selectionMethod) {
             case 0:
                 //Greedy
-                MissionParcels = greedyTSP(MissionParcels);
+                MissionParcels = greedyTSP(MissionParcels, tspDistance) ;
                 //print the destination of the parcels
                 for (unsigned int i = 0; i < MissionParcels.size(); i++){
                     cout << " destination of Greedy: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<"; " << endl;
@@ -552,6 +575,16 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
     }
     std::cout <<" Destination --- > (" <<nextdest.x <<"; " <<nextdest.y <<"; " <<nextdest.z << ")"
             <<" Origin ---> (" <<originPos.x <<"; "<<originPos.y << "; " << originPos.z<< ")" << std::endl;
+
+    totalParcels--;
+    if (totalParcels == 0){
+        missionTime = nextChange;
+        emit(missionTimeSignal, missionTime);
+        emit(tspDistanceSignal, tspDistance);
+        cout << "------------------------------------------recorded-----------------------------------" << endl;
+        cout << "distance recorded: " << tspDistance << endl;
+        cout << "time recorded: " << missionTime << endl;
+    }
     return nextdest;
 }
 

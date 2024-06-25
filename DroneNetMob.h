@@ -88,6 +88,13 @@ class INET_API DroneNetMob : public LineSegmentsMobilityBase
     std::vector<parcel> droneParcelsSelectionFromSource(int parcelSel);
     Coord missionPathNextDest(Coord curpos);
     Coord destAssignment();
+  
+  private:
+    double tspDistance = 0;
+    simtime_t missionTime = 0;
+    int totalParcels = -1;
+    simsignal_t missionTimeSignal;
+    simsignal_t tspDistanceSignal;
 };
 
 } // namespace inet
