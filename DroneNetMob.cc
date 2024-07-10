@@ -177,7 +177,7 @@ void dfs(int start, int next, double value, vector<int>& visited, int n, vector<
     }
 }
 
-// 모든 택배를 배달하는 순서를 최적화하는 함수
+// BnB Tsp
 vector<parcel> dfs_bnb(vector<parcel>& parcels) {
 
     // 시작점을 (0,0)으로 설정하고 택배 리스트에 추가
