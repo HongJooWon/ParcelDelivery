@@ -9,6 +9,9 @@
 #include "inet/common/INETMath.h"
 #include "DroneNetMob.h"
 #include <bitset>
+#include <iostream>
+#include <sstream>
+#include <fstream>
 
 using namespace std;
 namespace inet {
@@ -142,6 +145,81 @@ vector<parcel> solveTSP(vector<parcel>& parcels) {
 
     cout << "Minimum distance: " << ans << endl;
     return sortedParcels;
+}
+
+void dfs(int start, int next, double value, vector<int>& visited, int n, vector<vector<double>>& travel, double& min_value, vector<int>& path) {
+    // 현재까지의 거리가 이미 찾은 최단 거리보다 크다면, 이 경로는 최단 경로가 될 수 없으므로 더 이상 탐색하지 않음
+    if(min_value < value)
+        return;
+    // 모든 택배를 배달했다면, 시작점으로 돌아갈 수 있는지 확인
+    if(visited.size() == n) {
+        // 시작점으로 돌아갈 수 있다면, 시작점으로 돌아가는 거리를 현재 거리에 더하고, 이 값이 최단 거리보다 짧다면 최단 거리를 업데이트
+        if(travel[next][start] != 0) {
+            double ori = min_value;
+            min_value = min(min_value, value + travel[next][start]);
+            // 최단 거리가 업데이트되었다면, 최적 경로도 업데이트
+            if(ori != min_value)
+                path = visited;
+        }
+        return;
+    }
+
+    // 아직 배달하지 않은 모든 택배를 순회
+    for(int i = 0; i < n; i++) {
+        // 다음 택배로 이동할 수 있고, 그 택배가 시작점이 아니며, 아직 배달하지 않았다면, 그 택배로 이동
+        if(travel[next][i] != 0 && i != start && find(visited.begin(), visited.end(), i) == visited.end()) {
+            visited.push_back(i);
+            // 다음 택배로 이동하고, 이동하는 데 필요한 거리를 현재 거리에 더하여 DFS를 계속
+            dfs(start, i, value + travel[next][i], visited, n, travel, min_value, path);
+            // 백트래킹을 위해 방문 리스트에서 마지막 택배를 제거
+            visited.pop_back();
+        }
+    }
+}
+
+// 모든 택배를 배달하는 순서를 최적화하는 함수
+vector<parcel> dfs_bnb(vector<parcel>& parcels) {
+
+    // 시작점을 (0,0)으로 설정하고 택배 리스트에 추가
+    parcel startParcel;
+    startParcel.parcelID = 0;
+    startParcel.parceldest.x = 0;
+    startParcel.parceldest.y = 0;
+    parcels.insert(parcels.begin(), startParcel);
+
+    // 택배 리스트를 출력
+    for(int i=0; i<parcels.size(); i++) {
+        cout << "Parcel to solve" << parcels[i].parcelID << " : " << parcels[i].parceldest.x << " " << parcels[i].parceldest.y << endl;
+    }
+
+    // 택배의 수를 계산
+    int n = parcels.size();
+    // 각 택배 간의 거리를 계산하여 행렬에 저장
+    vector<vector<double>> travel(n, vector<double>(n, 0));
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            travel[i][j] = dist(parcels[i].parceldest, parcels[j].parceldest);
+        }
+    }
+
+    // 최단 거리를 무한대로 초기화
+    double min_value = numeric_limits<double>::infinity();
+    // 최적 경로를 저장할 변수를 초기화
+    vector<int> path;
+    // 방문 리스트를 초기화하고, 시작점을 추가
+    vector<int> visited = {0};
+
+    // DFS를 시작
+    // dfs(0, 0, 0, visited, n, travel, min_value, path);
+
+    // 최적 경로에 따라 택배를 정렬
+    vector<parcel> sorted_parcels;
+    for(int i : path) {
+        sorted_parcels.push_back(parcels[i]);
+    }
+
+    // 정렬된 택배 리스트를 반환
+    return parcels;
 }
 
 DroneNetMob::DroneNetMob()
@@ -533,10 +611,10 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
                 break;
             case 1:
                 // BnB TSP
-                MissionParcels = solveTSP(MissionParcels);
+                MissionParcels = dfs_bnb(MissionParcels);
                 //print the destination of the parcels
                 for (unsigned int i = 0; i < MissionParcels.size(); i++){
-                    cout << " destination of TSP: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<"; " << endl;
+                    cout << " destination of BnB: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<"; " << endl;
                 }
                 break;
         }
@@ -579,9 +657,16 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
     totalParcels--;
     if (totalParcels == 0){
         missionTime = nextChange;
-        emit(missionTimeSignal, missionTime);
-        emit(tspDistanceSignal, tspDistance);
         cout << "------------------------------------------recorded-----------------------------------" << endl;
+        //create csv file with columns: number of destination, distance, time
+        ofstream resultFile;
+        resultFile.open ("results/record.csv", ios::app);
+        
+        //add values
+        resultFile << selectionMethod << ", " << numdst->intValue() << ", " << tspDistance << ", " << missionTime << endl;
+
+
+
         cout << "distance recorded: " << tspDistance << endl;
         cout << "time recorded: " << missionTime << endl;
     }
