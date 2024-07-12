@@ -206,6 +206,7 @@ void dfs(int start, int next, double value, vector<int>& visited, int n, vector<
     }
 }
 
+// BnB Tsp
 vector<parcel> dfs_bnb(vector<parcel>& parcels, double& distance, int& numParcels) {
 
     // 시작점을 (0,0)으로 설정하고 택배 리스트에 추가
