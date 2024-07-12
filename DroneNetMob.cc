@@ -12,6 +12,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <unordered_map>
 
 using namespace std;
 namespace inet {
@@ -24,6 +25,7 @@ int nparcels = 100;//what is this for
 bool flagArrangedDepot = false;
 bool OngoingMission = false;
 bool isEnd = false;
+int dup = 0;
 // int selectionMethod = 0;
 
 std::vector<parcel> parcel_depot;
@@ -147,11 +149,38 @@ vector<parcel> solveTSP(vector<parcel>& parcels) {
     return sortedParcels;
 }
 
+//중복 좌표 제거
+void remove_dupcoordinates(vector<parcel>& parcels, int& totalParcels) {
+    dup = 0;
+    unordered_map<string, int> coord_map;
+
+    cout << "totalParcels with Duplicates: " << totalParcels << endl;
+
+    for (int i = 0; i < parcels.size(); i++) {
+        string coord = to_string(parcels[i].parceldest.x) + "," + to_string(parcels[i].parceldest.y);
+
+        if (coord_map.find(coord) == coord_map.end()) {
+            // 좌표가 처음 발견된 경우, 해당 좌표와 인덱스를 맵에 추가
+            coord_map[coord] = i;
+        } else {
+            // 좌표가 이미 존재하는 경우, 해당 택배 아이템을 제거
+            dup++;
+            parcels.erase(parcels.begin() + i);
+            i--;  // 인덱스를 조정하여 제거된 요소를 건너뛰지 않도록 함
+            totalParcels--; //중복된 만큼 전체 택배 수를 감소
+        }
+    }
+
+    cout << "totalParcels without Duplicates: " << totalParcels << endl;
+}
+
 void dfs(int start, int next, double value, vector<int>& visited, int n, vector<vector<double>>& travel, double& min_value, vector<int>& path) {
     // 현재까지의 거리가 이미 찾은 최단 거리보다 크다면, 이 경로는 최단 경로가 될 수 없으므로 더 이상 탐색하지 않음
-    if(min_value < value)
+    if(min_value < value){
+        cout << "Pruned" << endl;
         return;
-    // 모든 택배를 배달했다면, 시작점으로 돌아갈 수 있는지 확인
+    }
+    // // 모든 택배를 배달했다면, 시작점으로 돌아갈 수 있는지 확인
     if(visited.size() == n) {
         // 시작점으로 돌아갈 수 있다면, 시작점으로 돌아가는 거리를 현재 거리에 더하고, 이 값이 최단 거리보다 짧다면 최단 거리를 업데이트
         if(travel[next][start] != 0) {
@@ -177,15 +206,23 @@ void dfs(int start, int next, double value, vector<int>& visited, int n, vector<
     }
 }
 
-// 모든 택배를 배달하는 순서를 최적화하는 함수
-vector<parcel> dfs_bnb(vector<parcel>& parcels) {
+vector<parcel> dfs_bnb(vector<parcel>& parcels, double& distance, int& numParcels) {
 
     // 시작점을 (0,0)으로 설정하고 택배 리스트에 추가
     parcel startParcel;
-    startParcel.parcelID = 0;
+    startParcel.parcelID = -1;
     startParcel.parceldest.x = 0;
     startParcel.parceldest.y = 0;
     parcels.insert(parcels.begin(), startParcel);
+    // 택배 리스트를 출력
+    
+    for(int i=0; i<parcels.size(); i++) {
+        cout << "Parcel to solve" << parcels[i].parcelID << " : " << parcels[i].parceldest.x << " " << parcels[i].parceldest.y << endl;
+    }
+
+    remove_dupcoordinates(parcels, numParcels);
+
+    cout << "After removing duplicates" << endl;
 
     // 택배 리스트를 출력
     for(int i=0; i<parcels.size(); i++) {
@@ -194,6 +231,7 @@ vector<parcel> dfs_bnb(vector<parcel>& parcels) {
 
     // 택배의 수를 계산
     int n = parcels.size();
+
     // 각 택배 간의 거리를 계산하여 행렬에 저장
     vector<vector<double>> travel(n, vector<double>(n, 0));
     for(int i = 0; i < n; i++) {
@@ -208,9 +246,10 @@ vector<parcel> dfs_bnb(vector<parcel>& parcels) {
     vector<int> path;
     // 방문 리스트를 초기화하고, 시작점을 추가
     vector<int> visited = {0};
+    double ans = 0;
 
     // DFS를 시작
-    // dfs(0, 0, 0, visited, n, travel, min_value, path);
+    dfs(0, 0, 0, visited, n, travel, min_value, path);
 
     // 최적 경로에 따라 택배를 정렬
     vector<parcel> sorted_parcels;
@@ -218,8 +257,25 @@ vector<parcel> dfs_bnb(vector<parcel>& parcels) {
         sorted_parcels.push_back(parcels[i]);
     }
 
+    //print the optimal path
+    cout << "Optimal path: ";
+    for(int i=0; i<path.size(); i++) {
+        cout << path[i] << " ";
+    }
+    
+    //print the sorted parcels
+    cout << "Sorted parcels: ";
+    for(int i=0; i<sorted_parcels.size(); i++) {
+        cout << sorted_parcels[i].parcelID << " ";
+    }
+    cout << endl;
+
+    cout << "Minimum distance: " << min_value << endl;
+    distance += min_value;
+    cout << "BnB total distance increased: " << distance << endl;
+
     // 정렬된 택배 리스트를 반환
-    return parcels;
+    return sorted_parcels;
 }
 
 DroneNetMob::DroneNetMob()
@@ -229,9 +285,6 @@ DroneNetMob::DroneNetMob()
 void DroneNetMob::initialize(int stage)
 {
     LineSegmentsMobilityBase::initialize(stage);
-
-    missionTimeSignal = registerSignal("missionTime");
-    tspDistanceSignal = registerSignal("tspDistance");
 //    std::cout << "initializing DroneMobility stage " << stage << endl;
 
 //    EV_TRACE << "initializing DroneMobility stage " << stage << endl;
@@ -456,7 +509,7 @@ std::vector<parcel> DroneNetMob::droneParcelsSelectionFromSource(int parcelSel){
                     }
                 }
                 std::cout <<"22222 Number of removed Parcels = " <<k<<" || Depot = " <<parcel_depot.size()<<std::endl;
-                parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
+                //parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
                 std::cout <<"22222 Number of removed Parcels = " <<k<<" || Depot = " <<parcel_depot.size()<<std::endl;
             }
             break;
@@ -485,7 +538,14 @@ std::vector<parcel> DroneNetMob::droneParcelsSelectionFromSource(int parcelSel){
                         break;
                     }
                 }
+                std::cout <<"Remaining Parcels = " <<parcel_depot.size() <<std::endl;
                 parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
+                std::cout <<"Number of removed Parcels = " <<k<< "|| Remaining Parcels = " <<parcel_depot.size() <<std::endl;
+                if(isEnd == false && parcel_depot.size() == 0){
+                    isEnd = true;
+                    cout << "------------------------------------------Last Parcels----------------------------------" << endl;
+                    totalParcels = k + 2; // 2 is for the start and the end
+                }
             }
             else{
                 int k=0;
@@ -603,7 +663,8 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
         switch (selectionMethod) {
             case 0:
                 //Greedy
-                MissionParcels = greedyTSP(MissionParcels, tspDistance) ;
+                MissionParcels = greedyTSP(MissionParcels, tspDistance);
+                //dfs_bnb(MissionParcels, tspDistance, totalParcels);
                 //print the destination of the parcels
                 for (unsigned int i = 0; i < MissionParcels.size(); i++){
                     cout << " destination of Greedy: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<"; " << endl;
@@ -611,10 +672,10 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
                 break;
             case 1:
                 // BnB TSP
-                MissionParcels = dfs_bnb(MissionParcels);
+                MissionParcels = dfs_bnb(MissionParcels, tspDistance, totalParcels);
                 //print the destination of the parcels
                 for (unsigned int i = 0; i < MissionParcels.size(); i++){
-                    cout << " destination of BnB: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<"; " << endl;
+                    cout << " destination of BnB: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<";  Ind = "<< i << endl;
                 }
                 break;
         }
