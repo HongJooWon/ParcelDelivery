@@ -93,6 +93,7 @@ class INET_API DroneNetMob : public LineSegmentsMobilityBase
     double tspDistance = 0;
     simtime_t missionTime = 0;
     int totalParcels = -1;
+    int carriedParcels = 0;
     simsignal_t missionTimeSignal;
     simsignal_t tspDistanceSignal;
 };

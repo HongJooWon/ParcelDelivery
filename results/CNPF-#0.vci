@@ -1,9 +1,9 @@
                                                                 
 version 3
-run CNPF-0-20240712-15:51:24-218674
+run CNPF-0-20240805-16:19:00-36172
 attr configname CNPF
-attr datetime 20240712-15:51:24
-attr datetimef 20240712-155124
+attr datetime 20240805-16:19:00
+attr datetimef 20240805-161900
 attr experiment CNPF
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -11,7 +11,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 218674
+attr processid 36172
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -22,7 +22,7 @@ config network ParcelDeliveryNetwork
 config description "1 drones, 10 destinations, 100 parcels, "
 config *.numdrones 1
 config **.drone*.mobility.typename DroneNetMob
-config **.drone[*].mobility.ndst 6
+config **.drone[*].mobility.ndst 50
 config **.drone[*].mobility.nd 8
 config **.drone[*].mobility.npar 100
 config **.drone[*].mobility.initFromDisplayString false
@@ -151,19 +151,19 @@ vector 15 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recoveryProcedure contention
 attr interpolationmode sample-hold
 attr recordingmode vector
 attr title "contention window"
-0	6200 16 0 0 0 0 2 0 0 0 0
-1	6216 40 0 0 0 0 5 0 0 0 0
-2	6256 40 0 0 0 0 5 0 0 0 0
-3	6296 16 0 0 0 0 2 0 0 0 0
-4	6312 16 0 0 0 0 2 0 0 0 0
-5	6328 8 0 0 0 0 1 0 0 0 0
-6	6336 8 0 0 0 0 1 0 0 0 0
-7	6344 8 0 0 0 0 1 0 0 0 0
-8	6352 24 0 0 0 0 3 0 2 2 4
-9	6376 8 0 0 0 0 1 0 0 0 0
-10	6384 5767 0 178 0 34.058371837166 179 0 593 48644.332866586 23806709.136907
-11	12151 5756 0 178 0 34.058371837166 179 0 335 16231.623810678 2907240.4356286
-12	17907 4162 0 178 0 34.058371837166 179 0 0 0 0
-13	22069 9 0 0 0 0 1 1 1 1 1
-14	22078 18 0 0 0 0 2 0 0 0 0
-15	22096 10 0 0 0 0 1 31 31 31 961
+0	6199 16 0 0 0 0 2 0 0 0 0
+1	6215 40 0 0 0 0 5 0 0 0 0
+2	6255 40 0 0 0 0 5 0 0 0 0
+3	6295 16 0 0 0 0 2 0 0 0 0
+4	6311 16 0 0 0 0 2 0 0 0 0
+5	6327 8 0 0 0 0 1 0 0 0 0
+6	6335 8 0 0 0 0 1 0 0 0 0
+7	6343 8 0 0 0 0 1 0 0 0 0
+8	6351 24 0 0 0 0 3 0 2 2 4
+9	6375 8 0 0 0 0 1 0 0 0 0
+10	6383 14010 0 412 0 78.471688460908 413 0 586 96463.558464331 39147283.739002
+11	20393 13997 0 412 0 78.471688460908 413 0 370 47776.089440578 11193831.573793
+12	34390 9999 0 412 0 78.471688460908 413 0 0 0 0
+13	44389 9 0 0 0 0 1 1 1 1 1
+14	44398 18 0 0 0 0 2 0 0 0 0
+15	44416 10 0 0 0 0 1 31 31 31 961

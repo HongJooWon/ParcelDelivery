@@ -13,6 +13,7 @@
 #include <sstream>
 #include <fstream>
 #include <unordered_map>
+#include <queue>
 
 using namespace std;
 namespace inet {
@@ -150,11 +151,11 @@ vector<parcel> solveTSP(vector<parcel>& parcels) {
 }
 
 //중복 좌표 제거
-void remove_dupcoordinates(vector<parcel>& parcels, int& totalParcels) {
+void remove_dupcoordinates(vector<parcel>& parcels, int& carriedParcels) {
     dup = 0;
     unordered_map<string, int> coord_map;
 
-    cout << "totalParcels with Duplicates: " << totalParcels << endl;
+    cout << "carriedParcels with Duplicates: " << parcels.size() << endl;
 
     for (int i = 0; i < parcels.size(); i++) {
         string coord = to_string(parcels[i].parceldest.x) + "," + to_string(parcels[i].parceldest.y);
@@ -167,47 +168,118 @@ void remove_dupcoordinates(vector<parcel>& parcels, int& totalParcels) {
             dup++;
             parcels.erase(parcels.begin() + i);
             i--;  // 인덱스를 조정하여 제거된 요소를 건너뛰지 않도록 함
-            totalParcels--; //중복된 만큼 전체 택배 수를 감소
+            carriedParcels--; //중복된 만큼 전체 택배 수를 감소
         }
     }
 
-    cout << "totalParcels without Duplicates: " << totalParcels << endl;
+    cout << "carriedParcels without Duplicates: " << parcels.size() << endl;
+}
+
+// 1-tree lower bound를 계산하는 함수
+double calculate1TreeLowerBound(const vector<vector<double>>& travel, int start, const vector<bool>& visited) {
+    int n = travel.size();
+    vector<double> key(n, numeric_limits<double>::infinity());
+    vector<bool> mstSet = visited;
+    
+    // 시작 노드를 제외하고 MST 계산을 위한 초기화
+    for (int i = 0; i < n; i++) {
+        if (i != start && !visited[i]) {
+            key[i] = travel[start][i];
+        }
+    }
+    
+    // Prim's 알고리즘을 사용하여 MST 계산
+    for (int count = 0; count < n - 1; count++) {
+        int u = -1;
+        double min = numeric_limits<double>::infinity();
+        for (int v = 0; v < n; v++) {
+            if (v != start && !mstSet[v] && key[v] < min) {
+                min = key[v];
+                u = v;
+            }
+        }
+        
+        if (u == -1) break;  // 모든 노드가 방문되었거나 연결할 수 없는 경우
+        
+        mstSet[u] = true;
+        
+        for (int v = 0; v < n; v++) {
+            if (v != start && !mstSet[v] && travel[u][v] < key[v]) {
+                key[v] = travel[u][v];
+            }
+        }
+    }
+    
+    // MST의 총 가중치 계산
+    double mstCost = 0;
+    for (int i = 0; i < n; i++) {
+        if (i != start && !visited[i]) {
+            mstCost += key[i];
+        }
+    }
+    
+    // 시작 노드에서 가장 가까운 두 노드 찾기
+    vector<double> minEdges;
+    for (int i = 0; i < n; i++) {
+        if (i != start && !visited[i]) {
+            minEdges.push_back(travel[start][i]);
+        }
+    }
+    sort(minEdges.begin(), minEdges.end());
+    
+    // 1-tree cost 계산: MST 가중치 + 시작 노드와 연결된 가장 짧은 두 엣지
+    double oneTreeCost = mstCost;
+    if (minEdges.size() >= 2) {
+        oneTreeCost += minEdges[0] + minEdges[1];
+    }
+    
+    return oneTreeCost;
 }
 
 void dfs(int start, int next, double value, vector<int>& visited, int n, vector<vector<double>>& travel, double& min_value, vector<int>& path) {
-    // 현재까지의 거리가 이미 찾은 최단 거리보다 크다면, 이 경로는 최단 경로가 될 수 없으므로 더 이상 탐색하지 않음
-    if(min_value < value){
-        cout << "Pruned" << endl;
+    // 현재까지 방문한 노드 표시
+    vector<bool> is_visited(n, false);
+    for (int v : visited) is_visited[v] = true;
+
+    // 1-tree lower bound 계산
+    double lower_bound = value + calculate1TreeLowerBound(travel, next, is_visited);
+    
+    // 가지치기: 현재 경로의 lower bound가 지금까지의 최소값보다 크거나 같으면 탐색 중단
+    if (lower_bound >= min_value) {
         return;
     }
-    // // 모든 택배를 배달했다면, 시작점으로 돌아갈 수 있는지 확인
-    if(visited.size() == n) {
-        // 시작점으로 돌아갈 수 있다면, 시작점으로 돌아가는 거리를 현재 거리에 더하고, 이 값이 최단 거리보다 짧다면 최단 거리를 업데이트
-        if(travel[next][start] != 0) {
-            double ori = min_value;
-            min_value = min(min_value, value + travel[next][start]);
-            // 최단 거리가 업데이트되었다면, 최적 경로도 업데이트
-            if(ori != min_value)
+
+    // 모든 노드를 방문한 경우
+    if (visited.size() == n) {
+        // 시작점으로 돌아갈 수 있는지 확인
+        if (travel[next][start] != 0) {
+            double total_distance = value + travel[next][start];
+            // 더 짧은 경로를 찾은 경우 최소값과 최적 경로 갱신
+            if (total_distance < min_value) {
+                min_value = total_distance;
                 path = visited;
+            }
         }
         return;
     }
 
-    // 아직 배달하지 않은 모든 택배를 순회
-    for(int i = 0; i < n; i++) {
-        // 다음 택배로 이동할 수 있고, 그 택배가 시작점이 아니며, 아직 배달하지 않았다면, 그 택배로 이동
-        if(travel[next][i] != 0 && i != start && find(visited.begin(), visited.end(), i) == visited.end()) {
+    // 다음 방문할 노드 탐색
+    for (int i = 0; i < n; i++) {
+        if (travel[next][i] != 0 && i != start && find(visited.begin(), visited.end(), i) == visited.end()) {
             visited.push_back(i);
-            // 다음 택배로 이동하고, 이동하는 데 필요한 거리를 현재 거리에 더하여 DFS를 계속
+            // 재귀적으로 DFS 수행
             dfs(start, i, value + travel[next][i], visited, n, travel, min_value, path);
-            // 백트래킹을 위해 방문 리스트에서 마지막 택배를 제거
+            // 백트래킹
             visited.pop_back();
         }
     }
 }
 
 // BnB Tsp
-vector<parcel> dfs_bnb(vector<parcel>& parcels, double& distance, int& numParcels) {
+vector<parcel> dfs_bnb(vector<parcel>& parcels, double& distance, int& carriedParcels) {
+
+    //numparcel 할당 문제---
+    cout << "carriedParcels: " << parcels.size() << endl; 
 
     // 시작점을 (0,0)으로 설정하고 택배 리스트에 추가
     parcel startParcel;
@@ -221,7 +293,7 @@ vector<parcel> dfs_bnb(vector<parcel>& parcels, double& distance, int& numParcel
         cout << "Parcel to solve" << parcels[i].parcelID << " : " << parcels[i].parceldest.x << " " << parcels[i].parceldest.y << endl;
     }
 
-    remove_dupcoordinates(parcels, numParcels);
+    remove_dupcoordinates(parcels, carriedParcels);
 
     cout << "After removing duplicates" << endl;
 
@@ -541,6 +613,7 @@ std::vector<parcel> DroneNetMob::droneParcelsSelectionFromSource(int parcelSel){
                 }
                 std::cout <<"Remaining Parcels = " <<parcel_depot.size() <<std::endl;
                 parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
+                carriedParcels = k;
                 std::cout <<"Number of removed Parcels = " <<k<< "|| Remaining Parcels = " <<parcel_depot.size() <<std::endl;
                 if(isEnd == false && parcel_depot.size() == 0){
                     isEnd = true;
@@ -673,7 +746,7 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
                 break;
             case 1:
                 // BnB TSP
-                MissionParcels = dfs_bnb(MissionParcels, tspDistance, totalParcels);
+                MissionParcels = dfs_bnb(MissionParcels, tspDistance, carriedParcels);
                 //print the destination of the parcels
                 for (unsigned int i = 0; i < MissionParcels.size(); i++){
                     cout << " destination of BnB: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<";  Ind = "<< i << endl;
