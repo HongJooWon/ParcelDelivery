@@ -1,9 +1,9 @@
-file 44427 1722847560                                           
+                                                                
 version 3
-run CNPF-0-20240805-16:19:00-36172
+run CNPF-0-20240809-17:00:51-47917
 attr configname CNPF
-attr datetime 20240805-16:19:00
-attr datetimef 20240805-161900
+attr datetime 20240809-17:00:51
+attr datetimef 20240809-170051
 attr experiment CNPF
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -11,7 +11,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 36172
+attr processid 47917
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -24,7 +24,7 @@ config *.numdrones 1
 config **.drone*.mobility.typename DroneNetMob
 config **.drone[*].mobility.ndst 50
 config **.drone[*].mobility.nd 8
-config **.drone[*].mobility.npar 100
+config **.drone[*].mobility.npar 30
 config **.drone[*].mobility.initFromDisplayString false
 config **.drone[*].mobility.changeInterval "truncnormal(2s, 0.5s)"
 config **.drone[*].mobility.angleDelta "normal(0deg, 30deg)"
@@ -98,73 +98,4 @@ attr source warmup(count(backoffStarted)-count(backoffStopped))
 attr title "backoff active"
 vector 5 ParcelDeliveryNetwork.gcs.udp passedUpPk:vector(count) ETV
 attr interpolationmode none
-attr recordingmode vector(count)
-attr source packetSentToUpper
-attr title "packets passed up, count"
-vector 6 ParcelDeliveryNetwork.gcs.udp droppedPkWrongPort:vector(count) ETV
-attr interpolationmode none
-attr recordingmode vector(count)
-attr source packetDropReasonIsNoPortFound(packetDropped)
-attr title "packets dropped (wrong port), count"
-vector 7 ParcelDeliveryNetwork.gcs.udp droppedPkBadChecksum:vector(count) ETV
-attr interpolationmode none
-attr recordingmode vector(count)
-attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
-attr title "packets dropped (checksum error), count"
-vector 8 ParcelDeliveryNetwork.gcs.wlan[0].radio radioMode:vector ETV
-attr interpolationmode sample-hold
-attr recordingmode vector
-attr source radioModeChanged
-attr title "Radio mode"
-vector 9 ParcelDeliveryNetwork.gcs.wlan[0].radio radioChannel:vector ETV
-attr interpolationmode sample-hold
-attr recordingmode vector
-attr source radioChannelChanged
-attr title "Radio channel"
-vector 10 ParcelDeliveryNetwork.drone[0] coordX:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source xCoord(mobilityPos(mobilityStateChanged))
-attr title "coord X"
-vector 11 ParcelDeliveryNetwork.drone[0] coordY:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source yCoord(mobilityPos(mobilityStateChanged))
-attr title "coord Y"
-vector 12 ParcelDeliveryNetwork.drone[0] coordZ:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source zCoord(mobilityPos(mobilityStateChanged))
-attr title "coord Z"
-vector 13 ParcelDeliveryNetwork.gcs.wlan[0].radio receptionState:vector ETV
-attr interpolationmode sample-hold
-attr recordingmode vector
-attr source receptionStateChanged
-attr title "Radio reception state"
-vector 14 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.contention stateChanged:vector ETV
-attr enum IDLE,DEFER,IFS_AND_BACKOFF
-attr interpolationmode none
-attr recordingmode vector
-attr title "contention state changed"
-attr type enum
-vector 15 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recoveryProcedure contentionWindowChanged:vector ETV
-attr interpolationmode sample-hold
-attr recordingmode vector
-attr title "contention window"
-0	6199 16 0 0 0 0 2 0 0 0 0
-1	6215 40 0 0 0 0 5 0 0 0 0
-2	6255 40 0 0 0 0 5 0 0 0 0
-3	6295 16 0 0 0 0 2 0 0 0 0
-4	6311 16 0 0 0 0 2 0 0 0 0
-5	6327 8 0 0 0 0 1 0 0 0 0
-6	6335 8 0 0 0 0 1 0 0 0 0
-7	6343 8 0 0 0 0 1 0 0 0 0
-8	6351 24 0 0 0 0 3 0 2 2 4
-9	6375 8 0 0 0 0 1 0 0 0 0
-10	6383 14010 0 412 0 78.471688460908 413 0 586 96463.558464331 39147283.739002
-11	20393 13997 0 412 0 78.471688460908 413 0 370 47776.089440578 11193831.573793
-12	34390 9999 0 412 0 78.471688460908 413 0 0 0 0
-13	44389 9 0 0 0 0 1 1 1 1 1
-14	44398 18 0 0 0 0 2 0 0 0 0
-15	44416 10 0 0 0 0 1 31 31 31 961
-
+attr recordingmode vector(cou

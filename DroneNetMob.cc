@@ -1,11 +1,3 @@
-/*
- * DroneNetMob.cc
- *
- *  Created on: June 14, 2021
- *      Author: iotlab_aime
- */
-
-
 #include "inet/common/INETMath.h"
 #include "DroneNetMob.h"
 #include <bitset>
@@ -14,12 +6,13 @@
 #include <fstream>
 #include <unordered_map>
 #include <queue>
+#include <ctime>
 
 using namespace std;
 namespace inet {
 
 bool flag_original = false;
-Coord originPos;
+Coord originPos = Coord(0, 0, 0);
 std::vector<Coord> dst; //Destination Positions
 int gen = 0;
 int nparcels = 100;//what is this for
@@ -55,33 +48,52 @@ double dist(Coord a, Coord b) {
     return sqrt(dx*dx + dy*dy);
 }
 
+void addallDist(vector<parcel>& parcels) {
+    double totalDist = 0;
+    //add origin to first parcel
+    totalDist += dist(originPos, parcels[0].parceldest);
+
+    for(int i=0; i<parcels.size()-1; i++) {
+        totalDist += dist(parcels[i].parceldest, parcels[i+1].parceldest);
+    }
+    
+    totalDist += dist(parcels[parcels.size()-1].parceldest, originPos);
+    cout << "add all distance: " << totalDist << endl;
+}
+
 //greedy algorithm for TSP
 vector<parcel> greedyTSP(vector<parcel>& parcels, double& distance){
-    vector<parcel> sortedParcels;
+    vector<parcel> sortedParcels = {};
     vector<bool> visited(parcels.size(), false);
     Coord currPos = originPos;
     double totalDist = 0;
     while(sortedParcels.size() < parcels.size()) {
-        double minDist = 1e9;
+        double minDist = -1;
         int nextParcel = -1;
         for(int i=0; i<parcels.size(); i++) {
             if(!visited[i]) {
                 double d = dist(currPos, parcels[i].parceldest);
-                if(d < minDist) {
+                if(d < minDist || minDist == -1) {
                     minDist = d;
                     nextParcel = i;
                 }
             }
         }
+        cout << "Current Position: " << currPos.x << ", " << currPos.y << " Next position: " << parcels[nextParcel].parceldest.x << ", " << parcels[nextParcel].parceldest.y << " Distance: " << dist(currPos, parcels[nextParcel].parceldest) << endl;
         totalDist += minDist;
+        cout  << "minDist: " << minDist << " Total distance: " << totalDist << endl;
+
         visited[nextParcel] = true;
         sortedParcels.push_back(parcels[nextParcel]);
         currPos = parcels[nextParcel].parceldest;
     }
+
     totalDist += dist(currPos, originPos);
     cout << "Greedy TSP distance: " << totalDist << endl;
     distance += totalDist;
     cout << "Total distance increased " << distance << endl;
+
+    addallDist(sortedParcels);
     return sortedParcels;
 }
 
@@ -293,9 +305,6 @@ DroneNetMob::DroneNetMob()
 void DroneNetMob::initialize(int stage)
 {
     LineSegmentsMobilityBase::initialize(stage);
-//    std::cout << "initializing DroneMobility stage " << stage << endl;
-
-//    EV_TRACE << "initializing DroneMobility stage " << stage << endl;
     if (stage == INITSTAGE_LOCAL) {
         rad heading = deg(par("initialMovementHeading"));
         rad elevation = deg(par("initialMovementElevation"));
@@ -324,16 +333,12 @@ void DroneNetMob::initialize(int stage)
             if (numdst->intValue() > 0){
                 destGen (numdst->intValue());
             }
-            int numParcel = 30;
-            parcelsDefinition(numParcel);
-/*           for (auto i:parcel_depot){
-               std::cout << i.parcelID <<" ; W =" <<i.weight <<"; P = " << i.priority << "; Exp = " <<i.exp_time
-                       <<" Pos = (" <<i.parceldest.x <<"; " << i.parceldest.y <<"; " <<i.parceldest.z <<")" << std::endl;
-           }*/
+
+        //택배 개수 할당
+        parcelsDefinition(np);
+
         }
-/*        destination = missionPathNextDest(originPos);
-        std::cout << " Name -----> " << getParentModule()->getFullName() <<
-                    " And Speed = " << speedParameter->doubleValue() << std::endl;*/
+
     }
 }
 
@@ -403,13 +408,7 @@ void DroneNetMob::move()
             EV_INFO << "reached current target position = " << lastPosition << endl;
             setTargetPosition();
             EV_INFO << "new target position = " << targetPosition << ", next change = " << nextChange << endl;
-            // if(isEnd == true && timeRecorded == false){
-            //     //record the time
-            //     timeRecorded = true;
-            //     cout << "------------------------------------------time recorded-----------------------------------" << endl;
-            //     EV_INFO << "Recorded distance" << tspDistance << endl;
-            //     cout << "Recorded distance" << tspDistance << endl;
-            // }
+
             lastVelocity = (targetPosition - lastPosition) / (nextChange - simTime()).dbl();
             handleIfOutside(REFLECT, targetPosition, lastVelocity, dummyAngle, dummyAngle, quaternion);
             std::cout <<"Vel = " << lastVelocity.x <<"  ; " << lastVelocity.x << "  ; " << lastVelocity.z << std::endl;
@@ -423,10 +422,6 @@ void DroneNetMob::move()
                 std::cout <<"Vel = " << lastVelocity.x <<"  ; " << lastVelocity.x << "  ; " << lastVelocity.z << std::endl;
             }
 
-
-/*           std::cout << " Name -----> " << getParentModule()->getFullName() << " , Velocity = ("
-                            << getCurrentVelocity().x << "; " << getCurrentVelocity().y << "; "<< getCurrentVelocity().z <<"), Position = ("
-                            << getCurrentPosition().x<< "; " << getCurrentPosition().y <<"; "<< getCurrentPosition().z <<")"<< std::endl;*/
         }
     }
 }
@@ -437,19 +432,19 @@ double DroneNetMob::getMaxSpeed() const
 }
 
 void DroneNetMob::destGen(int ndst){
+    srand(time(0)); // 현재 시간을 시드로 사용하여 난수 생성기 초기화
     for (unsigned int i = 0; i < numdst->intValue(); i++){
         Coord nextdst;
         nextdst.x = rand() % 600;
         nextdst.y = rand() % 400;
         nextdst.z = 0;
         dst.push_back(nextdst);
+
+        cout << "Destination: " << nextdst.x << ", " << nextdst.y << endl;
     }
-/*    std::cout <<std::endl <<std::endl;
-    for(auto i:dst){
-        std::cout <<"(" <<i.x <<"; " << i.y <<"; " <<i.z <<") | ";
-    }
-    std::cout <<std::endl <<std::endl;*/
+
 }
+
 void DroneNetMob::parcelsDefinition (int nparcels){
     for (unsigned int i = 0; i < nparcels; i++){
         parcel tmpparcel;
@@ -472,195 +467,53 @@ std::vector<parcel> DroneNetMob::droneParcelsSelectionFromSource(int parcelSel){
     std::cout << " Selection ===>  " << parcelSel << std::endl;
     std::cout << " Drone -----> " << getParentModule()->getFullName() <<
                     " with speed = " << speedParameter->doubleValue() <<" Defines its mission!"<< std::endl;
-    switch(parcelSel){
-        /* Closest-Deadline-Parcel-First
-         * Depot sorted by Deadline
-         * First deliver the ones with small deadline*/
-        case CDPF:{
-            std::cout <<" CDPF ----- >    Parcel Selection Method! parcel_depot size = " <<parcel_depot.size() << std::endl;
-            if (!flagArrangedDepot){
-                std::sort (parcel_depot.begin(), parcel_depot.end(),sortDepotByDeadline);
-/*                for (unsigned int i = 0; i < parcel_depot.size(); i++){
-                    std::cout <<"P" <<parcel_depot[i].parcelID << ":: " << "W = " <<parcel_depot[i].weight <<" dst = (" <<parcel_depot[i].parceldest.x <<"; "<<parcel_depot[i].parceldest.y <<"; "
-                            <<parcel_depot[i].parceldest.z <<")"<<" Deadline = "<< parcel_depot[i].exp_time  <<std::endl;
-                }*/
-                int k=0;
-                for (unsigned int i = 0; i < parcel_depot.size(); i++){
-                    packedweight+=parcel_depot[i].weight;
-                    if (packedweight < droneweightcapacity){
-                        selectedParcels.push_back(parcel_depot[i]);
-                        k++;
-                    }
-                    else{
-                        break;
-                    }
-                }
-                std::cout <<"Remaining Parcels = " <<parcel_depot.size() <<std::endl;
-                parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
-                std::cout <<"Number of removed Parcels = " <<k<< "|| Remaining Parcels = " <<parcel_depot.size() <<std::endl;
-                if(isEnd == false && parcel_depot.size() == 0){
-                    isEnd = true;
-                    cout << "------------------------------------------Last Parcels----------------------------------" << endl;
-                    totalParcels = k + 2; // 2 is for the start and the end
-                }
-            }
-            else{
-                int k=0;
-                for (unsigned int i = 0; i < parcel_depot.size(); i++){
-                    packedweight+=parcel_depot[i].weight;
-                    if (packedweight < droneweightcapacity){
-                        selectedParcels.push_back(parcel_depot[i]);
-                        k++;
-                    }
-                    else{
-                        break;
-                    }
-                }
-                std::cout <<"22222 Number of removed Parcels = " <<k<<" || Depot = " <<parcel_depot.size()<<std::endl;
-                //parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
-                std::cout <<"22222 Number of removed Parcels = " <<k<<" || Depot = " <<parcel_depot.size()<<std::endl;
-            }
-            break;
-        }
-        /* Closest-Neighbor-Parcel-First
-         * Depot sorted by Positions
-         * First deliver the ones closer to source*/
-        case CNPF:{
-            cout <<" CNPF ----- > working------------"  << endl;
+    if (!flagArrangedDepot){
 
-            if (!flagArrangedDepot){
-
-                cout << "--------------sorted destination list----------------" << endl;
-                // std::sort (parcel_depot.begin(), parcel_depot.end(),sortDepotByDestination);
-                for (unsigned int i = 0; i < parcel_depot.size(); i++){
-                    cout << " destination of parcels in depot: " <<parcel_depot[i].parceldest.x <<"; "<<parcel_depot[i].parceldest.y <<"; " << endl;
-                }
-                int k=0;
-                for (unsigned int i = 0; i < parcel_depot.size(); i++){
-                    packedweight+=parcel_depot[i].weight;
-                    if (packedweight < droneweightcapacity){
-                        selectedParcels.push_back(parcel_depot[i]);
-                        k++;
-                    }
-                    else{
-                        break;
-                    }
-                }
-                std::cout <<"Remaining Parcels = " <<parcel_depot.size() <<std::endl;
-                parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
-                carriedParcels = k;
-                std::cout <<"Number of removed Parcels = " <<k<< "|| Remaining Parcels = " <<parcel_depot.size() <<std::endl;
-                if(isEnd == false && parcel_depot.size() == 0){
-                    isEnd = true;
-                    cout << "------------------------------------------Last Parcels----------------------------------" << endl;
-                    totalParcels = k + 2; // 2 is for the start and the end
-                }
+        cout << "--------------sorted destination list----------------" << endl;
+        // std::sort (parcel_depot.begin(), parcel_depot.end(),sortDepotByDestination);
+        for (unsigned int i = 0; i < parcel_depot.size(); i++){
+            cout << " destination of parcels in depot: " <<parcel_depot[i].parceldest.x <<"; "<<parcel_depot[i].parceldest.y <<"; " << endl;
+        }
+        int k=0;
+        for (unsigned int i = 0; i < parcel_depot.size(); i++){
+            packedweight+=parcel_depot[i].weight;
+            if (packedweight < droneweightcapacity){
+                selectedParcels.push_back(parcel_depot[i]);
+                k++;
             }
             else{
-                int k=0;
-                for (unsigned int i = 0; i < parcel_depot.size(); i++){
-                    packedweight+=parcel_depot[i].weight;
-                    if (packedweight < droneweightcapacity){
-                        selectedParcels.push_back(parcel_depot[i]);
-                        k++;
-                    }
-                    else{
-                        break;
-                    }
-                }
-                parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
+                break;
             }
-            break;
         }
-        /* Efficient Parcel Delivery Service
-         * Depot sorted in a greedy way ()
-         * First deliver the ones with small ratio distance/weight*/
-        case EPDS:{
-            if (!flagArrangedDepot){
-                std::sort (parcel_depot.begin(), parcel_depot.end(),greedySortDepot);
-                int k=0;
-                for (unsigned int i = 0; i < parcel_depot.size(); i++){
-                    packedweight+=parcel_depot[i].weight;
-                    if (packedweight < droneweightcapacity){
-                        selectedParcels.push_back(parcel_depot[i]);
-                        k++;
-                    }
-                    else{
-                        break;
-                    }
-                }
-                parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
+        std::cout <<"Remaining Parcels = " <<parcel_depot.size() <<std::endl;
+        parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
+        carriedParcels = k;
+        std::cout <<"Number of removed Parcels = " <<k<< "|| Remaining Parcels = " <<parcel_depot.size() <<std::endl;
+        if(isEnd == false && parcel_depot.size() == 0){
+            isEnd = true;
+            cout << "------------------------------------------Last Parcels----------------------------------" << endl;
+            totalParcels = k + 2; // 2 is for the start and the end
+        }
+    }
+    else{
+        int k=0;
+        for (unsigned int i = 0; i < parcel_depot.size(); i++){
+            packedweight+=parcel_depot[i].weight;
+            if (packedweight < droneweightcapacity){
+                selectedParcels.push_back(parcel_depot[i]);
+                k++;
             }
             else{
-                int k=0;
-                for (unsigned int i = 0; i < parcel_depot.size(); i++){
-                    packedweight+=parcel_depot[i].weight;
-                    if (packedweight < droneweightcapacity){
-                        selectedParcels.push_back(parcel_depot[i]);
-                        k++;
-                    }
-                    else{
-                        break;
-                    }
-                }
-                parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
+                break;
             }
-            break;
         }
-        /* Randomly-Selected-Parcel-First
-         * Randomly select Parcels to be delivered first*/
-        case RSPF:{
-            if (!flagArrangedDepot){
-
-            }
-            else{
-
-            }
-            break;
-        }
-        /* Heaviest Parcel First
-         * Depot is sorted based on parcel weight
-         * First deliver the heaviest ones to the lightest*/
-        case HPF:{
-            if (!flagArrangedDepot){
-                std::sort (parcel_depot.begin(), parcel_depot.end(),SortDepotByWeight);
-                int k=0;
-                for (unsigned int i = 0; i < parcel_depot.size(); i++){
-                    packedweight+=parcel_depot[i].weight;
-                    if (packedweight < droneweightcapacity){
-                        selectedParcels.push_back(parcel_depot[i]);
-                        k++;
-                    }
-                    else{
-                        break;
-                    }
-                }
-                parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
-            }
-            else{
-                int k=0;
-                for (unsigned int i = 0; i < parcel_depot.size(); i++){
-                    packedweight+=parcel_depot[i].weight;
-                    if (packedweight < droneweightcapacity){
-                        selectedParcels.push_back(parcel_depot[i]);
-                        k++;
-                    }
-                    else{
-                        break;
-                    }
-                }
-                parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
-            }
-            break;
-        }
-        default:{
-            std::cout <<" Undefined Selection Method." <<std::endl;
-        }
+        parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
     }
     for (auto i:selectedParcels){
         std::cout <<"+++ ID = " << i.parcelID << " Weight: " <<i.weight <<" deadline = " << i.exp_time <<
                 "   <<-->> parcel_depot Size = "<< parcel_depot.size() <<std::endl;
     }
+
     return selectedParcels;
 }
 Coord DroneNetMob::missionPathNextDest(Coord cpos){
@@ -670,7 +523,7 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
         OngoingMission = true;
 
         switch (selectionMethod) {
-            case 0:
+            case 1:
                 //Greedy
                 MissionParcels = greedyTSP(MissionParcels, tspDistance);
                 //dfs_bnb(MissionParcels, tspDistance, totalParcels);
@@ -679,7 +532,7 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
                     cout << " destination of Greedy: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<"; " << endl;
                 }
                 break;
-            case 1:
+            case 0:
                 // BnB TSP
                 MissionParcels = dfs_bnb(MissionParcels, tspDistance, carriedParcels);
                 //print the destination of the parcels

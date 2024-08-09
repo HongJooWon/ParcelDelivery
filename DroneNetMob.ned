@@ -22,8 +22,6 @@ import inet.mobility.base.MovingMobilityBase;
 simple DroneNetMob extends MovingMobilityBase
 {
     parameters:
-        @signal[tspDistance](type=double);
-        @signal[missionTime](type=double); 
         int ndst = default (0);
         int nd = default (0);
         int npar = default(10);
@@ -38,7 +36,7 @@ simple DroneNetMob extends MovingMobilityBase
         double initialMovementElevation @unit(deg) = default(0deg); // initial elevation
         bool initFromDisplayString = default(true); // enables one time initialization from the subject module's display string
         volatile double changeInterval @unit(s); // frequency of changing speed and angle (can be random)
-        volatile double angleDelta @unit(deg); // rotate velocity vector by this much around the rotation axis defined by the rotationAxisAngle parameter (can be random)
+         volatile double angleDelta @unit(deg); // rotate velocity vector by this much around the rotation axis defined by the rotationAxisAngle parameter (can be random)
         volatile double rotationAxisAngle @unit(deg) = default(0deg); // defines a vector in the plane perpendicular to the velocity, where 0 deg means the Z axis when bank is zero (can be random)
         volatile double speed @unit(mps); // speed (can be random, updated every changeInterval)
         @class(inet::DroneNetMob);    
