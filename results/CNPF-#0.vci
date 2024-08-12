@@ -1,9 +1,9 @@
                                                                 
 version 3
-run CNPF-0-20240809-17:00:51-47917
+run CNPF-0-20240812-13:50:06-74746
 attr configname CNPF
-attr datetime 20240809-17:00:51
-attr datetimef 20240809-170051
+attr datetime 20240812-13:50:06
+attr datetimef 20240812-135006
 attr experiment CNPF
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -11,7 +11,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 47917
+attr processid 74746
 attr repetition 0
 attr replication #0
 attr resultdir results

@@ -27,8 +27,6 @@ network ParcelDeliveryNetwork
     parameters:
         int numdrones;
         @display("bgb=600,400");
-        @statistic[totalDistance](source = tspDistance; record = vector;);
-        @statistic[totalTime](source = missionTime; record = vector;); 
     submodules:
         drone[numdrones]: DroneHost {
             parameters:

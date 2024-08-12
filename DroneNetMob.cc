@@ -579,9 +579,17 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
 
     totalParcels--;
     if (totalParcels == 0){
-        missionTime = nextChange;
+
+        missionTime = tspDistance / speedParameter->doubleValue();
         cout << "------------------------------------------recorded-----------------------------------" << endl;
         //create csv file with columns: number of destination, distance, time
+        
+        if(!std::ifstream("results/record.csv")){
+            ofstream resultFile;
+            resultFile.open ("results/record.csv");
+            resultFile << "Selection Method, Number of Destinations, Distance, Time" << endl;
+        }
+        
         ofstream resultFile;
         resultFile.open ("results/record.csv", ios::app);
         
