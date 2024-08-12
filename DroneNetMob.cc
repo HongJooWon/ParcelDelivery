@@ -88,12 +88,11 @@ vector<parcel> greedyTSP(vector<parcel>& parcels, double& distance){
         currPos = parcels[nextParcel].parceldest;
     }
 
-    totalDist += dist(currPos, originPos);
+    totalDist += dist(currPos, originPos); //출발지로 돌아가는 거리
     cout << "Greedy TSP distance: " << totalDist << endl;
     distance += totalDist;
     cout << "Total distance increased " << distance << endl;
 
-    addallDist(sortedParcels);
     return sortedParcels;
 }
 
@@ -467,7 +466,7 @@ std::vector<parcel> DroneNetMob::droneParcelsSelectionFromSource(int parcelSel){
     std::cout << " Selection ===>  " << parcelSel << std::endl;
     std::cout << " Drone -----> " << getParentModule()->getFullName() <<
                     " with speed = " << speedParameter->doubleValue() <<" Defines its mission!"<< std::endl;
-    if (!flagArrangedDepot){
+    if (!isEnd){
 
         cout << "--------------sorted destination list----------------" << endl;
         // std::sort (parcel_depot.begin(), parcel_depot.end(),sortDepotByDestination);
@@ -493,21 +492,23 @@ std::vector<parcel> DroneNetMob::droneParcelsSelectionFromSource(int parcelSel){
             isEnd = true;
             cout << "------------------------------------------Last Parcels----------------------------------" << endl;
             totalParcels = k + 2; // 2 is for the start and the end
+
+            cout << "Total Parcels: " << carriedParcels << endl;
         }
     }
     else{
-        int k=0;
-        for (unsigned int i = 0; i < parcel_depot.size(); i++){
-            packedweight+=parcel_depot[i].weight;
-            if (packedweight < droneweightcapacity){
-                selectedParcels.push_back(parcel_depot[i]);
-                k++;
-            }
-            else{
-                break;
-            }
-        }
-        parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
+        // int k=0;
+        // for (unsigned int i = 0; i < parcel_depot.size(); i++){
+        //     packedweight+=parcel_depot[i].weight;
+        //     if (packedweight < droneweightcapacity){
+        //         selectedParcels.push_back(parcel_depot[i]);
+        //         k++;
+        //     }
+        //     else{
+        //         break;
+        //     }
+        // }
+        // parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
     }
     for (auto i:selectedParcels){
         std::cout <<"+++ ID = " << i.parcelID << " Weight: " <<i.weight <<" deadline = " << i.exp_time <<
@@ -574,15 +575,17 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
             MissionParcels.erase(MissionParcels.begin()+k);
         }
     }
-    std::cout <<" Destination --- > (" <<nextdest.x <<"; " <<nextdest.y <<"; " <<nextdest.z << ")"
-            <<" Origin ---> (" <<originPos.x <<"; "<<originPos.y << "; " << originPos.z<< ")" << std::endl;
+
+    // std::cout <<" Destination --- > (" <<nextdest.x <<"; " <<nextdest.y <<"; " <<nextdest.z << ")"
+    //         <<" Origin ---> (" <<originPos.x <<"; "<<originPos.y << "; " << originPos.z<< ")" << std::endl;
 
     totalParcels--;
     if (totalParcels == 0){
 
         missionTime = tspDistance / speedParameter->doubleValue();
-        //create csv file with columns: number of destination, distance, time
-        
+
+
+        // record the results
         if(!std::ifstream("results/record.csv")){
             ofstream resultFile;
             resultFile.open ("results/record.csv");
@@ -601,6 +604,11 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
 
         cout << "distance recorded: " << tspDistance << endl;
         cout << "time recorded: " << missionTime << endl;
+
+        //print parcel list
+        for (unsigned int i = 0; i < MissionParcels.size(); i++){
+            cout << "Parcel ID: " << MissionParcels[i].parcelID << " Parcel Destination: " << MissionParcels[i].parceldest.x << ", " << MissionParcels[i].parceldest.y << endl;
+        }
     }
     return nextdest;
 }
