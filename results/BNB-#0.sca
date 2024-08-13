@@ -1,16 +1,16 @@
 version 3
-run CNPF-0-20240812-16:47:24-92294
-attr configname CNPF
-attr datetime 20240812-16:47:24
-attr datetimef 20240812-164724
-attr experiment CNPF
+run BNB-0-20240813-11:17:21-15978
+attr configname BNB
+attr datetime 20240813-11:17:21
+attr datetimef 20240813-111721
+attr experiment BNB
 attr inifile omnetpp.ini
 attr iterationvars ""
 attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 92294
+attr processid 15978
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -30,6 +30,7 @@ config **.drone[*].mobility.angleDelta "normal(0deg, 30deg)"
 config **.drone[*].mobility.speed 10mps
 config **.drone[*].mobility.remainingBattery 480
 config **.drone[*].mobility.weightCapacity 100
+config **.drone[*].mobility.parcelSelectionMethod 1
 config **.drone[*].mobility.initialX 0m
 config **.drone[*].mobility.initialY 0m
 config **.drone[*].mobility.initialZ 0m

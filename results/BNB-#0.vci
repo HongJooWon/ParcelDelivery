@@ -1,16 +1,17 @@
+file 66735 1723516569                                           
 version 3
-run CNPF-0-20240813-10:56:52-13280
-attr configname CNPF
-attr datetime 20240813-10:56:52
-attr datetimef 20240813-105652
-attr experiment CNPF
+run BNB-0-20240813-11:17:21-15978
+attr configname BNB
+attr datetime 20240813-11:17:21
+attr datetimef 20240813-111721
+attr experiment BNB
 attr inifile omnetpp.ini
 attr iterationvars ""
 attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 13280
+attr processid 15978
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -30,7 +31,7 @@ config **.drone[*].mobility.angleDelta "normal(0deg, 30deg)"
 config **.drone[*].mobility.speed 10mps
 config **.drone[*].mobility.remainingBattery 480
 config **.drone[*].mobility.weightCapacity 100
-config **.drone[*].mobility.parcelSelectionMethod 0
+config **.drone[*].mobility.parcelSelectionMethod 1
 config **.drone[*].mobility.initialX 0m
 config **.drone[*].mobility.initialY 0m
 config **.drone[*].mobility.initialZ 0m
@@ -151,34 +152,37 @@ vector 15 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recoveryProcedure contention
 attr interpolationmode sample-hold
 attr recordingmode vector
 attr title "contention window"
-0	0	0	0
-0	0	0	0
-1	0	0	0
-1	0	0	0
-1	0	0	0
-1	0	0	0
-1	0	0	0
-2	0	0	0
-2	0	0	0
-2	0	0	0
-2	0	0	0
-2	0	0	0
-3	0	0	0
-3	0	0	0
-4	0	0	0
-4	0	0	0
-5	0	0	0
-6	0	0	0
-7	0	0	0
-8	0	0	0
-8	0	0	0
-8	0	0	2
-9	0	0	0
-10	0	0	0
-11	0	0	0
-12	0	0	0
-13	0	0	1
-14	0	0	0
-14	0	0	0
-15	0	0	31
+0	6247 16 0 0 0 0 2 0 0 0 0
+1	6263 40 0 0 0 0 5 0 0 0 0
+2	6303 40 0 0 0 0 5 0 0 0 0
+3	6343 16 0 0 0 0 2 0 0 0 0
+4	6359 16 0 0 0 0 2 0 0 0 0
+5	6375 8 0 0 0 0 1 0 0 0 0
+6	6383 8 0 0 0 0 1 0 0 0 0
+7	6391 8 0 0 0 0 1 0 0 0 0
+8	6399 24 0 0 0 0 3 0 2 2 4
+9	6423 8 0 0 0 0 1 0 0 0 0
+10	6431 10166 0 291 0 55.382101472311 292 0 572 76475.631717083 31394958.39539
+11	16597 10158 0 291 0 55.382101472311 292 0 365 43827.101993231 9791906.6209087
+12	26755 6987 0 291 0 55.382101472311 292 0 0 0 0
+13	33742 9 0 0 0 0 1 1 1 1 1
+14	33751 18 0 0 0 0 2 0 0 0 0
+15	33769 10 0 0 0 0 1 31 31 31 961
+10	33779 3972 292 412 55.582101472311 78.471688460908 121 0 572 32774.311382241 15565310.731835
+11	37751 3984 292 412 55.582101472311 78.471688460908 121 0 339 13814.676414732 3208145.543373
+12	41735 3012 292 412 55.582101472311 78.471688460908 121 0 0 0 0
+vector 16 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 17 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+16	45242 10746 412 412 0.1 78.471688460908 785 0 0 0 0
+17	55988 10746 412 412 0.1 78.471688460908 785 0 0 0 0
 

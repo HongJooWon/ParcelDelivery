@@ -524,7 +524,7 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
         OngoingMission = true;
 
         switch (selectionMethod) {
-            case 1:
+            case 0:
                 //Greedy
                 MissionParcels = greedyTSP(MissionParcels, tspDistance);
                 //dfs_bnb(MissionParcels, tspDistance, totalParcels);
@@ -533,7 +533,7 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
                     cout << " destination of Greedy: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<"; " << endl;
                 }
                 break;
-            case 0:
+            case 1:
                 // BnB TSP
                 MissionParcels = dfs_bnb(MissionParcels, tspDistance, carriedParcels);
                 //print the destination of the parcels
@@ -575,7 +575,7 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
             MissionParcels.erase(MissionParcels.begin()+k);
         }
     }
-
+    //다음 좌표 출력
     // std::cout <<" Destination --- > (" <<nextdest.x <<"; " <<nextdest.y <<"; " <<nextdest.z << ")"
     //         <<" Origin ---> (" <<originPos.x <<"; "<<originPos.y << "; " << originPos.z<< ")" << std::endl;
 

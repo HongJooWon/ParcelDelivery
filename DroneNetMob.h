@@ -32,11 +32,9 @@ struct parcel{
 void parcelsDefinition (int nparcels);
 
 enum parcelSelection{
-    CDPF = 0,        //Closest-Deadline-Parcel-First
-    CNPF = 1,       //Closest-Neighbor-Parcel-First
+    CNPF = 0,        //Closest-Deadline-Parcel-First
+    BNB = 1,       //Closest-Neighbor-Parcel-First
     EPDS = 2,      //Efficient Parcel Delivery Service distance/weight
-    RSPF = 3,     //Randomly-Selected-Parcel-First
-    HPF  = 4     //Heaviest Parcel First
 };
 
 class INET_API DroneNetMob : public LineSegmentsMobilityBase
