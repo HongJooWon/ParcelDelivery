@@ -121,8 +121,6 @@ void remove_dupcoordinates(vector<parcel>& parcels, int& carriedParcels) {
     cout << "carriedParcels without Duplicates: " << parcels.size() << endl;
 }
 
-//prim 
-
 // 1-tree lower bound를 계산하는 함수
 double calculate1TreeLowerBound(const vector<vector<double>>& travel, int start, const vector<bool>& visited) {
     int n = travel.size();
@@ -149,12 +147,10 @@ double calculate1TreeLowerBound(const vector<vector<double>>& travel, int start,
         
         if (u == -1) break;  // 모든 노드가 방문되었거나 연결할 수 없는 경우
         
-        mstSet[u] = true;arcel startParcel;
-    startParcel.parcelID = -1;
-    startParcel.parceldest.x = 0;
-    startParcel.parceldest.y = 0;
-    parcels.insert(parcels.begin(), startParcel);
-    // 택배 리스트를 출력
+        mstSet[u] = true;
+        
+        for (int v = 0; v < n; v++) {
+            if (v != start && !mstSet[v] && travel[u][v] < key[v]) {
                 key[v] = travel[u][v];
             }
         }
@@ -205,12 +201,7 @@ void dfs(int start, int next, double value, vector<int>& visited, int n, vector<
         if (travel[next][start] != 0) {
             double total_distance = value + travel[next][start];
             // 더 짧은 경로를 찾은 경우 최소값과 최적 경로 갱신
-            if (total_distance < min_value) {arcel startParcel;
-    startParcel.parcelID = -1;
-    startParcel.parceldest.x = 0;
-    startParcel.parceldest.y = 0;
-    parcels.insert(parcels.begin(), startParcel);
-    // 택배 리스트를 출력
+            if (total_distance < min_value) {
                 min_value = total_distance;
                 path = visited;
             }
@@ -506,11 +497,16 @@ std::vector<parcel> DroneNetMob::droneParcelsSelectionFromSource(int parcelSel){
         }
     }
     else{
-        //시뮬레이션 에러 발생
         // int k=0;
         // for (unsigned int i = 0; i < parcel_depot.size(); i++){
         //     packedweight+=parcel_depot[i].weight;
-        //     if (packedweight < droneweightcapacity){MissionParcels
+        //     if (packedweight < droneweightcapacity){
+        //         selectedParcels.push_back(parcel_depot[i]);
+        //         k++;
+        //     }
+        //     else{
+        //         break;
+        //     }
         // }
         // parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
     }
@@ -527,7 +523,6 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
         MissionParcels  = droneParcelsSelectionFromSource(selectionMethod);
         OngoingMission = true;
 
-        //네비게이션 알고리즘 선택
         switch (selectionMethod) {
             case 0:
                 //Greedy
@@ -539,7 +534,7 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
                 }
                 break;
             case 1:
-                // BnB
+                // BnB TSP
                 MissionParcels = dfs_bnb(MissionParcels, tspDistance, carriedParcels);
                 //print the destination of the parcels
                 for (unsigned int i = 0; i < MissionParcels.size(); i++){
@@ -596,6 +591,7 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
             resultFile.open ("results/record.csv");
             resultFile << "Selection Method, Number of Destinations, Distance, Time" << endl;
         }
+
         ofstream resultFile;
         resultFile.open ("results/record.csv", ios::app);
         
@@ -629,4 +625,3 @@ Coord DroneNetMob::destAssignment(){
 
 
 } // namespace inet
-
