@@ -1,8 +1,8 @@
 version 3
-run BNB-0-20240814-19:44:06-35916
+run BNB-0-20240816-16:54:31-32859
 attr configname BNB
-attr datetime 20240814-19:44:06
-attr datetimef 20240814-194406
+attr datetime 20240816-16:54:31
+attr datetimef 20240816-165431
 attr experiment BNB
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -10,7 +10,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 35916
+attr processid 32859
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -34,27 +34,6 @@ config **.drone[*].mobility.parcelSelectionMethod 1
 config **.drone[*].mobility.initialX 0m
 config **.drone[*].mobility.initialY 0m
 config **.drone[*].mobility.initialZ 0m
-config *.numdst 6
-config **.dst*.mobility.typename StatNodeMob
-config **.dst[0].mobility.initialX 200m
-config **.dst[0].mobility.initialY 100m
-config **.dst[0].mobility.initialZ 0m
-config **.dst[1].mobility.initialX 100m
-config **.dst[1].mobility.initialY 250m
-config **.dst[1].mobility.initialZ 0m
-config **.dst[2].mobility.initialX 260m
-config **.dst[2].mobility.initialY 220m
-config **.dst[2].mobility.initialZ 0m
-config **.dst[3].mobility.initialX 200m
-config **.dst[3].mobility.initialY 330m
-config **.dst[3].mobility.initialZ 0m
-config **.dst[4].mobility.initialX 400m
-config **.dst[4].mobility.initialY 300m
-config **.dst[4].mobility.initialZ 0m
-config **.dst[5].mobility.initialX 400m
-config **.dst[5].mobility.initialY 200m
-config **.dst[5].mobility.initialZ 0m
-config **.dst[*].mobility.initFromDisplayString false
 config sim-time-limit 10day
 config **.constraintAreaMinX 0m
 config **.constraintAreaMinY 0m

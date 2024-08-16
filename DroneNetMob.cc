@@ -191,7 +191,7 @@ void dfs(int start, int next, double value, vector<int>& visited, int n, vector<
     double lower_bound = value + calculate1TreeLowerBound(travel, next, is_visited);
     
     // 가지치기: 현재 경로의 lower bound가 지금까지의 최소값보다 크거나 같으면 탐색 중단
-    if (lower_bound >= min_value) {
+    if (lower_bound > min_value) {
         return;
     }
 
@@ -295,6 +295,72 @@ vector<parcel> dfs_bnb(vector<parcel>& parcels, double& distance, int& carriedPa
 
     // 정렬된 택배 리스트를 반환
     return sorted_parcels;
+}
+
+//optimal path가 수행되는지 확인
+double dynamic(vector<parcel>& parcels, int pos, int visited, vector<vector<double>>& dp, vector<vector<double>>& distance, double currDist, double& ans, vector<int>& optimalPath, vector<int>& path) {
+    path.push_back(pos); // add the current position to the path
+    if(visited == ((1<<parcels.size()) - 1)) {
+        ans = min(ans, currDist + distance[pos][0]); // update the minimum distance
+        if(currDist + distance[pos][0] == ans) {
+            optimalPath = path; // update the optimal path
+        }
+    }
+    if(dp[pos][visited] != -1 && currDist >= dp[pos][visited]) {
+        path.pop_back(); // remove the current position from the path
+        return ans; // prune the branch if the current distance is already greater than the previously calculated distance
+    }
+
+    for(int i=0; i<parcels.size(); i++) {
+        if((visited & (1<<i)) == 0) { // if not visited
+            double newDist = currDist + distance[pos][i];
+            if(newDist < ans) { // only explore the branch if the new distance is less than the current minimum distance
+                dynamic(parcels, i, visited | (1<<i), dp, distance, newDist, ans, optimalPath, path);
+            }
+        }
+    }
+    dp[pos][visited] = currDist; // update the previously calculated distance
+    path.pop_back(); // remove the current position from the path
+    return ans;
+}
+
+void dp_tsp(vector<parcel>& parcels, int& carriedParcels) {
+    cout << "Solving DP" << endl;
+    //test
+    //remove_dupcoordinates(parcels, carriedParcels);
+    //print the parcels
+    for(int i=0; i<parcels.size(); i++) {
+        cout << "Parcel to solve" << parcels[i].parcelID << " : " << parcels[i].parceldest.x << " " << parcels[i].parceldest.y << endl;
+    }
+    int n = parcels.size();
+    vector<vector<double>> distance(n, vector<double>(n));
+    for(int i=0; i<n; i++) {
+        for(int j=0; j<n; j++) {
+            distance[i][j] = dist(parcels[i].parceldest, parcels[j].parceldest);
+        }
+    }
+
+    vector<vector<double>> dp(n, vector<double>(1<<n, -1));
+    double ans = 1e9;
+    vector<int> optimalPath;
+    vector<int> path;
+    dynamic(parcels, 0, 1, dp, distance, 0, ans, optimalPath, path);
+
+    // Sort parcels based on the optimal path
+    vector<parcel> sortedParcels;
+    for(int i=optimalPath.size()-1; i>=0; i--) {
+        sortedParcels.push_back(parcels[optimalPath[i]]);
+    }
+
+    //print the optimal path
+    cout << "DP Optimal path: ";
+    for(int i=0; i<optimalPath.size(); i++) {
+        cout << optimalPath[i] << " ";
+    }
+    cout << endl;
+
+    cout << "DP minimum distance: " << ans << endl;
+    //return sortedParcels;
 }
 
 DroneNetMob::DroneNetMob()
@@ -536,9 +602,18 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
             case 1:
                 // BnB TSP
                 MissionParcels = dfs_bnb(MissionParcels, tspDistance, carriedParcels);
+                dp_tsp(MissionParcels, carriedParcels);
                 //print the destination of the parcels
                 for (unsigned int i = 0; i < MissionParcels.size(); i++){
                     cout << " destination of BnB: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<";  Ind = "<< i << endl;
+                }
+                break;
+            case 2:
+                // Dynamic Programming TSP
+                //MissionParcels = dp_tsp(MissionParcels);
+                //print the destination of the parcels
+                for (unsigned int i = 0; i < MissionParcels.size(); i++){
+                    cout << " destination of DP: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<"; " << endl;
                 }
                 break;
         }
