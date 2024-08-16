@@ -13,7 +13,7 @@ namespace inet {
 
 bool flag_original = false;
 Coord originPos = Coord(0, 0, 0);
-std::vector<Coord> dst; //Destination Positions
+vector<Coord> dst; //Destination Positions
 int gen = 0;
 int nparcels = 100;//what is this for
 bool flagArrangedDepot = false;
@@ -22,7 +22,7 @@ bool isEnd = false;
 int dup = 0;
 // int selectionMethod = 0;
 
-std::vector<parcel> parcel_depot;
+vector<parcel> parcel_depot;
 
 Define_Module(DroneNetMob);
 bool sortDepotByDeadline (parcel i, parcel j) {
@@ -59,6 +59,50 @@ void addallDist(vector<parcel>& parcels) {
     
     totalDist += dist(parcels[parcels.size()-1].parceldest, originPos);
     cout << "add all distance: " << totalDist << endl;
+}
+
+// Minimum Spanning Tree
+double calculateMST(const vector<vector<double>>& distances, const vector<bool>& included) {
+    int n = distances.size();
+    double mst_cost = 0;
+    vector<bool> in_mst = included;
+    vector<double> min_edge(n, numeric_limits<double>::max());
+
+    // 시작 노드 선택 (포함되지 않은 첫 번째 노드)
+    int start = 0;
+    for (int i = 0; i < n; ++i) {
+        if (!included[i]) {
+            start = i;
+            break;
+        }
+    }
+    min_edge[start] = 0;
+
+    for (int i = 0; i < n; ++i) {
+        if (included[i]) continue;  // 이미 포함된 노드는 건너뜀
+
+        int u = -1;
+        double min = numeric_limits<double>::max();
+        for (int v = 0; v < n; ++v) {
+            if (!in_mst[v] && min_edge[v] < min) {
+                min = min_edge[v];
+                u = v;
+            }
+        }
+
+        if (u == -1) break;  // 더 이상 연결할 노드가 없음
+
+        in_mst[u] = true;
+        mst_cost += min_edge[u];
+
+        for (int v = 0; v < n; ++v) {
+            if (!in_mst[v] && distances[u][v] < min_edge[v]) {
+                min_edge[v] = distances[u][v];
+            }
+        }
+    }
+
+    return mst_cost;
 }
 
 //greedy algorithm for TSP
@@ -124,62 +168,26 @@ void remove_dupcoordinates(vector<parcel>& parcels, int& carriedParcels) {
 // 1-tree lower bound를 계산하는 함수
 double calculate1TreeLowerBound(const vector<vector<double>>& travel, int start, const vector<bool>& visited) {
     int n = travel.size();
-    vector<double> key(n, numeric_limits<double>::infinity());
-    vector<bool> mstSet = visited;
-    
-    // 시작 노드를 제외하고 MST 계산을 위한 초기화
-    for (int i = 0; i < n; i++) {
+    vector<bool> mst_included = visited;
+    mst_included[start] = true;  // 시작 노드 제외
+
+    double mst_cost = calculateMST(travel, mst_included);
+
+    // 1-tree를 위한 추가 엣지 계산
+    vector<double> min_edges;
+    for (int i = 0; i < n; ++i) {
         if (i != start && !visited[i]) {
-            key[i] = travel[start][i];
+            min_edges.push_back(travel[start][i]);
         }
     }
-    
-    // Prim's 알고리즘을 사용하여 MST 계산
-    for (int count = 0; count < n - 1; count++) {
-        int u = -1;
-        double min = numeric_limits<double>::infinity();
-        for (int v = 0; v < n; v++) {
-            if (v != start && !mstSet[v] && key[v] < min) {
-                min = key[v];
-                u = v;
-            }
-        }
-        
-        if (u == -1) break;  // 모든 노드가 방문되었거나 연결할 수 없는 경우
-        
-        mstSet[u] = true;
-        
-        for (int v = 0; v < n; v++) {
-            if (v != start && !mstSet[v] && travel[u][v] < key[v]) {
-                key[v] = travel[u][v];
-            }
-        }
+    sort(min_edges.begin(), min_edges.end());
+
+    double one_tree_cost = mst_cost;
+    if (min_edges.size() >= 2) {
+        one_tree_cost += min_edges[0] + min_edges[1];
     }
-    
-    // MST의 총 가중치 계산
-    double mstCost = 0;
-    for (int i = 0; i < n; i++) {
-        if (i != start && !visited[i]) {
-            mstCost += key[i];
-        }
-    }
-    
-    // 시작 노드에서 가장 가까운 두 노드 찾기
-    vector<double> minEdges;
-    for (int i = 0; i < n; i++) {
-        if (i != start && !visited[i]) {
-            minEdges.push_back(travel[start][i]);
-        }
-    }
-    sort(minEdges.begin(), minEdges.end());
-    
-    // 1-tree cost 계산: MST 가중치 + 시작 노드와 연결된 가장 짧은 두 엣지
-    double oneTreeCost = mstCost;
-    if (minEdges.size() >= 2) {
-        oneTreeCost += minEdges[0] + minEdges[1];
-    }
-    
-    return oneTreeCost;
+
+    return one_tree_cost;
 }
 
 void dfs(int start, int next, double value, vector<int>& visited, int n, vector<vector<double>>& travel, double& min_value, vector<int>& path) {
@@ -239,7 +247,7 @@ vector<parcel> dfs_bnb(vector<parcel>& parcels, double& distance, int& carriedPa
         cout << "Parcel to solve" << parcels[i].parcelID << " : " << parcels[i].parceldest.x << " " << parcels[i].parceldest.y << endl;
     }
 
-    remove_dupcoordinates(parcels, carriedParcels);
+    //remove_dupcoordinates(parcels, carriedParcels);
 
     cout << "After removing duplicates" << endl;
 
@@ -283,7 +291,7 @@ vector<parcel> dfs_bnb(vector<parcel>& parcels, double& distance, int& carriedPa
     }
     
     //print the sorted parcels
-    cout << "Sorted parcels: ";
+    cout << "BnB Sorted parcels: ";
     for(int i=0; i<sorted_parcels.size(); i++) {
         cout << sorted_parcels[i].parcelID << " ";
     }
@@ -352,11 +360,12 @@ void dp_tsp(vector<parcel>& parcels, int& carriedParcels) {
         sortedParcels.push_back(parcels[optimalPath[i]]);
     }
 
-    //print the optimal path
-    cout << "DP Optimal path: ";
-    for(int i=0; i<optimalPath.size(); i++) {
-        cout << optimalPath[i] << " ";
+    //print the sorted parcels
+    cout << "DP Sorted parcels: ";
+    for(int i=0; i<sortedParcels.size(); i++) {
+        cout << sortedParcels[i].parcelID << " ";
     }
+    
     cout << endl;
 
     cout << "DP minimum distance: " << ans << endl;
@@ -379,7 +388,7 @@ void DroneNetMob::initialize(int stage)
         speedParameter = &par("speed");
         quaternion = Quaternion(EulerAngles(heading, -elevation, rad(0)));
         int np = (&par("npar"))->intValue();
-        cout <<" npar = " << np <<std::endl;
+        cout <<" npar = " << np <<endl;
         WATCH(quaternion);
         numdst = &par("ndst");
         ox =&par("initialX");
@@ -391,10 +400,10 @@ void DroneNetMob::initialize(int stage)
         droneweightcapacity =  (&par("weightCapacity"))->doubleValue();
         droneremainingbattery =  (&par("remainingBattery"))->doubleValue();
         selectionMethod = (&par("parcelSelectionMethod"))->intValue();
-        if (std::strcmp(getParentModule()->getFullName(), "drone[0]") == 0){
-            std::cout << " Name -----> " << getParentModule()->getFullName() <<std::endl;
+        if (strcmp(getParentModule()->getFullName(), "drone[0]") == 0){
+            cout << " Name -----> " << getParentModule()->getFullName() <<endl;
             //print selectionmethod
-            std::cout << " Selection Method -----> " << selectionMethod <<std::endl;
+            cout << " Selection Method -----> " << selectionMethod <<endl;
             if (numdst->intValue() > 0){
                 destGen (numdst->intValue());
             }
@@ -476,15 +485,15 @@ void DroneNetMob::move()
 
             lastVelocity = (targetPosition - lastPosition) / (nextChange - simTime()).dbl();
             handleIfOutside(REFLECT, targetPosition, lastVelocity, dummyAngle, dummyAngle, quaternion);
-            std::cout <<"Vel = " << lastVelocity.x <<"  ; " << lastVelocity.x << "  ; " << lastVelocity.z << std::endl;
+            cout <<"Vel = " << lastVelocity.x <<"  ; " << lastVelocity.x << "  ; " << lastVelocity.z << endl;
         }
         else if (now > lastUpdate) {
             ASSERT(nextChange == -1 || now < nextChange);
             double alpha = (now - previousChange) / (nextChange - previousChange);
             lastPosition = sourcePosition * (1 - alpha) + targetPosition * alpha;
             handleIfOutside(REFLECT, targetPosition, lastVelocity, dummyAngle, dummyAngle, quaternion);
-            if (std::strcmp(getParentModule()->getFullName(), "drone[1]") == 0){
-                std::cout <<"Vel = " << lastVelocity.x <<"  ; " << lastVelocity.x << "  ; " << lastVelocity.z << std::endl;
+            if (strcmp(getParentModule()->getFullName(), "drone[1]") == 0){
+                cout <<"Vel = " << lastVelocity.x <<"  ; " << lastVelocity.x << "  ; " << lastVelocity.z << endl;
             }
 
         }
@@ -525,17 +534,17 @@ void DroneNetMob::parcelsDefinition (int nparcels){
 
     }
 }
-std::vector<parcel> DroneNetMob::droneParcelsSelectionFromSource(int parcelSel){
-    std::vector<parcel> selectedParcels;
+vector<parcel> DroneNetMob::droneParcelsSelectionFromSource(int parcelSel){
+    vector<parcel> selectedParcels;
     double packedweight = 0;
     cout <<"builds working"  << endl;
-    std::cout << " Selection ===>  " << parcelSel << std::endl;
-    std::cout << " Drone -----> " << getParentModule()->getFullName() <<
-                    " with speed = " << speedParameter->doubleValue() <<" Defines its mission!"<< std::endl;
+    cout << " Selection ===>  " << parcelSel << endl;
+    cout << " Drone -----> " << getParentModule()->getFullName() <<
+                    " with speed = " << speedParameter->doubleValue() <<" Defines its mission!"<< endl;
     if (!isEnd){
 
         cout << "--------------sorted destination list----------------" << endl;
-        // std::sort (parcel_depot.begin(), parcel_depot.end(),sortDepotByDestination);
+        // sort (parcel_depot.begin(), parcel_depot.end(),sortDepotByDestination);
         for (unsigned int i = 0; i < parcel_depot.size(); i++){
             cout << " destination of parcels in depot: " <<parcel_depot[i].parceldest.x <<"; "<<parcel_depot[i].parceldest.y <<"; " << endl;
         }
@@ -550,10 +559,10 @@ std::vector<parcel> DroneNetMob::droneParcelsSelectionFromSource(int parcelSel){
                 break;
             }
         }
-        std::cout <<"Remaining Parcels = " <<parcel_depot.size() <<std::endl;
+        cout <<"Remaining Parcels = " <<parcel_depot.size() <<endl;
         parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
         carriedParcels = k;
-        std::cout <<"Number of removed Parcels = " <<k<< "|| Remaining Parcels = " <<parcel_depot.size() <<std::endl;
+        cout <<"Number of removed Parcels = " <<k<< "|| Remaining Parcels = " <<parcel_depot.size() <<endl;
         if(isEnd == false && parcel_depot.size() == 0){
             isEnd = true;
             cout << "------------------------------------------Last Parcels----------------------------------" << endl;
@@ -577,8 +586,8 @@ std::vector<parcel> DroneNetMob::droneParcelsSelectionFromSource(int parcelSel){
         // parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
     }
     for (auto i:selectedParcels){
-        std::cout <<"+++ ID = " << i.parcelID << " Weight: " <<i.weight <<" deadline = " << i.exp_time <<
-                "   <<-->> parcel_depot Size = "<< parcel_depot.size() <<std::endl;
+        cout <<"+++ ID = " << i.parcelID << " Weight: " <<i.weight <<" deadline = " << i.exp_time <<
+                "   <<-->> parcel_depot Size = "<< parcel_depot.size() <<endl;
     }
 
     return selectedParcels;
@@ -588,6 +597,9 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
     if (!OngoingMission){
         MissionParcels  = droneParcelsSelectionFromSource(selectionMethod);
         OngoingMission = true;
+
+        //test 용
+        vector<parcel> copiedMissionParcels = MissionParcels;
 
         switch (selectionMethod) {
             case 0:
@@ -601,8 +613,11 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
                 break;
             case 1:
                 // BnB TSP
+                remove_dupcoordinates(MissionParcels, carriedParcels);
+
                 MissionParcels = dfs_bnb(MissionParcels, tspDistance, carriedParcels);
-                dp_tsp(MissionParcels, carriedParcels);
+                
+                dp_tsp(copiedMissionParcels, carriedParcels);
                 //print the destination of the parcels
                 for (unsigned int i = 0; i < MissionParcels.size(); i++){
                     cout << " destination of BnB: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<";  Ind = "<< i << endl;
@@ -651,8 +666,8 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
         }
     }
     //다음 좌표 출력
-    // std::cout <<" Destination --- > (" <<nextdest.x <<"; " <<nextdest.y <<"; " <<nextdest.z << ")"
-    //         <<" Origin ---> (" <<originPos.x <<"; "<<originPos.y << "; " << originPos.z<< ")" << std::endl;
+    // cout <<" Destination --- > (" <<nextdest.x <<"; " <<nextdest.y <<"; " <<nextdest.z << ")"
+    //         <<" Origin ---> (" <<originPos.x <<"; "<<originPos.y << "; " << originPos.z<< ")" << endl;
 
     totalParcels--;
     if (totalParcels == 0){
@@ -661,7 +676,7 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
 
 
         // record the results
-        if(!std::ifstream("results/record.csv")){
+        if(!ifstream("results/record.csv")){
             ofstream resultFile;
             resultFile.open ("results/record.csv");
             resultFile << "Selection Method, Number of Destinations, Distance, Time" << endl;

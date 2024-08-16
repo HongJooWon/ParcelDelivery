@@ -1,8 +1,8 @@
 version 3
-run BNB-0-20240816-16:54:31-32859
+run BNB-0-20240816-17:42:12-38792
 attr configname BNB
-attr datetime 20240816-16:54:31
-attr datetimef 20240816-165431
+attr datetime 20240816-17:42:12
+attr datetimef 20240816-174212
 attr experiment BNB
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -10,7 +10,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 32859
+attr processid 38792
 attr repetition 0
 attr replication #0
 attr resultdir results
