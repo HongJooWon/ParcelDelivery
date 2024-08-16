@@ -105,12 +105,9 @@ void remove_dupcoordinates(vector<parcel>& parcels, int& carriedParcels) {
 
     for (int i = 0; i < parcels.size(); i++) {
         string coord = to_string(parcels[i].parceldest.x) + "," + to_string(parcels[i].parceldest.y);
-arcel startParcel;
-    startParcel.parcelID = -1;
-    startParcel.parceldest.x = 0;
-    startParcel.parceldest.y = 0;
-    parcels.insert(parcels.begin(), startParcel);
-    // 택배 리스트를 출력
+
+        if (coord_map.find(coord) == coord_map.end()) {
+            // 좌표가 처음 발견된 경우, 해당 좌표와 인덱스를 맵에 추가
             coord_map[coord] = i;
         } else {
             // 좌표가 이미 존재하는 경우, 해당 택배 아이템을 제거
