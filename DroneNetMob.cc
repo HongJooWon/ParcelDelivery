@@ -365,7 +365,7 @@ void dp_tsp(vector<parcel>& parcels, int& carriedParcels) {
     for(int i=1; i<optimalPath.size()-1; i++) {
         sortedParcels.push_back(parcels[optimalPath[i]]);
     }
-    
+
     //마지막에 꼭 0이 추가된다
     //print the sorted parcels
     cout << "DP Sorted parcels: ";
@@ -377,6 +377,39 @@ void dp_tsp(vector<parcel>& parcels, int& carriedParcels) {
 
     cout << "DP minimum distance: " << ans << endl;
     //return sortedParcels;
+}
+
+// Minimum Spanning Tree - Prim's Algorithm
+vector<parcel> mstTSP(vector<parcel>& parcels){
+    vector<parcel> sortedParcels = {};
+    vector<bool> visited(parcels.size(), false);
+    Coord currPos = originPos;
+    double totalDist = 0;
+    while(sortedParcels.size() < parcels.size()) {
+        double minDist = -1;
+        int nextParcel = -1;
+        for(int i=0; i<parcels.size(); i++) {
+            if(!visited[i]) {
+                double d = dist(currPos, parcels[i].parceldest);
+                if(d < minDist || minDist == -1) {
+                    minDist = d;
+                    nextParcel = i;
+                }
+            }
+        }
+        cout << "Current Position: " << currPos.x << ", " << currPos.y << " Next position: " << parcels[nextParcel].parceldest.x << ", " << parcels[nextParcel].parceldest.y << " Distance: " << dist(currPos, parcels[nextParcel].parceldest) << endl;
+        totalDist += minDist;
+        cout  << "minDist: " << minDist << " Total distance: " << totalDist << endl;
+
+        visited[nextParcel] = true;
+        sortedParcels.push_back(parcels[nextParcel]);
+        currPos = parcels[nextParcel].parceldest;
+    }
+
+    totalDist += dist(currPos, originPos); //출발지로 돌아가는 거리
+    cout << "MST TSP distance: " << totalDist << endl;
+
+    return sortedParcels;
 }
 
 DroneNetMob::DroneNetMob()
@@ -637,6 +670,10 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
                 for (unsigned int i = 0; i < MissionParcels.size(); i++){
                     cout << " destination of DP: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<"; " << endl;
                 }
+                break;
+            case 3:
+                // Minimum Spanning Tree
+                MissionParcels = mstTSP(MissionParcels);
                 break;
         }
     }
