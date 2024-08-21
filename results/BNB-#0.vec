@@ -1,8 +1,8 @@
 version 3
-run BNB-0-20240816-17:42:12-38792
+run BNB-0-20240821-16:15:50-87278
 attr configname BNB
-attr datetime 20240816-17:42:12
-attr datetimef 20240816-174212
+attr datetime 20240821-16:15:50
+attr datetimef 20240821-161550
 attr experiment BNB
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -10,7 +10,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 38792
+attr processid 87278
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -96,68 +96,4 @@ attr recordingmode vector
 attr source radioModeChanged
 attr title "Radio mode"
 vector 9 ParcelDeliveryNetwork.gcs.wlan[0].radio radioChannel:vector ETV
-attr interpolationmode sample-hold
-attr recordingmode vector
-attr source radioChannelChanged
-attr title "Radio channel"
-vector 10 ParcelDeliveryNetwork.drone[0] coordX:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source xCoord(mobilityPos(mobilityStateChanged))
-attr title "coord X"
-vector 11 ParcelDeliveryNetwork.drone[0] coordY:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source yCoord(mobilityPos(mobilityStateChanged))
-attr title "coord Y"
-vector 12 ParcelDeliveryNetwork.drone[0] coordZ:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source zCoord(mobilityPos(mobilityStateChanged))
-attr title "coord Z"
-vector 13 ParcelDeliveryNetwork.gcs.wlan[0].radio receptionState:vector ETV
-attr interpolationmode sample-hold
-attr recordingmode vector
-attr source receptionStateChanged
-attr title "Radio reception state"
-vector 14 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.contention stateChanged:vector ETV
-attr enum IDLE,DEFER,IFS_AND_BACKOFF
-attr interpolationmode none
-attr recordingmode vector
-attr title "contention state changed"
-attr type enum
-vector 15 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recoveryProcedure contentionWindowChanged:vector ETV
-attr interpolationmode sample-hold
-attr recordingmode vector
-attr title "contention window"
-0	0	0	0
-0	0	0	0
-1	0	0	0
-1	0	0	0
-1	0	0	0
-1	0	0	0
-1	0	0	0
-2	0	0	0
-2	0	0	0
-2	0	0	0
-2	0	0	0
-2	0	0	0
-3	0	0	0
-3	0	0	0
-4	0	0	0
-4	0	0	0
-5	0	0	0
-6	0	0	0
-7	0	0	0
-8	0	0	0
-8	0	0	0
-8	0	0	2
-9	0	0	0
-10	0	0	0
-11	0	0	0
-12	0	0	0
-13	0	0	1
-14	0	0	0
-14	0	0	0
-15	0	0	31
-
+attr interpo

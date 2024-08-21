@@ -238,9 +238,9 @@ vector<parcel> dfs_bnb(vector<parcel>& parcels, double& distance, int& carriedPa
     // 시작점을 (0,0)으로 설정하고 택배 리스트에 추가
     parcel startParcel;
     startParcel.parcelID = -1;
-    startParcel.parceldest.x = 0;
-    startParcel.parceldest.y = 0;
+    startParcel.parceldest = originPos;
     parcels.insert(parcels.begin(), startParcel);
+    
     // 택배 리스트를 출력
     
     for(int i=0; i<parcels.size(); i++) {
@@ -278,16 +278,13 @@ vector<parcel> dfs_bnb(vector<parcel>& parcels, double& distance, int& carriedPa
     // DFS를 시작
     dfs(0, 0, 0, visited, n, travel, min_value, path);
 
-    // 최적 경로에 따라 택배를 정렬
-    vector<parcel> sorted_parcels;
-    for(int i : path) {
-        sorted_parcels.push_back(parcels[i]);
-    }
+    // 최적 경로에 시작점으로 돌아오는 것 추가
+    path.push_back(0);
 
-    //print the optimal path
-    cout << "Optimal path: ";
-    for(int i=0; i<path.size(); i++) {
-        cout << path[i] << " ";
+    // 최적 경로에 따라 택배를 정렬 (시작점 제외)
+    vector<parcel> sorted_parcels;
+    for(int i = 1; i < path.size() - 1; i++) {
+        sorted_parcels.push_back(parcels[path[i]]);
     }
     
     //print the sorted parcels
@@ -297,7 +294,10 @@ vector<parcel> dfs_bnb(vector<parcel>& parcels, double& distance, int& carriedPa
     }
     cout << endl;
 
+    //현재 들고있는 리스트에 대한 최소거리
     cout << "Minimum distance: " << min_value << endl;
+
+    //현재까지 축적된 거리
     distance += min_value;
     cout << "BnB total distance increased: " << distance << endl;
 
@@ -335,11 +335,14 @@ double dynamic(vector<parcel>& parcels, int pos, int visited, vector<vector<doub
 void dp_tsp(vector<parcel>& parcels, int& carriedParcels) {
     cout << "Solving DP" << endl;
     //test
-    //remove_dupcoordinates(parcels, carriedParcels);
-    //print the parcels
-    for(int i=0; i<parcels.size(); i++) {
-        cout << "Parcel to solve" << parcels[i].parcelID << " : " << parcels[i].parceldest.x << " " << parcels[i].parceldest.y << endl;
-    }
+    remove_dupcoordinates(parcels, carriedParcels);
+
+    // 시작점(원점) 추가
+    parcel startParcel;
+    startParcel.parcelID = -1;
+    startParcel.parceldest = originPos;
+    parcels.insert(parcels.begin(), startParcel);
+
     int n = parcels.size();
     vector<vector<double>> distance(n, vector<double>(n));
     for(int i=0; i<n; i++) {
@@ -354,12 +357,16 @@ void dp_tsp(vector<parcel>& parcels, int& carriedParcels) {
     vector<int> path;
     dynamic(parcels, 0, 1, dp, distance, 0, ans, optimalPath, path);
 
-    // Sort parcels based on the optimal path
+    // 최적 경로에 시작점으로 돌아오는 것 추가
+    optimalPath.push_back(0);
+
+    // 정렬된 택배 리스트 생성 (시작점 제외)
     vector<parcel> sortedParcels;
-    for(int i=optimalPath.size()-1; i>=0; i--) {
+    for(int i=1; i<optimalPath.size()-1; i++) {
         sortedParcels.push_back(parcels[optimalPath[i]]);
     }
-
+    
+    //마지막에 꼭 0이 추가된다
     //print the sorted parcels
     cout << "DP Sorted parcels: ";
     for(int i=0; i<sortedParcels.size(); i++) {
