@@ -1,9 +1,9 @@
-file 6499 1723516558                                            
+file 5674 1724636066                                            
 version 3
-run CNPF-0-20240813-10:56:52-13280
+run CNPF-0-20240826-10:32:17-37098
 attr configname CNPF
-attr datetime 20240813-10:56:52
-attr datetimef 20240813-105652
+attr datetime 20240826-10:32:17
+attr datetimef 20240826-103217
 attr experiment CNPF
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -11,7 +11,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 13280
+attr processid 37098
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -31,31 +31,10 @@ config **.drone[*].mobility.angleDelta "normal(0deg, 30deg)"
 config **.drone[*].mobility.speed 10mps
 config **.drone[*].mobility.remainingBattery 480
 config **.drone[*].mobility.weightCapacity 100
-config **.drone[*].mobility.parcelSelectionMethod 0
+config **.drone[*].mobility.parcelSelectionMethod 4
 config **.drone[*].mobility.initialX 0m
 config **.drone[*].mobility.initialY 0m
 config **.drone[*].mobility.initialZ 0m
-config *.numdst 6
-config **.dst*.mobility.typename StatNodeMob
-config **.dst[0].mobility.initialX 200m
-config **.dst[0].mobility.initialY 100m
-config **.dst[0].mobility.initialZ 0m
-config **.dst[1].mobility.initialX 100m
-config **.dst[1].mobility.initialY 250m
-config **.dst[1].mobility.initialZ 0m
-config **.dst[2].mobility.initialX 260m
-config **.dst[2].mobility.initialY 220m
-config **.dst[2].mobility.initialZ 0m
-config **.dst[3].mobility.initialX 200m
-config **.dst[3].mobility.initialY 330m
-config **.dst[3].mobility.initialZ 0m
-config **.dst[4].mobility.initialX 400m
-config **.dst[4].mobility.initialY 300m
-config **.dst[4].mobility.initialZ 0m
-config **.dst[5].mobility.initialX 400m
-config **.dst[5].mobility.initialY 200m
-config **.dst[5].mobility.initialZ 0m
-config **.dst[*].mobility.initFromDisplayString false
 config sim-time-limit 10day
 config **.constraintAreaMinX 0m
 config **.constraintAreaMinY 0m
@@ -152,20 +131,20 @@ vector 15 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recoveryProcedure contention
 attr interpolationmode sample-hold
 attr recordingmode vector
 attr title "contention window"
-0	6250 16 0 0 0 0 2 0 0 0 0
-1	6266 40 0 0 0 0 5 0 0 0 0
-2	6306 40 0 0 0 0 5 0 0 0 0
-3	6346 16 0 0 0 0 2 0 0 0 0
-4	6362 16 0 0 0 0 2 0 0 0 0
-5	6378 8 0 0 0 0 1 0 0 0 0
-6	6386 8 0 0 0 0 1 0 0 0 0
-7	6394 8 0 0 0 0 1 0 0 0 0
-8	6402 24 0 0 0 0 3 0 2 2 4
-9	6426 8 0 0 0 0 1 0 0 0 0
-10	6434 9 0 0 0 0 1 0 0 0 0
-11	6443 9 0 0 0 0 1 0 0 0 0
-12	6452 9 0 0 0 0 1 0 0 0 0
-13	6461 9 0 0 0 0 1 1 1 1 1
-14	6470 18 0 0 0 0 2 0 0 0 0
-15	6488 10 0 0 0 0 1 31 31 31 961
+0	5425 16 0 0 0 0 2 0 0 0 0
+1	5441 40 0 0 0 0 5 0 0 0 0
+2	5481 40 0 0 0 0 5 0 0 0 0
+3	5521 16 0 0 0 0 2 0 0 0 0
+4	5537 16 0 0 0 0 2 0 0 0 0
+5	5553 8 0 0 0 0 1 0 0 0 0
+6	5561 8 0 0 0 0 1 0 0 0 0
+7	5569 8 0 0 0 0 1 0 0 0 0
+8	5577 24 0 0 0 0 3 0 2 2 4
+9	5601 8 0 0 0 0 1 0 0 0 0
+10	5609 9 0 0 0 0 1 0 0 0 0
+11	5618 9 0 0 0 0 1 0 0 0 0
+12	5627 9 0 0 0 0 1 0 0 0 0
+13	5636 9 0 0 0 0 1 1 1 1 1
+14	5645 18 0 0 0 0 2 0 0 0 0
+15	5663 10 0 0 0 0 1 31 31 31 961
 

@@ -1,8 +1,8 @@
 version 3
-run CNPF-0-20240813-10:56:52-13280
+run CNPF-0-20240826-10:32:17-37098
 attr configname CNPF
-attr datetime 20240813-10:56:52
-attr datetimef 20240813-105652
+attr datetime 20240826-10:32:17
+attr datetimef 20240826-103217
 attr experiment CNPF
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -10,7 +10,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 13280
+attr processid 37098
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -30,31 +30,10 @@ config **.drone[*].mobility.angleDelta "normal(0deg, 30deg)"
 config **.drone[*].mobility.speed 10mps
 config **.drone[*].mobility.remainingBattery 480
 config **.drone[*].mobility.weightCapacity 100
-config **.drone[*].mobility.parcelSelectionMethod 0
+config **.drone[*].mobility.parcelSelectionMethod 4
 config **.drone[*].mobility.initialX 0m
 config **.drone[*].mobility.initialY 0m
 config **.drone[*].mobility.initialZ 0m
-config *.numdst 6
-config **.dst*.mobility.typename StatNodeMob
-config **.dst[0].mobility.initialX 200m
-config **.dst[0].mobility.initialY 100m
-config **.dst[0].mobility.initialZ 0m
-config **.dst[1].mobility.initialX 100m
-config **.dst[1].mobility.initialY 250m
-config **.dst[1].mobility.initialZ 0m
-config **.dst[2].mobility.initialX 260m
-config **.dst[2].mobility.initialY 220m
-config **.dst[2].mobility.initialZ 0m
-config **.dst[3].mobility.initialX 200m
-config **.dst[3].mobility.initialY 330m
-config **.dst[3].mobility.initialZ 0m
-config **.dst[4].mobility.initialX 400m
-config **.dst[4].mobility.initialY 300m
-config **.dst[4].mobility.initialZ 0m
-config **.dst[5].mobility.initialX 400m
-config **.dst[5].mobility.initialY 200m
-config **.dst[5].mobility.initialZ 0m
-config **.dst[*].mobility.initFromDisplayString false
 config sim-time-limit 10day
 config **.constraintAreaMinX 0m
 config **.constraintAreaMinY 0m

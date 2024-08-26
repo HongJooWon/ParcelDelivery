@@ -61,6 +61,13 @@ void addallDist(vector<parcel>& parcels) {
     cout << "add all distance: " << totalDist << endl;
 }
 
+//각 지점에 대한 거리와 현재 적재중인 택배의 무게를 고려하여 배터리 소모량을 계산
+//그럼 전체 택배 리스트에서 드론에 처음 몇개를 어떻게 조정할 것인가
+//이미 적재된 것에서 배터러 소모를 계산하고, 제외하면 거리 계산을 다시 해야하는 문제
+//택배는 랜덤한 순서로 생성되지만, 각 택배에 Deadline이 있다면 우선순위를 정할 수 있음
+//deadline와 시간 관계를 나타내는 코드가 필요함 - 시뮬타임과 deadline의 관계
+
+
 // Minimum Spanning Tree
 double calculateMST(const vector<vector<double>>& distances, const vector<bool>& included) {
     int n = distances.size();
@@ -106,11 +113,50 @@ double calculateMST(const vector<vector<double>>& distances, const vector<bool>&
 }
 
 //greedy algorithm for TSP
-vector<parcel> greedyTSP(vector<parcel>& parcels, double& distance){
+// vector<parcel> greedyTSP(vector<parcel>& parcels, double& distance){
+//     vector<parcel> sortedParcels = {};
+//     vector<bool> visited(parcels.size(), false);
+//     Coord currPos = originPos;
+//     double totalDist = 0;
+//     while(sortedParcels.size() < parcels.size()) {
+//         double minDist = -1;
+//         int nextParcel = -1;
+//         for(int i=0; i<parcels.size(); i++) {
+//             if(!visited[i]) {
+//                 double d = dist(currPos, parcels[i].parceldest);
+//                 if(d < minDist || minDist == -1) {
+//                     minDist = d;
+//                     nextParcel = i;
+//                 }
+//             }
+//         }
+//         cout << "Current Position: " << currPos.x << ", " << currPos.y << " Next position: " << parcels[nextParcel].parceldest.x << ", " << parcels[nextParcel].parceldest.y << " Distance: " << dist(currPos, parcels[nextParcel].parceldest) << endl;
+//         totalDist += minDist;
+//         cout  << "minDist: " << minDist << " Total distance: " << totalDist << endl;
+
+//         visited[nextParcel] = true;
+//         sortedParcels.push_back(parcels[nextParcel]);
+//         currPos = parcels[nextParcel].parceldest;
+//     }
+
+//     totalDist += dist(currPos, originPos); //출발지로 돌아가는 거리
+//     cout << "Greedy TSP distance: " << totalDist << endl;
+//     distance += totalDist;
+//     cout << "Total distance increased " << distance << endl;
+
+//     return sortedParcels;
+// }
+
+//greedy algorithm for TSP with battery consumption
+vector<parcel> greedyTSP(vector<parcel>& parcels, double& distance, double& remainingBattery){
     vector<parcel> sortedParcels = {};
     vector<bool> visited(parcels.size(), false);
     Coord currPos = originPos;
     double totalDist = 0;
+
+    //battery consumption을 거리와 현재 적재중인 택배의 무게를 고려하여 계산할 것
+    double batteryConsumption = 0;
+
     while(sortedParcels.size() < parcels.size()) {
         double minDist = -1;
         int nextParcel = -1;
@@ -644,8 +690,7 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
         switch (selectionMethod) {
             case 0:
                 //Greedy
-                MissionParcels = greedyTSP(MissionParcels, tspDistance);
-                //dfs_bnb(MissionParcels, tspDistance, totalParcels);
+                //MissionParcels = greedyTSP(MissionParcels, tspDistance);
                 //print the destination of the parcels
                 for (unsigned int i = 0; i < MissionParcels.size(); i++){
                     cout << " destination of Greedy: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<"; " << endl;
@@ -674,6 +719,16 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
             case 3:
                 // Minimum Spanning Tree
                 MissionParcels = mstTSP(MissionParcels);
+                break;
+            case 4:
+                //Greedy
+                MissionParcels = greedyTSP(MissionParcels, tspDistance, droneremainingbattery);
+
+                cout << "battery capacity: " << droneremainingbattery << endl;
+                //print the destination of the parcels
+                for (unsigned int i = 0; i < MissionParcels.size(); i++){
+                    cout << " destination of Greedy: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<"; " << endl;
+                }
                 break;
         }
     }

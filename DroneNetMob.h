@@ -29,13 +29,6 @@ struct parcel{
     double exp_time;
     Coord parceldest;
 };
-void parcelsDefinition (int nparcels);
-
-enum parcelSelection{
-    CNPF = 0,        //Closest-Deadline-Parcel-First
-    BNB = 1,       //Closest-Neighbor-Parcel-First
-    EPDS = 2,      //Efficient Parcel Delivery Service distance/weight
-};
 
 class INET_API DroneNetMob : public LineSegmentsMobilityBase
 {
