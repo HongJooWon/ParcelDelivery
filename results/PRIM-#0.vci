@@ -1,9 +1,9 @@
-file 17442 1724634926                                           
+file 35618 1725194820                                           
 version 3
-run PRIM-0-20240826-10:15:19-35283
+run PRIM-0-20240901-21:46:51-5271
 attr configname PRIM
-attr datetime 20240826-10:15:19
-attr datetimef 20240826-101519
+attr datetime 20240901-21:46:51
+attr datetimef 20240901-214651
 attr experiment PRIM
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -11,7 +11,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 35283
+attr processid 5271
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -152,22 +152,22 @@ vector 15 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recoveryProcedure contention
 attr interpolationmode sample-hold
 attr recordingmode vector
 attr title "contention window"
-0	6250 16 0 0 0 0 2 0 0 0 0
-1	6266 40 0 0 0 0 5 0 0 0 0
-2	6306 40 0 0 0 0 5 0 0 0 0
-3	6346 16 0 0 0 0 2 0 0 0 0
-4	6362 16 0 0 0 0 2 0 0 0 0
-5	6378 8 0 0 0 0 1 0 0 0 0
-6	6386 8 0 0 0 0 1 0 0 0 0
-7	6394 8 0 0 0 0 1 0 0 0 0
-8	6402 24 0 0 0 0 3 0 2 2 4
-9	6426 8 0 0 0 0 1 0 0 0 0
-10	6434 2546 0 79 0 14.920821449784 80 0 173.1148616068 3968.2835329294 367559.71654207
-11	8980 2554 0 79 0 14.920821449784 80 0 392 16243.221816438 4766495.6892533
-12	11534 1707 0 79 0 14.920821449784 80 0 0 0 0
-13	13241 9 0 0 0 0 1 1 1 1 1
-14	13250 18 0 0 0 0 2 0 0 0 0
-15	13268 10 0 0 0 0 1 31 31 31 961
+0	6248 16 0 0 0 0 2 0 0 0 0
+1	6264 40 0 0 0 0 5 0 0 0 0
+2	6304 40 0 0 0 0 5 0 0 0 0
+3	6344 16 0 0 0 0 2 0 0 0 0
+4	6360 16 0 0 0 0 2 0 0 0 0
+5	6376 8 0 0 0 0 1 0 0 0 0
+6	6384 8 0 0 0 0 1 0 0 0 0
+7	6392 8 0 0 0 0 1 0 0 0 0
+8	6400 24 0 0 0 0 3 0 2 2 4
+9	6424 8 0 0 0 0 1 0 0 0 0
+10	6432 6791 0 199 0 38.101801136695 200 0 584 48918.152155814 18976217.143374
+11	13223 6807 0 199 0 38.101801136695 200 0 392 39698.182962346 11780423.608546
+12	20030 4687 0 199 0 38.101801136695 200 0 0 0 0
+13	24717 9 0 0 0 0 1 1 1 1 1
+14	24726 18 0 0 0 0 2 0 0 0 0
+15	24744 10 0 0 0 0 1 31 31 31 961
 vector 16 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue outgoingDataRate:vector ETV
 attr interpolationmode linear
 attr recordingmode vector
@@ -180,6 +180,6 @@ attr recordingmode vector
 attr source throughput(packetPushStarted)
 attr title "incoming datarate"
 attr unit bps
-16	13773 1834 79 79 0.1 14.920821449784 150 0 0 0 0
-17	15607 1834 79 79 0.1 14.920821449784 150 0 0 0 0
+16	25249 5184 199 199 0.1 38.101801136695 382 0 0 0 0
+17	30433 5184 199 199 0.1 38.101801136695 382 0 0 0 0
 

@@ -620,6 +620,7 @@ void DroneNetMob::parcelsDefinition (int nparcels){
 
     }
 }
+
 vector<parcel> DroneNetMob::droneParcelsSelectionFromSource(int parcelSel){
     vector<parcel> selectedParcels;
     double packedweight = 0;
