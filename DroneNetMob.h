@@ -42,13 +42,6 @@ struct parcel{
     double exp_time;
     Coord parceldest;
 };
-//void parcelsDefinition (int nparcels);
-
-enum parcelSelection{
-    CNPF = 0,        //Closest-Deadline-Parcel-First
-    BNB = 1,       //Closest-Neighbor-Parcel-First
-    EPDS = 2,      //Efficient Parcel Delivery Service distance/weight
-};
 
 class INET_API DroneNetMob : public LineSegmentsMobilityBase
 {
@@ -71,10 +64,13 @@ class INET_API DroneNetMob : public LineSegmentsMobilityBase
 //    bool flagmovedtodst;
     double droneweightcapacity;
     double droneremainingbattery;
+    double totalWeight;
     int selectionMethod;
     std::vector<parcel> MissionParcels;
     double deliveryStartTime = 0;
     double deliveryEndTime =   0;
+    double batteryConsumption = 0;
+    double tspDistance = 0;
 
   protected:
     virtual int numInitStages() const override { return NUM_INIT_STAGES; }
@@ -93,7 +89,6 @@ class INET_API DroneNetMob : public LineSegmentsMobilityBase
 
   public:
     DroneNetMob();
-    virtual ~DroneNetMob();
     virtual double getMaxSpeed() const override;
     void destGen(int ndst);
     void parcelsDefinition (int nparcels);
@@ -102,7 +97,6 @@ class INET_API DroneNetMob : public LineSegmentsMobilityBase
     Coord destAssignment();
   
   private:
-    double tspDistance = 0;
     simtime_t missionTime = 0;
     int totalParcels = -1;
     int carriedParcels = 0;
