@@ -51,10 +51,13 @@ class INET_API DroneNetMob : public LineSegmentsMobilityBase
 //    bool flagmovedtodst;
     double droneweightcapacity;
     double droneremainingbattery;
+    double totalWeight;
     int selectionMethod;
     std::vector<parcel> MissionParcels;
     double deliveryStartTime = 0;
     double deliveryEndTime =   0;
+    double batteryConsumption = 0;
+    double tspDistance = 0;
 
   protected:
     virtual int numInitStages() const override { return NUM_INIT_STAGES; }
@@ -81,7 +84,6 @@ class INET_API DroneNetMob : public LineSegmentsMobilityBase
     Coord destAssignment();
   
   private:
-    double tspDistance = 0;
     simtime_t missionTime = 0;
     int totalParcels = -1;
     int carriedParcels = 0;

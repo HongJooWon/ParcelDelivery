@@ -1,9 +1,9 @@
-file 67590 1726097164                                           
+file 449622 1727277425                                          
 version 3
-run CNPF-0-20240912-08:26:04-57389
+run CNPF-0-20240926-00:17:05-38412
 attr configname CNPF
-attr datetime 20240912-08:26:04
-attr datetimef 20240912-082604
+attr datetime 20240926-00:17:05
+attr datetimef 20240926-001705
 attr experiment CNPF
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -11,7 +11,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 57389
+attr processid 38412
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -31,12 +31,11 @@ config **.drone[*].mobility.angleDelta "normal(0deg, 30deg)"
 config **.drone[*].mobility.speed 10mps
 config **.drone[*].mobility.remainingBattery 480
 config **.drone[*].mobility.weightCapacity 100
-config **.drone[*].mobility.parcelSelectionMethod 0
+config **.drone[*].mobility.parcelSelectionMethod 4
 config **.drone[*].mobility.initialX 0m
 config **.drone[*].mobility.initialY 0m
 config **.drone[*].mobility.initialZ 0m
-config repeat 10
-config sim-time-limit 80second
+config sim-time-limit 600second
 config **.constraintAreaMinX 0m
 config **.constraintAreaMinY 0m
 config **.constraintAreaMinZ 0m
@@ -144,22 +143,22 @@ attr recordingmode vector
 attr source throughput(packetPushStarted)
 attr title "incoming datarate"
 attr unit bps
-0	5939 16 0 0 0 0 2 0 0 0 0
-1	5955 40 0 0 0 0 5 0 0 0 0
-2	5995 40 0 0 0 0 5 0 0 0 0
-3	6035 16 0 0 0 0 2 0 0 0 0
-4	6051 16 0 0 0 0 2 0 0 0 0
-5	6067 8 0 0 0 0 1 0 0 0 0
-6	6075 8 0 0 0 0 1 0 0 0 0
-7	6083 8 0 0 0 0 1 0 0 0 0
-8	6091 24 0 0 0 0 3 0 2 2 4
-9	6115 8 0 0 0 0 1 0 0 0 0
-10	6123 14697 0 420 0 79.909900557275 421 0 575 118160.41114832 49942773.743614
-11	20820 14651 0 420 0 79.909900557275 421 0 329 71457.322121205 16636934.42918
-12	35471 10199 0 420 0 79.909900557275 421 0 0 0 0
-13	45670 9 0 0 0 0 1 1 1 1 1
-14	45679 18 0 0 0 0 2 0 0 0 0
-15	45697 10 0 0 0 0 1 31 31 31 961
-16	45707 10941 421 421 0.1 80 800 0 0 0 0
-17	56648 10941 421 421 0.1 80 800 0 0 0 0
+0	5923 16 0 0 0 0 2 0 0 0 0
+1	5939 40 0 0 0 0 5 0 0 0 0
+2	5979 40 0 0 0 0 5 0 0 0 0
+3	6019 16 0 0 0 0 2 0 0 0 0
+4	6035 16 0 0 0 0 2 0 0 0 0
+5	6051 8 0 0 0 0 1 0 0 0 0
+6	6059 8 0 0 0 0 1 0 0 0 0
+7	6067 8 0 0 0 0 1 0 0 0 0
+8	6075 24 0 0 0 0 3 0 2 2 4
+9	6099 8 0 0 0 0 1 0 0 0 0
+10	6107 86429 0 3155 0 599.914498772139 3156 0 582 81720.252811198 27350302.587456
+11	92536 86595 0 3155 0 599.914498772139 3156 0 390 68756.455486535 17077632.030244
+12	179131 83049 0 3155 0 599.914498772139 3156 0 0 0 0
+13	262180 9 0 0 0 0 1 1 1 1 1
+14	262189 18 0 0 0 0 2 0 0 0 0
+15	262207 10 0 0 0 0 1 31 31 31 961
+16	262217 93702 3156 3156 0.1 600 6000 0 0 0 0
+17	355919 93702 3156 3156 0.1 600 6000 0 0 0 0
 

@@ -26,7 +26,7 @@ simple DroneNetMob extends MovingMobilityBase
         int nd = default (0);
         int npar = default(10);
         double weightCapacity = default(20);
-        double remainingBattery = default(100);
+        double remainingBattery = default(10000);
         int parcelSelectionMethod = default(0); // 0: greedy, 1: BnB, 2: new_algorithm
         double initialX @unit(m) = default(uniform(constraintAreaMinX, constraintAreaMaxX));
         double initialY @unit(m) = default(uniform(constraintAreaMinY, constraintAreaMaxY));
