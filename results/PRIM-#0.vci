@@ -1,9 +1,9 @@
-file 35618 1725194820                                           
+file 26273 1726090593                                           
 version 3
-run PRIM-0-20240901-21:46:51-5271
+run PRIM-0-20240912-06:28:09-2808
 attr configname PRIM
-attr datetime 20240901-21:46:51
-attr datetimef 20240901-214651
+attr datetime 20240912-06:28:09
+attr datetimef 20240912-062809
 attr experiment PRIM
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -11,7 +11,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 5271
+attr processid 2808
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -162,24 +162,10 @@ attr title "contention window"
 7	6392 8 0 0 0 0 1 0 0 0 0
 8	6400 24 0 0 0 0 3 0 2 2 4
 9	6424 8 0 0 0 0 1 0 0 0 0
-10	6432 6791 0 199 0 38.101801136695 200 0 584 48918.152155814 18976217.143374
-11	13223 6807 0 199 0 38.101801136695 200 0 392 39698.182962346 11780423.608546
-12	20030 4687 0 199 0 38.101801136695 200 0 0 0 0
-13	24717 9 0 0 0 0 1 1 1 1 1
-14	24726 18 0 0 0 0 2 0 0 0 0
-15	24744 10 0 0 0 0 1 31 31 31 961
-vector 16 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue outgoingDataRate:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source throughput(packetPulled)
-attr title "outgoing datarate"
-attr unit bps
-vector 17 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue incomingDataRate:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source throughput(packetPushStarted)
-attr title "incoming datarate"
-attr unit bps
-16	25249 5184 199 199 0.1 38.101801136695 382 0 0 0 0
-17	30433 5184 199 199 0.1 38.101801136695 382 0 0 0 0
+10	6432 7361 0 215 0 41.015955810824 216 0 557 71627.715336172 31163785.133051
+11	13793 7355 0 215 0 41.015955810824 216 0 397 38048.806055942 11785603.68224
+12	21148 5087 0 215 0 41.015955810824 216 0 0 0 0
+13	26235 9 0 0 0 0 1 1 1 1 1
+14	26244 18 0 0 0 0 2 0 0 0 0
+15	26262 10 0 0 0 0 1 31 31 31 961
 

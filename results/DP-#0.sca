@@ -1,8 +1,8 @@
 version 3
-run DP-0-20240901-21:46:26-5184
+run DP-0-20240912-08:50:52-70264
 attr configname DP
-attr datetime 20240901-21:46:26
-attr datetimef 20240901-214626
+attr datetime 20240912-08:50:52
+attr datetimef 20240912-085052
 attr experiment DP
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -10,7 +10,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 5184
+attr processid 70264
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -21,7 +21,7 @@ config network ParcelDeliveryNetwork
 config description "1 drones, 10 destinations, 100 parcels, "
 config *.numdrones 1
 config **.drone*.mobility.typename DroneNetMob
-config **.drone[*].mobility.ndst 50
+config **.drone[*].mobility.ndst 30
 config **.drone[*].mobility.nd 8
 config **.drone[*].mobility.npar 30
 config **.drone[*].mobility.initFromDisplayString false
@@ -34,7 +34,7 @@ config **.drone[*].mobility.parcelSelectionMethod 2
 config **.drone[*].mobility.initialX 0m
 config **.drone[*].mobility.initialY 0m
 config **.drone[*].mobility.initialZ 0m
-config sim-time-limit 10day
+config sim-time-limit 600second
 config **.constraintAreaMinX 0m
 config **.constraintAreaMinY 0m
 config **.constraintAreaMinZ 0m
@@ -64,7 +64,7 @@ attr unit m
 par ParcelDeliveryNetwork.drone[0].mobility updateInterval 0.2s
 attr unit s
 par ParcelDeliveryNetwork.drone[0].mobility faceForward true
-par ParcelDeliveryNetwork.drone[0].mobility ndst 50
+par ParcelDeliveryNetwork.drone[0].mobility ndst 30
 par ParcelDeliveryNetwork.drone[0].mobility nd 8
 par ParcelDeliveryNetwork.drone[0].mobility npar 30
 par ParcelDeliveryNetwork.drone[0].mobility weightCapacity 100

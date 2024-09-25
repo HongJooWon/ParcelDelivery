@@ -113,81 +113,81 @@ double calculateMST(const vector<vector<double>>& distances, const vector<bool>&
 }
 
 //greedy algorithm for TSP
-// vector<parcel> greedyTSP(vector<parcel>& parcels, double& distance){
-//     vector<parcel> sortedParcels = {};
-//     vector<bool> visited(parcels.size(), false);
-//     Coord currPos = originPos;
-//     double totalDist = 0;
-//     while(sortedParcels.size() < parcels.size()) {
-//         double minDist = -1;
-//         int nextParcel = -1;
-//         for(int i=0; i<parcels.size(); i++) {
-//             if(!visited[i]) {
-//                 double d = dist(currPos, parcels[i].parceldest);
-//                 if(d < minDist || minDist == -1) {
-//                     minDist = d;
-//                     nextParcel = i;
-//                 }
-//             }
-//         }
-//         cout << "Current Position: " << currPos.x << ", " << currPos.y << " Next position: " << parcels[nextParcel].parceldest.x << ", " << parcels[nextParcel].parceldest.y << " Distance: " << dist(currPos, parcels[nextParcel].parceldest) << endl;
-//         totalDist += minDist;
-//         cout  << "minDist: " << minDist << " Total distance: " << totalDist << endl;
+ vector<parcel> greedyTSP(vector<parcel>& parcels, double& distance){
+     vector<parcel> sortedParcels = {};
+     vector<bool> visited(parcels.size(), false);
+     Coord currPos = originPos;
+     double totalDist = 0;
+     while(sortedParcels.size() < parcels.size()) {
+         double minDist = -1;
+         int nextParcel = -1;
+         for(int i=0; i<parcels.size(); i++) {
+             if(!visited[i]) {
+                 double d = dist(currPos, parcels[i].parceldest);
+                 if(d < minDist || minDist == -1) {
+                     minDist = d;
+                     nextParcel = i;
+                 }
+             }
+         }
+         cout << "Current Position: " << currPos.x << ", " << currPos.y << " Next position: " << parcels[nextParcel].parceldest.x << ", " << parcels[nextParcel].parceldest.y << " Distance: " << dist(currPos, parcels[nextParcel].parceldest) << endl;
+         totalDist += minDist;
+         cout  << "minDist: " << minDist << " Total distance: " << totalDist << endl;
 
-//         visited[nextParcel] = true;
-//         sortedParcels.push_back(parcels[nextParcel]);
-//         currPos = parcels[nextParcel].parceldest;
-//     }
+         visited[nextParcel] = true;
+         sortedParcels.push_back(parcels[nextParcel]);
+         currPos = parcels[nextParcel].parceldest;
+     }
 
-//     totalDist += dist(currPos, originPos); //출발지로 돌아가는 거리
-//     cout << "Greedy TSP distance: " << totalDist << endl;
-//     distance += totalDist;
-//     cout << "Total distance increased " << distance << endl;
+     totalDist += dist(currPos, originPos); //출발지로 돌아가는 거리
+     cout << "Greedy TSP distance: " << totalDist << endl;
+     distance += totalDist;
+     cout << "Total distance increased " << distance << endl;
 
-//     return sortedParcels;
-// }
+     return sortedParcels;
+ }
 
 //greedy algorithm for TSP with battery consumption
-vector<parcel> greedyTSP(vector<parcel>& parcels, double& distance, double& remainingBattery){
-    vector<parcel> sortedParcels = {};
-    vector<bool> visited(parcels.size(), false);
-    Coord currPos = originPos;
-    double totalDist = 0;
-
-    //battery consumption을 거리와 현재 적재중인 택배의 무게를 고려하여 계산할 것
-    double batteryConsumption = 0;
-
-    while(sortedParcels.size() < parcels.size()) {
-        double minDist = -1;
-        int nextParcel = -1;
-        for(int i=0; i<parcels.size(); i++) {
-            if(!visited[i]) {
-                double d = dist(currPos, parcels[i].parceldest);
-                if(d < minDist || minDist == -1) {
-                    minDist = d;
-                    nextParcel = i;
-                }
-            }
-        }
-        cout << "Current Position: " << currPos.x << ", " << currPos.y << " Next position: " << parcels[nextParcel].parceldest.x << ", " << parcels[nextParcel].parceldest.y << " Distance: " << dist(currPos, parcels[nextParcel].parceldest) << endl;
-        totalDist += minDist;
-        cout  << "minDist: " << minDist << " Total distance: " << totalDist << endl;
-
-        visited[nextParcel] = true;
-        sortedParcels.push_back(parcels[nextParcel]);
-        currPos = parcels[nextParcel].parceldest;
-    }
-
-    totalDist += dist(currPos, originPos); //출발지로 돌아가는 거리
-    cout << "Greedy TSP distance: " << totalDist << endl;
-    distance += totalDist;
-    cout << "Total distance increased " << distance << endl;
-
-    return sortedParcels;
-}
+//vector<parcel> greedyTSP(vector<parcel>& parcels, double& distance, double& remainingBattery){
+//    vector<parcel> sortedParcels = {};
+//    vector<bool> visited(parcels.size(), false);
+//    Coord currPos = originPos;
+//    double totalDist = 0;
+//
+//    //battery consumption을 거리와 현재 적재중인 택배의 무게를 고려하여 계산할 것
+//    double batteryConsumption = 0;
+//
+//    while(sortedParcels.size() < parcels.size()) {
+//        double minDist = -1;
+//        int nextParcel = -1;
+//        for(int i=0; i<parcels.size(); i++) {
+//            if(!visited[i]) {
+//                double d = dist(currPos, parcels[i].parceldest);
+//                if(d < minDist || minDist == -1) {
+//                    minDist = d;
+//                    nextParcel = i;
+//                }
+//            }
+//        }
+//        cout << "Current Position: " << currPos.x << ", " << currPos.y << " Next position: " << parcels[nextParcel].parceldest.x << ", " << parcels[nextParcel].parceldest.y << " Distance: " << dist(currPos, parcels[nextParcel].parceldest) << endl;
+//        totalDist += minDist;
+//        cout  << "minDist: " << minDist << " Total distance: " << totalDist << endl;
+//
+//        visited[nextParcel] = true;
+//        sortedParcels.push_back(parcels[nextParcel]);
+//        currPos = parcels[nextParcel].parceldest;
+//    }
+//
+//    totalDist += dist(currPos, originPos); //출발지로 돌아가는 거리
+//    cout << "Greedy TSP distance: " << totalDist << endl;
+//    distance += totalDist;
+//    cout << "Total distance increased " << distance << endl;
+//
+//    return sortedParcels;
+//}
 
 //중복 좌표 제거
-void remove_dupcoordinates(vector<parcel>& parcels, int& carriedParcels) {
+void remove_dupcoordinates(vector<parcel>& parcels, int& carriedParcels, int& totalparcel) {
     dup = 0;
     unordered_map<string, int> coord_map;
 
@@ -205,6 +205,7 @@ void remove_dupcoordinates(vector<parcel>& parcels, int& carriedParcels) {
             parcels.erase(parcels.begin() + i);
             i--;  // 인덱스를 조정하여 제거된 요소를 건너뛰지 않도록 함
             carriedParcels--; //중복된 만큼 전체 택배 수를 감소
+            totalparcel--;
         }
     }
 
@@ -378,10 +379,10 @@ double dynamic(vector<parcel>& parcels, int pos, int visited, vector<vector<doub
     return ans;
 }
 
-void dp_tsp(vector<parcel>& parcels, int& carriedParcels) {
+vector<parcel> dp_tsp(vector<parcel>& parcels, double& totaldistance, int& carriedParcels, int& totalparcel) {
     cout << "Solving DP" << endl;
     //test
-    remove_dupcoordinates(parcels, carriedParcels);
+    remove_dupcoordinates(parcels, carriedParcels, totalparcel);
 
     // 시작점(원점) 추가
     parcel startParcel;
@@ -422,7 +423,10 @@ void dp_tsp(vector<parcel>& parcels, int& carriedParcels) {
     cout << endl;
 
     cout << "DP minimum distance: " << ans << endl;
-    //return sortedParcels;
+    //add the distance to the total distance
+    totaldistance += ans;
+
+    return sortedParcels;
 }
 
 // Minimum Spanning Tree - Prim's Algorithm
@@ -691,7 +695,7 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
         switch (selectionMethod) {
             case 0:
                 //Greedy
-                //MissionParcels = greedyTSP(MissionParcels, tspDistance);
+                MissionParcels = greedyTSP(MissionParcels, tspDistance);
                 //print the destination of the parcels
                 for (unsigned int i = 0; i < MissionParcels.size(); i++){
                     cout << " destination of Greedy: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<"; " << endl;
@@ -699,11 +703,11 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
                 break;
             case 1:
                 // BnB TSP
-                remove_dupcoordinates(MissionParcels, carriedParcels);
+                remove_dupcoordinates(MissionParcels, carriedParcels, totalParcels);
 
                 MissionParcels = dfs_bnb(MissionParcels, tspDistance, carriedParcels);
                 
-                dp_tsp(copiedMissionParcels, carriedParcels);
+                //dp_tsp(copiedMissionParcels, carriedParcels);
                 //print the destination of the parcels
                 for (unsigned int i = 0; i < MissionParcels.size(); i++){
                     cout << " destination of BnB: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<";  Ind = "<< i << endl;
@@ -711,7 +715,7 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
                 break;
             case 2:
                 // Dynamic Programming TSP
-                //MissionParcels = dp_tsp(MissionParcels);
+                MissionParcels = dp_tsp(MissionParcels, tspDistance, carriedParcels, totalParcels);
                 //print the destination of the parcels
                 for (unsigned int i = 0; i < MissionParcels.size(); i++){
                     cout << " destination of DP: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<"; " << endl;
@@ -723,7 +727,7 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
                 break;
             case 4:
                 //Greedy
-                MissionParcels = greedyTSP(MissionParcels, tspDistance, droneremainingbattery);
+                //MissionParcels = greedyTSP(MissionParcels, tspDistance, droneremainingbattery);
 
                 cout << "battery capacity: " << droneremainingbattery << endl;
                 //print the destination of the parcels
@@ -795,10 +799,18 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
         cout << "distance recorded: " << tspDistance << endl;
         cout << "time recorded: " << missionTime << endl;
 
-        //print parcel list
-        for (unsigned int i = 0; i < MissionParcels.size(); i++){
-            cout << "Parcel ID: " << MissionParcels[i].parcelID << " Parcel Destination: " << MissionParcels[i].parceldest.x << ", " << MissionParcels[i].parceldest.y << endl;
-        }
+        //generate new other 30 destinations
+        // destGen(numdst->intValue());
+        // //reset the parcels
+        // parcelsDefinition(30);
+        // //reset the variables
+        // isEnd = false;
+        // OngoingMission = false;
+        // totalParcels = 0;
+        // carriedParcels = 0;
+        // tspDistance = 0;
+        // missionTime = 0;
+
     }
     return nextdest;
 }

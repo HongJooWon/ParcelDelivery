@@ -1,8 +1,8 @@
 version 3
-run CNPF-0-20240901-21:45:54-4957
+run CNPF-0-20240912-08:26:04-57389
 attr configname CNPF
-attr datetime 20240901-21:45:54
-attr datetimef 20240901-214554
+attr datetime 20240912-08:26:04
+attr datetimef 20240912-082604
 attr experiment CNPF
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -10,7 +10,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 4957
+attr processid 57389
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -18,10 +18,10 @@ attr runnumber 0
 attr seedset 0
 config image-path ../inet/images
 config network ParcelDeliveryNetwork
-config description "1 drones, 10 destinations, 100 parcels, "
+config description "1 drones, 30 destinations, 30 parcels, "
 config *.numdrones 1
 config **.drone*.mobility.typename DroneNetMob
-config **.drone[*].mobility.ndst 50
+config **.drone[*].mobility.ndst 30
 config **.drone[*].mobility.nd 8
 config **.drone[*].mobility.npar 30
 config **.drone[*].mobility.initFromDisplayString false
@@ -30,11 +30,12 @@ config **.drone[*].mobility.angleDelta "normal(0deg, 30deg)"
 config **.drone[*].mobility.speed 10mps
 config **.drone[*].mobility.remainingBattery 480
 config **.drone[*].mobility.weightCapacity 100
-config **.drone[*].mobility.parcelSelectionMethod 4
+config **.drone[*].mobility.parcelSelectionMethod 0
 config **.drone[*].mobility.initialX 0m
 config **.drone[*].mobility.initialY 0m
 config **.drone[*].mobility.initialZ 0m
-config sim-time-limit 10day
+config repeat 10
+config sim-time-limit 80second
 config **.constraintAreaMinX 0m
 config **.constraintAreaMinY 0m
 config **.constraintAreaMinZ 0m
@@ -64,12 +65,12 @@ attr unit m
 par ParcelDeliveryNetwork.drone[0].mobility updateInterval 0.2s
 attr unit s
 par ParcelDeliveryNetwork.drone[0].mobility faceForward true
-par ParcelDeliveryNetwork.drone[0].mobility ndst 50
+par ParcelDeliveryNetwork.drone[0].mobility ndst 30
 par ParcelDeliveryNetwork.drone[0].mobility nd 8
 par ParcelDeliveryNetwork.drone[0].mobility npar 30
 par ParcelDeliveryNetwork.drone[0].mobility weightCapacity 100
 par ParcelDeliveryNetwork.drone[0].mobility remainingBattery 480
-par ParcelDeliveryNetwork.drone[0].mobility parcelSelectionMethod 4
+par ParcelDeliveryNetwork.drone[0].mobility parcelSelectionMethod 0
 par ParcelDeliveryNetwork.drone[0].mobility initialX 0m
 attr unit m
 par ParcelDeliveryNetwork.drone[0].mobility initialY 0m

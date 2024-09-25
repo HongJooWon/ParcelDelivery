@@ -1,27 +1,27 @@
 version 3
-run PRIM-0-20240901-21:46:51-5271
-attr configname PRIM
-attr datetime 20240901-21:46:51
-attr datetimef 20240901-214651
-attr experiment PRIM
+run CNPF-33-20240912-08:19:28-54225
+attr configname CNPF
+attr datetime 20240912-08:19:28
+attr datetimef 20240912-081928
+attr experiment CNPF
 attr inifile omnetpp.ini
-attr iterationvars ""
-attr iterationvarsd ""
-attr iterationvarsf ""
-attr measurement ""
+attr iterationvars $0=30
+attr iterationvarsd 30
+attr iterationvarsf 30-
+attr measurement $0=30
 attr network ParcelDeliveryNetwork
-attr processid 5271
-attr repetition 0
-attr replication #0
+attr processid 54225
+attr repetition 3
+attr replication #3
 attr resultdir results
-attr runnumber 0
-attr seedset 0
+attr runnumber 33
+attr seedset 33
 config image-path ../inet/images
 config network ParcelDeliveryNetwork
-config description "1 drones, 10 destinations, 100 parcels, "
+config description "1 drones, 30 destinations, 30 parcels, "
 config *.numdrones 1
 config **.drone*.mobility.typename DroneNetMob
-config **.drone[*].mobility.ndst 50
+config **.drone[*].mobility.ndst 30
 config **.drone[*].mobility.nd 8
 config **.drone[*].mobility.npar 30
 config **.drone[*].mobility.initFromDisplayString false
@@ -30,32 +30,12 @@ config **.drone[*].mobility.angleDelta "normal(0deg, 30deg)"
 config **.drone[*].mobility.speed 10mps
 config **.drone[*].mobility.remainingBattery 480
 config **.drone[*].mobility.weightCapacity 100
-config **.drone[*].mobility.parcelSelectionMethod 3
+config **.drone[*].mobility.parcelSelectionMethod 0
 config **.drone[*].mobility.initialX 0m
 config **.drone[*].mobility.initialY 0m
 config **.drone[*].mobility.initialZ 0m
-config *.numdst 6
-config **.dst*.mobility.typename StatNodeMob
-config **.dst[0].mobility.initialX 200m
-config **.dst[0].mobility.initialY 100m
-config **.dst[0].mobility.initialZ 0m
-config **.dst[1].mobility.initialX 100m
-config **.dst[1].mobility.initialY 250m
-config **.dst[1].mobility.initialZ 0m
-config **.dst[2].mobility.initialX 260m
-config **.dst[2].mobility.initialY 220m
-config **.dst[2].mobility.initialZ 0m
-config **.dst[3].mobility.initialX 200m
-config **.dst[3].mobility.initialY 330m
-config **.dst[3].mobility.initialZ 0m
-config **.dst[4].mobility.initialX 400m
-config **.dst[4].mobility.initialY 300m
-config **.dst[4].mobility.initialZ 0m
-config **.dst[5].mobility.initialX 400m
-config **.dst[5].mobility.initialY 200m
-config **.dst[5].mobility.initialZ 0m
-config **.dst[*].mobility.initFromDisplayString false
-config sim-time-limit 10day
+config repeat 10
+config sim-time-limit 80second
 config **.constraintAreaMinX 0m
 config **.constraintAreaMinY 0m
 config **.constraintAreaMinZ 0m
@@ -85,19 +65,19 @@ attr unit m
 par ParcelDeliveryNetwork.drone[0].mobility updateInterval 0.2s
 attr unit s
 par ParcelDeliveryNetwork.drone[0].mobility faceForward true
-par ParcelDeliveryNetwork.drone[0].mobility ndst 50
+par ParcelDeliveryNetwork.drone[0].mobility ndst 30
 par ParcelDeliveryNetwork.drone[0].mobility nd 8
 par ParcelDeliveryNetwork.drone[0].mobility npar 30
 par ParcelDeliveryNetwork.drone[0].mobility weightCapacity 100
 par ParcelDeliveryNetwork.drone[0].mobility remainingBattery 480
-par ParcelDeliveryNetwork.drone[0].mobility parcelSelectionMethod 3
+par ParcelDeliveryNetwork.drone[0].mobility parcelSelectionMethod 0
 par ParcelDeliveryNetwork.drone[0].mobility initialX 0m
 attr unit m
 par ParcelDeliveryNetwork.drone[0].mobility initialY 0m
 attr unit m
 par ParcelDeliveryNetwork.drone[0].mobility initialZ 0m
 attr unit m
-par ParcelDeliveryNetwork.drone[0].mobility initialMovementHeading 197.573deg
+par ParcelDeliveryNetwork.drone[0].mobility initialMovementHeading 89.4636deg
 attr unit deg
 par ParcelDeliveryNetwork.drone[0].mobility initialMovementElevation 0deg
 attr unit deg
@@ -217,9 +197,9 @@ par ParcelDeliveryNetwork.gcs.mobility constraintAreaMaxY 400m
 attr unit m
 par ParcelDeliveryNetwork.gcs.mobility constraintAreaMaxZ 0m
 attr unit m
-par ParcelDeliveryNetwork.gcs.mobility initialX 355.707m
+par ParcelDeliveryNetwork.gcs.mobility initialX 413.81m
 attr unit m
-par ParcelDeliveryNetwork.gcs.mobility initialY 286.076m
+par ParcelDeliveryNetwork.gcs.mobility initialY 179.99m
 attr unit m
 par ParcelDeliveryNetwork.gcs.mobility initialZ 0m
 attr unit m

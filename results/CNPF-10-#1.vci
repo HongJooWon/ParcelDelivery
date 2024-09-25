@@ -1,0 +1,151 @@
+file 42557 1726096767                                           
+version 3
+run CNPF-1-20240912-08:19:27-54225
+attr configname CNPF
+attr datetime 20240912-08:19:27
+attr datetimef 20240912-081927
+attr experiment CNPF
+attr inifile omnetpp.ini
+attr iterationvars $0=10
+attr iterationvarsd 10
+attr iterationvarsf 10-
+attr measurement $0=10
+attr network ParcelDeliveryNetwork
+attr processid 54225
+attr repetition 1
+attr replication #1
+attr resultdir results
+attr runnumber 1
+attr seedset 1
+config image-path ../inet/images
+config network ParcelDeliveryNetwork
+config description "1 drones, 30 destinations, 30 parcels, "
+config *.numdrones 1
+config **.drone*.mobility.typename DroneNetMob
+config **.drone[*].mobility.ndst 10
+config **.drone[*].mobility.nd 8
+config **.drone[*].mobility.npar 30
+config **.drone[*].mobility.initFromDisplayString false
+config **.drone[*].mobility.changeInterval "truncnormal(2s, 0.5s)"
+config **.drone[*].mobility.angleDelta "normal(0deg, 30deg)"
+config **.drone[*].mobility.speed 10mps
+config **.drone[*].mobility.remainingBattery 480
+config **.drone[*].mobility.weightCapacity 100
+config **.drone[*].mobility.parcelSelectionMethod 0
+config **.drone[*].mobility.initialX 0m
+config **.drone[*].mobility.initialY 0m
+config **.drone[*].mobility.initialZ 0m
+config repeat 10
+config sim-time-limit 80second
+config **.constraintAreaMinX 0m
+config **.constraintAreaMinY 0m
+config **.constraintAreaMinZ 0m
+config **.constraintAreaMaxX 600m
+config **.constraintAreaMaxY 400m
+config **.constraintAreaMaxZ 0m
+config **.updateInterval 0.2s
+
+vector 0 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf frameSequenceActive:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source warmup(count(frameSequenceStarted)-count(frameSequenceFinished))
+attr title "frame sequence active"
+vector 1 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 2 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 3 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.inProgressFrames queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(count(packetEnqueued) - count(packetDequeued))"
+attr title "queue length"
+vector 4 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.contention backoffActive:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source warmup(count(backoffStarted)-count(backoffStopped))
+attr title "backoff active"
+vector 5 ParcelDeliveryNetwork.gcs.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+vector 6 ParcelDeliveryNetwork.gcs.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+vector 7 ParcelDeliveryNetwork.gcs.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+vector 8 ParcelDeliveryNetwork.gcs.wlan[0].radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 9 ParcelDeliveryNetwork.gcs.wlan[0].radio radioChannel:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioChannelChanged
+attr title "Radio channel"
+vector 10 ParcelDeliveryNetwork.drone[0] coordX:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source xCoord(mobilityPos(mobilityStateChanged))
+attr title "coord X"
+vector 11 ParcelDeliveryNetwork.drone[0] coordY:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source yCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Y"
+vector 12 ParcelDeliveryNetwork.drone[0] coordZ:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source zCoord(mobilityPos(mobilityStateChanged))
+attr title "coord Z"
+vector 13 ParcelDeliveryNetwork.gcs.wlan[0].radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 14 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.contention stateChanged:vector ETV
+attr enum IDLE,DEFER,IFS_AND_BACKOFF
+attr interpolationmode none
+attr recordingmode vector
+attr title "contention state changed"
+attr type enum
+vector 15 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recoveryProcedure contentionWindowChanged:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr title "contention window"
+0	5451 16 0 0 0 0 2 0 0 0 0
+1	5467 40 0 0 0 0 5 0 0 0 0
+2	5507 40 0 0 0 0 5 0 0 0 0
+3	5547 16 0 0 0 0 2 0 0 0 0
+4	5563 16 0 0 0 0 2 0 0 0 0
+5	5579 8 0 0 0 0 1 0 0 0 0
+6	5587 8 0 0 0 0 1 0 0 0 0
+7	5595 8 0 0 0 0 1 0 0 0 0
+8	5603 24 0 0 0 0 3 0 2 2 4
+9	5627 8 0 0 0 0 1 0 0 0 0
+10	5635 13316 0 423 0 79.935286952645 424 0 584 125740.83238102 57552172.547081
+11	18951 13305 0 423 0 79.935286952645 424 0 376 70071.264314908 16669822.053522
+12	32256 10263 0 423 0 79.935286952645 424 0 0 0 0
+13	42519 9 0 0 0 0 1 1 1 1 1
+14	42528 18 0 0 0 0 2 0 0 0 0
+15	42546 10 0 0 0 0 1 31 31 31 961
+
