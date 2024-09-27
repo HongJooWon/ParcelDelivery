@@ -620,8 +620,12 @@ void DroneNetMob::move()
             cout <<"Vel = " << lastVelocity.x <<"  ; " << lastVelocity.x << "  ; " << lastVelocity.z << endl;
             cout <<"moving"<<endl;
             //다음 위치까지 배터리 소모량 계산
-            batteryConsumption += batteryCalculation(lastPosition, targetPosition, totalWeight, getMaxSpeed());
-            cout << "Battery consumed: " << batteryConsumption << " mAh" << endl;
+            //처음 위치는 계산안함
+            if(lastPosition != originPos){
+                batteryConsumption += batteryCalculation(lastPosition, targetPosition, totalWeight, getMaxSpeed());
+                cout << "Battery consumed: " << batteryConsumption << " mAh" << endl;
+
+            }
 
         }
         else if (now > lastUpdate) {
