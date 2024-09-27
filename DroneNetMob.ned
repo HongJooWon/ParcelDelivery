@@ -13,7 +13,7 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-package cana;
+//package cana;
 import inet.mobility.base.MovingMobilityBase;
 
 //
