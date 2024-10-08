@@ -1,9 +1,9 @@
-                                                                
+file 140068 1728279604                                          
 version 3
-run CNPF-0-20240927-18:01:17-11916
+run CNPF-0-20241007-14:40:04-30836
 attr configname CNPF
-attr datetime 20240927-18:01:17
-attr datetimef 20240927-180117
+attr datetime 20241007-14:40:04
+attr datetimef 20241007-144004
 attr experiment CNPF
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -11,7 +11,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 11916
+attr processid 30836
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -29,7 +29,7 @@ config **.drone[*].mobility.initFromDisplayString false
 config **.drone[*].mobility.changeInterval "truncnormal(2s, 0.5s)"
 config **.drone[*].mobility.angleDelta "normal(0deg, 30deg)"
 config **.drone[*].mobility.speed 10mps
-config **.drone[*].mobility.remainingBattery 480
+config **.drone[*].mobility.remainingBattery 12800
 config **.drone[*].mobility.weightCapacity 100
 config **.drone[*].mobility.parcelSelectionMethod 4
 config **.drone[*].mobility.initialX 0m
@@ -188,29 +188,58 @@ vector 25 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recoveryProcedure contention
 attr interpolationmode sample-hold
 attr recordingmode vector
 attr title "contention window"
-0	8516 18 0 0 0 0 2 0 0 0 0
-1	8534 45 0 0 0 0 5 0 0 0 0
-2	8579 45 0 0 0 0 5 0 0 0 0
-3	8624 18 0 0 0 0 2 0 0 0 0
-4	8642 18 0 0 0 0 2 0 0 0 0
-5	8660 9 0 0 0 0 1 0 0 0 0
-6	8669 9 0 0 0 0 1 0 0 0 0
-7	8678 9 0 0 0 0 1 0 0 0 0
-8	8687 18 0 0 0 0 2 0 0 0 0
-9	8705 45 0 0 0 0 5 0 0 0 0
-10	8750 50 0 0 0 0 5 0 0 0 0
-11	8800 20 0 0 0 0 2 0 0 0 0
-12	8820 20 0 0 0 0 2 0 0 0 0
-13	8840 10 0 0 0 0 1 0 0 0 0
-14	8850 10 0 0 0 0 1 0 0 0 0
-15	8860 10 0 0 0 0 1 0 0 0 0
-16	8870 30 0 0 0 0 3 0 2 2 4
-17	8900 10 0 0 0 0 1 0 0 0 0
-18	8910 30 0 0 0 0 3 0 2 2 4
-19	8940 10 0 0 0 0 1 0 0 0 0
-20	8950 10 0 0 0 0 1 1 1 1 1
-21	8960 20 0 0 0 0 2 0 0 0 0
-22	8980 10 0 0 0 0 1 1 1 1 1
-23	8990 20 0 0 0 0 2 0 0 0 0
-24	9010 11 0 0 0 0 1 31 31 31 961
-25	9021 11 0 0 0 0 1 31 31 31 961
+vector 26 ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.pendingQueue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 27 ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.pendingQueue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 28 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 29 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+0	9542 18 0 0 0 0 2 0 0 0 0
+1	9560 45 0 0 0 0 5 0 0 0 0
+2	9605 45 0 0 0 0 5 0 0 0 0
+3	9650 18 0 0 0 0 2 0 0 0 0
+4	9668 18 0 0 0 0 2 0 0 0 0
+5	9686 9 0 0 0 0 1 0 0 0 0
+6	9695 9 0 0 0 0 1 0 0 0 0
+7	9704 9 0 0 0 0 1 0 0 0 0
+8	9713 18 0 0 0 0 2 0 0 0 0
+9	9731 45 0 0 0 0 5 0 0 0 0
+10	9776 50 0 0 0 0 5 0 0 0 0
+11	9826 20 0 0 0 0 2 0 0 0 0
+12	9846 20 0 0 0 0 2 0 0 0 0
+13	9866 10 0 0 0 0 1 0 0 0 0
+14	9876 10 0 0 0 0 1 0 0 0 0
+15	9886 10 0 0 0 0 1 0 0 0 0
+16	9896 30 0 0 0 0 3 0 2 2 4
+17	9926 10 0 0 0 0 1 0 0 0 0
+18	9936 30 0 0 0 0 3 0 2 2 4
+19	9966 10 0 0 0 0 1 0 0 0 0
+20	9976 10 0 0 0 0 1 1 1 1 1
+21	9986 20 0 0 0 0 2 0 0 0 0
+22	10006 10 0 0 0 0 1 1 1 1 1
+23	10016 20 0 0 0 0 2 0 0 0 0
+24	10036 11 0 0 0 0 1 31 31 31 961
+25	10047 11 0 0 0 0 1 31 31 31 961
+26	10058 32502 1053 1053 0.1 200 2000 0 0 0 0
+27	42560 32502 1053 1053 0.1 200 2000 0 0 0 0
+28	75062 32502 1053 1053 0.1 200 2000 0 0 0 0
+29	107564 32502 1053 1053 0.1 200 2000 0 0 0 0
+

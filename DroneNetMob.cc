@@ -52,25 +52,149 @@ double dist(Coord a, Coord b) {
 
 //정렬된 리스트 경로와 무게 변화에 따른 battery consumtion
 double batteryCalculation(Coord a, Coord b, double carriedWeight, double speed) {
-   double distance = dist(a, b);
+    double distance = dist(a, b);
+    double batteryConsumption = 0;
 
-   // 무 적재시 1분 비행당 기본 배터리 소모량 (mAh/분)
-   //DJI Matrice 300 RTK 듀얼 배터리, 총 11870mAh
-   const double BASE_CONSUMPTION = 216.0;
+    //택배없이 일반적인 horizontal moving일 때, E = 308.709t - 0.852
+    //택배가 있을 때, L in grams, E = (0.311L + 1.735)*t
+    double time = distance / speed;
+    if (carriedWeight == 0) {
+        batteryConsumption = 308.709 * time - 0.852;
+    } else {
+        batteryConsumption = (0.311 * carriedWeight + 1.735) * time;
+    }
 
-   //0.5kg 추가당 배터리 소모율 증가 (5%)
-   const double WEIGHT_CONSUMPTION_RATE = 0.05;
-
-   // distance / 속력 = 시간
-   double consumpedTime = distance / speed;
-
-   // 무게에 따른 소모율 증가 계산
-   double weightIncreaseFactor = 1.0 + (carriedWeight / 0.5) * WEIGHT_CONSUMPTION_RATE;
-
-   double batteryConsumption = (BASE_CONSUMPTION * consumpedTime * weightIncreaseFactor);
-
-   return batteryConsumption;
+    return batteryConsumption;
 }
+
+//무게를 고려한 그리디 경로 탐색 알고리즘
+vector<parcel> energyEfficientPath(vector<parcel>& parcels, double& totalDistance) {
+    vector<parcel> sortedParcels;
+    int n = parcels.size();
+    vector<bool> visited(n, false);
+    Coord currentPos = originPos;
+    double currentWeight = 0;
+    
+
+    // 에너지 소비 모델 파라미터
+    const double alpha = 1.0; // 거리에 대한 가중치
+    const double beta = 0.5;  // 무게에 대한 가중치
+
+    while (sortedParcels.size() < n) {
+        int bestNext = -1;
+        double minEnergyCost = numeric_limits<double>::max();
+
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                double d = dist(currentPos, parcels[i].parceldest);
+                double w = currentWeight + parcels[i].weight;
+                
+                // 새로운 에너지 비용 계산: a*d + B*w
+                double energyCost = alpha * d + beta * w;
+
+                if (energyCost < minEnergyCost) {
+                    minEnergyCost = energyCost;
+                    bestNext = i;
+                }
+            }
+        }
+
+        if (bestNext != -1) {
+            visited[bestNext] = true;
+            sortedParcels.push_back(parcels[bestNext]);
+            totalDistance = dist(currentPos, parcels[bestNext].parceldest);
+            currentPos = parcels[bestNext].parceldest;
+            currentWeight += parcels[bestNext].weight;
+        }
+    }
+
+    // 출발지로 돌아가는 에너지 비용 추가
+    totalDistance += dist(currentPos, originPos);
+
+    return sortedParcels;
+}
+
+//무게를 고려한 그리디 경로 탐색 알고리즘
+// vector<parcel> energyEfficientPath(vector<parcel>& parcels, double& weightCapacity, double& distance) {
+//     vector<parcel> sortedParcels = {};
+//     int n = parcels.size();
+//     //방문확인 배열
+//     vector<bool> visited(n, false);
+//     Coord currentPos = originPos;
+//     double totalWeight = 0;
+
+//     // 에너지 소비 모델 파라미터
+//     const double alpha = 1.0; // 에너지 효율성 상수
+//     const double beta = 1.5;  // 무게에 대한 지수
+//     const double B = weightCapacity;    // 드론의 최대 적재 무게 (kg)
+
+//     cout << "Energy efficient path calculation start!" << endl;
+
+//     int bestNext;
+//     double d;
+//     double newTotalWeight;
+//     double energyCost;
+//     double weightPenalty;
+
+//     while (sortedParcels.size() < n) {
+//         bestNext = -1;
+//         double minEnergyCost = numeric_limits<double>::max();
+
+//         for (int i = 0; i < n; i++) {
+//             //아직 방문을 하지 않은 것들 중 가장 효율적인 좌표 선택
+//             if (!visited[i]) {
+//                 d = dist(currentPos, parcels[i].parceldest);
+//                 newTotalWeight = totalWeight + parcels[i].weight;
+//                 energyCost = alpha * d * pow(newTotalWeight, beta);
+
+//                 // 무게 기반 페널티 = (현재 무게 / 최대 적재 무게)^2
+//                 weightPenalty = pow(newTotalWeight / B, 2);
+//                 energyCost *= (1 + weightPenalty);
+
+//                 if (energyCost < minEnergyCost) {
+//                     minEnergyCost = energyCost;
+//                     bestNext = i;
+//                 }
+//             }
+//         }
+
+//         cout << "Best next: " << bestNext << endl;
+
+//         if (bestNext != -1) {
+//             visited[bestNext] = true;
+//             sortedParcels.push_back(parcels[bestNext]);
+//             distance += dist(currentPos, parcels[bestNext].parceldest);
+//             currentPos = parcels[bestNext].parceldest;
+//             totalWeight += parcels[bestNext].weight;
+//         }
+//     }
+
+//     // 출발지로 돌아오는 거리 추가
+//     distance += dist(currentPos, originPos);
+
+//     return sortedParcels;
+// }
+
+// double batteryCalculation(Coord a, Coord b, double carriedWeight, double speed) {
+//    double distance = dist(a, b);
+
+//    // 무 적재시 1분 비행당 기본 배터리 소모량 (mAh/분)
+//    //DJI Matrice 300 RTK 듀얼 배터리, 총 11870mAh
+//    const double BASE_CONSUMPTION = 216.0;
+
+//    //0.5kg 추가당 배터리 소모율 증가 (5%)
+//    const double WEIGHT_CONSUMPTION_RATE = 0.05;
+
+//    // distance / 속력 = 시간
+//    double consumpedTime = distance / speed;
+
+//    // 무게에 따른 소모율 증가 계산
+//    double weightIncreaseFactor = 1.0 + (carriedWeight / 0.5) * WEIGHT_CONSUMPTION_RATE;
+
+//    double batteryConsumption = (BASE_CONSUMPTION * consumpedTime * weightIncreaseFactor);
+
+//    return batteryConsumption;
+// }
 
 //void updateBatteryAndWeight(Coord nextDest) {
 //    double consumption = batteryConsumption(lastPosition, nextDest, totalWeight);
@@ -154,77 +278,83 @@ double calculateMST(const vector<vector<double>>& distances, const vector<bool>&
 }
 
 //greedy algorithm for TSP
- vector<parcel> greedyTSP(vector<parcel>& parcels, double& distance){
-     vector<parcel> sortedParcels = {};
-     vector<bool> visited(parcels.size(), false);
-     Coord currPos = originPos;
-     double totalDist = 0;
-     while(sortedParcels.size() < parcels.size()) {
-         double minDist = -1;
-         int nextParcel = -1;
-         for(int i=0; i<parcels.size(); i++) {
-             if(!visited[i]) {
-                 double d = dist(currPos, parcels[i].parceldest);
-                 if(d < minDist || minDist == -1) {
-                     minDist = d;
-                     nextParcel = i;
-                 }
-             }
-         }
-         cout << "Current Position: " << currPos.x << ", " << currPos.y << " Next position: " << parcels[nextParcel].parceldest.x << ", " << parcels[nextParcel].parceldest.y << " Distance: " << dist(currPos, parcels[nextParcel].parceldest) << endl;
-         totalDist += minDist;
-         cout  << "minDist: " << minDist << " Total distance: " << totalDist << endl;
+vector<parcel> greedyTSP(vector<parcel>& parcels, double& distance){
+    vector<parcel> sortedParcels = {};
+    vector<bool> visited(parcels.size(), false);
+    Coord currPos = originPos;
+    double totalDist = 0;
+    while(sortedParcels.size() < parcels.size()) {
+        double minDist = -1;
+        int nextParcel = -1;
+        for(int i=0; i<parcels.size(); i++) {
+            if(!visited[i]) {
+                double d = dist(currPos, parcels[i].parceldest);
+                if(d < minDist || minDist == -1) {
+                    minDist = d;
+                    nextParcel = i;
+                }
+            }
+        }
+        cout << "Current Position: " << currPos.x << ", " << currPos.y << " Next position: " << parcels[nextParcel].parceldest.x << ", " << parcels[nextParcel].parceldest.y << " Distance: " << dist(currPos, parcels[nextParcel].parceldest) << endl;
+        totalDist += minDist;
+        cout  << "minDist: " << minDist << " Total distance: " << totalDist << endl;
 
-         visited[nextParcel] = true;
-         sortedParcels.push_back(parcels[nextParcel]);
-         currPos = parcels[nextParcel].parceldest;
-     }
+        visited[nextParcel] = true;
+        sortedParcels.push_back(parcels[nextParcel]);
+        currPos = parcels[nextParcel].parceldest;
+    }
 
-     totalDist += dist(currPos, originPos); //출발지로 돌아가는 거리
-     cout << "Greedy TSP distance: " << totalDist << endl;
-     distance += totalDist;
-     cout << "Total distance increased " << distance << endl;
+    totalDist += dist(currPos, originPos); //출발지로 돌아가는 거리
+    cout << "Greedy TSP distance: " << totalDist << endl;
+    distance += totalDist;
+    cout << "Total distance increased " << distance << endl;
 
-     return sortedParcels;
- }
+    return sortedParcels;
+}
 
 //greedy algorithm for TSP with battery consumption
-vector<parcel> greedyTSP_B(vector<parcel>& parcels, double& distance){
-   vector<parcel> sortedParcels = {};
-   vector<bool> visited(parcels.size(), false);
-   Coord currPos = originPos;
-   double totalDist = 0;
+vector<parcel> greedyTSP_B(vector<parcel>& parcels, double& distance, double energy, double carriedWeight, double speed){
+    vector<parcel> sortedParcels = {};
+    vector<bool> visited(parcels.size(), false);
+    Coord currPos = originPos;
 
-   //battery consumption을 거리와 현재 적재중인 택배의 무게를 고려하여 계산할 것
-   double batteryConsumption = 0;
+    //battery consumption을 거리와 현재 적재중인 택배의 무게를 고려하여 계산할 것
+    double totalConsumption = 0;
+    double totalDist = 0;
 
-   while(sortedParcels.size() < parcels.size()) {
-       double minDist = -1;
-       int nextParcel = -1;
-       for(int i=0; i<parcels.size(); i++) {
-           if(!visited[i]) {
-               double d = dist(currPos, parcels[i].parceldest);
-               if(d < minDist || minDist == -1) {
-                   minDist = d;
-                   nextParcel = i;
-               }
-           }
-       }
-       cout << "Current Position: " << currPos.x << ", " << currPos.y << " Next position: " << parcels[nextParcel].parceldest.x << ", " << parcels[nextParcel].parceldest.y << " Distance: " << dist(currPos, parcels[nextParcel].parceldest) << endl;
-       totalDist += minDist;
-       cout  << "minDist: " << minDist << " Total distance: " << totalDist << endl;
+    //현재 좌표에서 Energy Consumption이 가장 적은 택배를 선택
+    while(sortedParcels.size() < parcels.size()) {
+        double minEnergy = -1;
+        int nextParcel = -1;
 
-       visited[nextParcel] = true;
-       sortedParcels.push_back(parcels[nextParcel]);
-       currPos = parcels[nextParcel].parceldest;
-   }
+        for(int i=0; i<parcels.size(); i++) {
+            if(!visited[i]) {
+                double currEnergy = batteryCalculation(currPos, parcels[i].parceldest, carriedWeight, speed);
+                if(currEnergy < minEnergy || minEnergy == -1) {
+                    minEnergy = currEnergy;
+                    nextParcel = i;
+                }
+            }
+        }
 
-   totalDist += dist(currPos, originPos); //출발지로 돌아가는 거리
-   cout << "Greedy TSP distance: " << totalDist << endl;
-   distance += totalDist;
-   cout << "Total distance increased " << distance << endl;
+        totalConsumption += minEnergy;
+        totalDist += dist(currPos, parcels[nextParcel].parceldest);
 
-   return sortedParcels;
+        visited[nextParcel] = true;
+        sortedParcels.push_back(parcels[nextParcel]);
+        currPos = parcels[nextParcel].parceldest;
+    }
+
+    totalConsumption += batteryCalculation(currPos, originPos, carriedWeight, speed); //출발지로 돌아가는 배터리 소모까지 계산
+    totalDist += dist(currPos, originPos); //출발지로 돌아가는 거리까지 계산
+
+    distance += totalDist;
+    cout << "Energy Greedy distance: " << distance << endl;
+
+    energy += totalConsumption;
+    cout << "Total energy consumption: " << energy << endl;
+
+    return sortedParcels;
 }
 
 //중복 좌표 제거
@@ -528,9 +658,9 @@ void DroneNetMob::initialize(int stage)
         originPos.x = ox->doubleValue();
         originPos.y = oy->doubleValue();
         originPos.z = oz->doubleValue();
-        droneweightcapacity =  (&par("weightCapacity"))->doubleValue();
+        droneWeightCapacity =  (&par("weightCapacity"))->doubleValue();
         droneremainingbattery =  (&par("remainingBattery"))->doubleValue();
-        totalWeight = 0;
+        carriedWeight = 0;
         selectionMethod = (&par("parcelSelectionMethod"))->intValue();
         if (strcmp(getParentModule()->getFullName(), "drone[0]") == 0){
             cout << " Name -----> " << getParentModule()->getFullName() <<endl;
@@ -622,7 +752,7 @@ void DroneNetMob::move()
             //다음 위치까지 배터리 소모량 계산
             //처음 위치는 계산안함
             if(lastPosition != originPos){
-                batteryConsumption += batteryCalculation(lastPosition, targetPosition, totalWeight, getMaxSpeed());
+                batteryConsumption += batteryCalculation(lastPosition, targetPosition, carriedWeight, getMaxSpeed());
                 cout << "Battery consumed: " << batteryConsumption << " mAh" << endl;
 
             }
@@ -695,7 +825,7 @@ vector<parcel> DroneNetMob::droneParcelsSelectionFromSource(int parcelSel){
         for (unsigned int i = 0; i < parcel_depot.size(); i++){
             packedweight+=parcel_depot[i].weight;
             //배터리 소모량을 고려하여 택배를 적재
-            if (packedweight < droneweightcapacity){
+            if (packedweight < droneWeightCapacity){
                 selectedParcels.push_back(parcel_depot[i]);
                 k++;
             }
@@ -703,6 +833,10 @@ vector<parcel> DroneNetMob::droneParcelsSelectionFromSource(int parcelSel){
                 break;
             }
         }
+
+        //적재 무게
+        carriedWeight = packedweight;
+        
         cout <<"Remaining Parcels = " <<parcel_depot.size() <<endl;
         parcel_depot.erase(parcel_depot.begin(), parcel_depot.begin()+k);
         carriedParcels = k;
@@ -779,16 +913,16 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
                 MissionParcels = mstTSP(MissionParcels);
                 break;
             case 4:
-                //Greedy
-                // MissionParcels = greedyTSP_B(MissionParcels, tspDistance);
-                MissionParcels = greedyTSP(MissionParcels, tspDistance);
-
+                //Greedy - battery consumption
+                // MissionParcels = energyEfficientPath(MissionParcels, droneWeightCapacity, tspDistance);
+                MissionParcels = energyEfficientPath(MissionParcels, tspDistance);
                 //calculate the battery consumption
                 // batteryConsumption = 0;
                 cout << "battery capacity: " << droneremainingbattery << endl;
+                cout << "Battery consumed: " << batteryConsumption << " mAh" << endl;
                 //print the destination of the parcels
                 for (unsigned int i = 0; i < MissionParcels.size(); i++){
-                    cout << " destination of Greedy: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<"; " << endl;
+                    cout << " destination of EEPD: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<"; " << endl;
                 }
                 break;
         }
@@ -854,18 +988,6 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
 
         cout << "distance recorded: " << tspDistance << endl;
         cout << "time recorded: " << missionTime << endl;
-
-        //generate new other 30 destinations
-        // destGen(numdst->intValue());
-        // //reset the parcels
-        // parcelsDefinition(30);
-        // //reset the variables
-        // isEnd = false;
-        // OngoingMission = false;
-        // totalParcels = 0;
-        // carriedParcels = 0;
-        // tspDistance = 0;
-        // missionTime = 0;
 
     }
     return nextdest;
