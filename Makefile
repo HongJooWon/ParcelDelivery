@@ -33,7 +33,13 @@ PROJECTRELATIVE_PATH =
 O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc, .msg and .sm files
-OBJS = $O/Dest.o $O/DroneNetMob.o $O/DroneNetMob11.o $O/StatNodeMob.o $O/TSPBnB.o
+OBJS = \
+    $O/Dest.o \
+    $O/DroneNetMob.o \
+    $O/DroneNetMob11.o \
+    $O/ParcelGenerator.o \
+    $O/StatNodeMob.o \
+    $O/TSPBnB.o
 
 # Message files
 MSGFILES =
