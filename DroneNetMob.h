@@ -93,6 +93,7 @@ class INET_API DroneNetMob : public LineSegmentsMobilityBase
     virtual double getMaxSpeed() const override;
     void destGen(int ndst);
     void parcelsDefinition (int nparcels);
+    // void parcelsDefinition (std::string filename);
     std::vector<parcel> droneParcelsSelectionFromSource(int parcelSel);
     Coord missionPathNextDest(Coord curpos);
     Coord destAssignment();

@@ -1,9 +1,9 @@
-file 140919 1728447903                                          
+file 140918 1728451810                                          
 version 3
-run EEPD-0-20241009-13:25:03-38528
+run EEPD-0-20241009-14:30:10-28444
 attr configname EEPD
-attr datetime 20241009-13:25:03
-attr datetimef 20241009-132503
+attr datetime 20241009-14:30:10
+attr datetimef 20241009-143010
 attr experiment EEPD
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -11,7 +11,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 38528
+attr processid 28444
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -22,7 +22,7 @@ config network ParcelDeliveryNetwork
 config description "path planning considering energy consumption"
 config *.numdrones 1
 config **.drone*.mobility.typename DroneNetMob
-config **.drone[*].mobility.ndst 30
+config **.drone[*].mobility.ndst 5
 config **.drone[*].mobility.nd 8
 config **.drone[*].mobility.npar 30
 config **.drone[*].mobility.initFromDisplayString false
@@ -233,34 +233,34 @@ attr recordingmode vector
 attr source throughput(packetPushStarted)
 attr title "incoming datarate"
 attr unit bps
-0	10393 18 0 0 0 0 2 0 0 0 0
-1	10411 45 0 0 0 0 5 0 0 0 0
-2	10456 45 0 0 0 0 5 0 0 0 0
-3	10501 18 0 0 0 0 2 0 0 0 0
-4	10519 18 0 0 0 0 2 0 0 0 0
-5	10537 9 0 0 0 0 1 0 0 0 0
-6	10546 9 0 0 0 0 1 0 0 0 0
-7	10555 9 0 0 0 0 1 0 0 0 0
-8	10564 18 0 0 0 0 2 0 0 0 0
-9	10582 45 0 0 0 0 5 0 0 0 0
-10	10627 50 0 0 0 0 5 0 0 0 0
-11	10677 20 0 0 0 0 2 0 0 0 0
-12	10697 20 0 0 0 0 2 0 0 0 0
-13	10717 10 0 0 0 0 1 0 0 0 0
-14	10727 10 0 0 0 0 1 0 0 0 0
-15	10737 10 0 0 0 0 1 0 0 0 0
-16	10747 30 0 0 0 0 3 0 2 2 4
-17	10777 10 0 0 0 0 1 0 0 0 0
-18	10787 30 0 0 0 0 3 0 2 2 4
-19	10817 10 0 0 0 0 1 0 0 0 0
-20	10827 10 0 0 0 0 1 1 1 1 1
-21	10837 20 0 0 0 0 2 0 0 0 0
-22	10857 10 0 0 0 0 1 1 1 1 1
-23	10867 20 0 0 0 0 2 0 0 0 0
-24	10887 11 0 0 0 0 1 31 31 31 961
-25	10898 11 0 0 0 0 1 31 31 31 961
-26	10909 32502 1053 1053 0.1 200 2000 0 0 0 0
-27	43411 32502 1053 1053 0.1 200 2000 0 0 0 0
-28	75913 32502 1053 1053 0.1 200 2000 0 0 0 0
-29	108415 32502 1053 1053 0.1 200 2000 0 0 0 0
+0	10392 18 0 0 0 0 2 0 0 0 0
+1	10410 45 0 0 0 0 5 0 0 0 0
+2	10455 45 0 0 0 0 5 0 0 0 0
+3	10500 18 0 0 0 0 2 0 0 0 0
+4	10518 18 0 0 0 0 2 0 0 0 0
+5	10536 9 0 0 0 0 1 0 0 0 0
+6	10545 9 0 0 0 0 1 0 0 0 0
+7	10554 9 0 0 0 0 1 0 0 0 0
+8	10563 18 0 0 0 0 2 0 0 0 0
+9	10581 45 0 0 0 0 5 0 0 0 0
+10	10626 50 0 0 0 0 5 0 0 0 0
+11	10676 20 0 0 0 0 2 0 0 0 0
+12	10696 20 0 0 0 0 2 0 0 0 0
+13	10716 10 0 0 0 0 1 0 0 0 0
+14	10726 10 0 0 0 0 1 0 0 0 0
+15	10736 10 0 0 0 0 1 0 0 0 0
+16	10746 30 0 0 0 0 3 0 2 2 4
+17	10776 10 0 0 0 0 1 0 0 0 0
+18	10786 30 0 0 0 0 3 0 2 2 4
+19	10816 10 0 0 0 0 1 0 0 0 0
+20	10826 10 0 0 0 0 1 1 1 1 1
+21	10836 20 0 0 0 0 2 0 0 0 0
+22	10856 10 0 0 0 0 1 1 1 1 1
+23	10866 20 0 0 0 0 2 0 0 0 0
+24	10886 11 0 0 0 0 1 31 31 31 961
+25	10897 11 0 0 0 0 1 31 31 31 961
+26	10908 32502 1053 1053 0.1 200 2000 0 0 0 0
+27	43410 32502 1053 1053 0.1 200 2000 0 0 0 0
+28	75912 32502 1053 1053 0.1 200 2000 0 0 0 0
+29	108414 32502 1053 1053 0.1 200 2000 0 0 0 0
 

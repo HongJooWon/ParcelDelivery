@@ -1,0 +1,11 @@
+Destination: 41, 67
+Destination: 334, 100
+Destination: 569, 124
+Destination: 78, 158
+Destination: 562, 64
+
+Destination: 41, 67
+Destination: 334, 100
+Destination: 569, 124
+Destination: 78, 158
+Destination: 562, 64

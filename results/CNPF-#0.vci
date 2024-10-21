@@ -1,9 +1,9 @@
-file 140068 1728279604                                          
+file 9036 1728644942                                            
 version 3
-run CNPF-0-20241007-14:40:04-30836
+run CNPF-0-20241011-16:31:14-23956
 attr configname CNPF
-attr datetime 20241007-14:40:04
-attr datetimef 20241007-144004
+attr datetime 20241011-16:31:14
+attr datetimef 20241011-163114
 attr experiment CNPF
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -11,7 +11,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 30836
+attr processid 23956
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -188,58 +188,30 @@ vector 25 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recoveryProcedure contention
 attr interpolationmode sample-hold
 attr recordingmode vector
 attr title "contention window"
-vector 26 ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.pendingQueue outgoingDataRate:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source throughput(packetPulled)
-attr title "outgoing datarate"
-attr unit bps
-vector 27 ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.pendingQueue incomingDataRate:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source throughput(packetPushStarted)
-attr title "incoming datarate"
-attr unit bps
-vector 28 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue outgoingDataRate:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source throughput(packetPulled)
-attr title "outgoing datarate"
-attr unit bps
-vector 29 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue incomingDataRate:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source throughput(packetPushStarted)
-attr title "incoming datarate"
-attr unit bps
-0	9542 18 0 0 0 0 2 0 0 0 0
-1	9560 45 0 0 0 0 5 0 0 0 0
-2	9605 45 0 0 0 0 5 0 0 0 0
-3	9650 18 0 0 0 0 2 0 0 0 0
-4	9668 18 0 0 0 0 2 0 0 0 0
-5	9686 9 0 0 0 0 1 0 0 0 0
-6	9695 9 0 0 0 0 1 0 0 0 0
-7	9704 9 0 0 0 0 1 0 0 0 0
-8	9713 18 0 0 0 0 2 0 0 0 0
-9	9731 45 0 0 0 0 5 0 0 0 0
-10	9776 50 0 0 0 0 5 0 0 0 0
-11	9826 20 0 0 0 0 2 0 0 0 0
-12	9846 20 0 0 0 0 2 0 0 0 0
-13	9866 10 0 0 0 0 1 0 0 0 0
-14	9876 10 0 0 0 0 1 0 0 0 0
-15	9886 10 0 0 0 0 1 0 0 0 0
-16	9896 30 0 0 0 0 3 0 2 2 4
-17	9926 10 0 0 0 0 1 0 0 0 0
-18	9936 30 0 0 0 0 3 0 2 2 4
-19	9966 10 0 0 0 0 1 0 0 0 0
-20	9976 10 0 0 0 0 1 1 1 1 1
-21	9986 20 0 0 0 0 2 0 0 0 0
-22	10006 10 0 0 0 0 1 1 1 1 1
-23	10016 20 0 0 0 0 2 0 0 0 0
-24	10036 11 0 0 0 0 1 31 31 31 961
-25	10047 11 0 0 0 0 1 31 31 31 961
-26	10058 32502 1053 1053 0.1 200 2000 0 0 0 0
-27	42560 32502 1053 1053 0.1 200 2000 0 0 0 0
-28	75062 32502 1053 1053 0.1 200 2000 0 0 0 0
-29	107564 32502 1053 1053 0.1 200 2000 0 0 0 0
+0	8518 18 0 0 0 0 2 0 0 0 0
+1	8536 45 0 0 0 0 5 0 0 0 0
+2	8581 45 0 0 0 0 5 0 0 0 0
+3	8626 18 0 0 0 0 2 0 0 0 0
+4	8644 18 0 0 0 0 2 0 0 0 0
+5	8662 9 0 0 0 0 1 0 0 0 0
+6	8671 9 0 0 0 0 1 0 0 0 0
+7	8680 9 0 0 0 0 1 0 0 0 0
+8	8689 18 0 0 0 0 2 0 0 0 0
+9	8707 45 0 0 0 0 5 0 0 0 0
+10	8752 50 0 0 0 0 5 0 0 0 0
+11	8802 20 0 0 0 0 2 0 0 0 0
+12	8822 20 0 0 0 0 2 0 0 0 0
+13	8842 10 0 0 0 0 1 0 0 0 0
+14	8852 10 0 0 0 0 1 0 0 0 0
+15	8862 10 0 0 0 0 1 0 0 0 0
+16	8872 30 0 0 0 0 3 0 2 2 4
+17	8902 10 0 0 0 0 1 0 0 0 0
+18	8912 30 0 0 0 0 3 0 2 2 4
+19	8942 10 0 0 0 0 1 0 0 0 0
+20	8952 10 0 0 0 0 1 1 1 1 1
+21	8962 20 0 0 0 0 2 0 0 0 0
+22	8982 10 0 0 0 0 1 1 1 1 1
+23	8992 20 0 0 0 0 2 0 0 0 0
+24	9012 11 0 0 0 0 1 31 31 31 961
+25	9023 11 0 0 0 0 1 31 31 31 961
 

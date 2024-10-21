@@ -35,6 +35,7 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 # Object files for local .cc, .msg and .sm files
 OBJS = \
     $O/Dest.o \
+    $O/DroneDeliveryAlgorithm.o \
     $O/DroneNetMob.o \
     $O/DroneNetMob11.o \
     $O/ParcelGenerator.o \

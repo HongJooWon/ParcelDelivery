@@ -3,6 +3,7 @@
 #define INET_EXPORTS
 //-----------------------------------
 #include "DroneNetMob.h"
+#include "DroneDeliveryAlgorithm.h"
 #include <bitset>
 #include <iostream>
 #include <sstream>
@@ -10,6 +11,7 @@
 #include <unordered_map>
 #include <queue>
 #include <ctime>
+#include <string>
 
 using namespace std;
 namespace inet {
@@ -89,7 +91,7 @@ vector<parcel> energyEfficientPath(vector<parcel>& parcels, double& totalDistanc
                 double d = dist(currentPos, parcels[i].parceldest);
                 double w = currentWeight + parcels[i].weight;
                 
-                // 새로운 에너지 비용 계산: a*d + B*w
+                // 에너지 비용 계산: a*d + B*w
                 double energyCost = alpha * d + beta * w;
 
                 if (energyCost < minEnergyCost) {
@@ -113,7 +115,6 @@ vector<parcel> energyEfficientPath(vector<parcel>& parcels, double& totalDistanc
 
     return sortedParcels;
 }
-
 void addallDist(vector<parcel>& parcels) {
     double totalDist = 0;
     //add origin to first parcel
@@ -225,20 +226,20 @@ vector<parcel> greedyTSP_B(vector<parcel>& parcels, double& distance, double car
 
     //현재 좌표에서 Energy Consumption이 가장 큰 택배를 선택
     while(sortedParcels.size() < parcels.size()) {
-        double maxEnergy = -1;
+        double minEnergy = -1;
         int nextParcel = -1;
 
         for(int i=0; i<parcels.size(); i++) {
             if(!visited[i]) {
                 double currEnergy = batteryCalculation(currPos, parcels[i].parceldest, carriedWeight, speed);
-                if(currEnergy > maxEnergy || maxEnergy == -1) {
-                    maxEnergy = currEnergy;
+                if(currEnergy < minEnergy || minEnergy == -1) {
+                    minEnergy = currEnergy;
                     nextParcel = i;
                 }
             }
         }
 
-        totalConsumption += maxEnergy;
+        totalConsumption += minEnergy;
         totalDist += dist(currPos, parcels[nextParcel].parceldest);
 
         visited[nextParcel] = true;
@@ -571,6 +572,10 @@ void DroneNetMob::initialize(int stage)
             }
 
         //택배 개수 할당
+        //파일에서 불러오기
+        //parcelFile 열기
+        //string parcelfile = "parcels.txt";
+        //row 개수 세기
         parcelsDefinition(np);
 
         }
@@ -677,7 +682,7 @@ double DroneNetMob::getMaxSpeed() const
 }
 
 void DroneNetMob::destGen(int ndst){
-    srand(time(0)); // 현재 시간을 시드로 사용하여 난수 생성기 초기화
+    //srand(time(0)); // 현재 시간을 시드로 사용하여 난수 생성기 초기화
     for (unsigned int i = 0; i < numdst->intValue(); i++){
         Coord nextdst;
         nextdst.x = rand() % 600;
@@ -691,6 +696,40 @@ void DroneNetMob::destGen(int ndst){
 }
 
 //택배 생성
+// void DroneNetMob::parcelsDefinition (string& filename){
+//     ifstream parcelFile;
+//     parcelFile.open(filename);
+
+//     if (!parcelFile.is_open()){
+//         cout << "File not found" << endl;
+//     }
+
+//     string line;
+//     int nparcels = 0;
+//     while (getline(parcelFile, line)){
+//         parcel tmpparcel;
+//         parcel *p;
+
+//         // each line = id weight x y 한줄씩 읽어서 택배 생성
+//         stringstream ss(line);
+//         string id, weight, x, y;
+//         getline(ss, id, ' ');
+//         getline(ss, weight, ' ');
+//         getline(ss, x, ' ');
+//         getline(ss, y, ' ');
+
+//         tmpparcel.parcelID = stoi(id);
+//         tmpparcel.weight = stoi(weight);
+//         tmpparcel.parceldest.x = stoi(x);
+//         tmpparcel.parceldest.y = stoi(y);
+
+//         parcel_depot.push_back(tmpparcel);
+
+//         nparcels++;
+//     }
+// }
+
+
 void DroneNetMob::parcelsDefinition (int nparcels){
     for (unsigned int i = 0; i < nparcels; i++){
         parcel tmpparcel;
@@ -706,21 +745,6 @@ void DroneNetMob::parcelsDefinition (int nparcels){
 
     }
 }
-// void DroneNetMob::parcelsDefinition (int nparcels){
-//     for (unsigned int i = 0; i < nparcels; i++){
-//         parcel tmpparcel;
-//         parcel *p;
-//         tmpparcel.parcelID = i;
-//         tmpparcel.weight =  rand() % 10 + 1;
-//         tmpparcel.priority = 1;
-//         tmpparcel.exp_time = rand() % 300;
-//         int n = numdst->intValue();
-//         int dindex = rand() % n;
-//         tmpparcel.parceldest = dst[dindex];
-//         parcel_depot.push_back(tmpparcel);
-
-//     }
-// }
 
 vector<parcel> DroneNetMob::droneParcelsSelectionFromSource(int parcelSel){
     vector<parcel> selectedParcels;
