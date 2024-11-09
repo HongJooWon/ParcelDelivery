@@ -19,6 +19,8 @@ double DroneDeliveryAlgorithms::batteryCalculation(const Coord& a, const Coord& 
     return batteryConsumption;
 }
 
+//greedy algorithm for TSP with battery consumption
+
 //Greedy - Heaviest Parcel First
 
 //Greedy - Nearst Parcel First

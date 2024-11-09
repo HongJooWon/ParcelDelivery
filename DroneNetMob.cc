@@ -3,7 +3,7 @@
 #define INET_EXPORTS
 //-----------------------------------
 #include "DroneNetMob.h"
-#include "DroneDeliveryAlgorithm.h"
+//#included "DroneDeliveryAlgorithms.h"
 #include <bitset>
 #include <iostream>
 #include <sstream>
@@ -29,6 +29,9 @@ int dup = 0;
 vector<parcel> parcel_depot;
 
 Define_Module(DroneNetMob);
+
+//-------------------------------------------------- Utility Functions --------------------------------------------------
+
 bool sortDepotByDeadline (parcel i, parcel j) {
     return (i.exp_time < j.exp_time);
 }
@@ -44,6 +47,10 @@ bool greedySortDepot (parcel i, parcel j) {
 }
 bool SortDepotByWeight (parcel i, parcel j) {
     return (i.weight > j.weight);
+}
+
+bool sortByScore(const ParcelScore& a, const ParcelScore& b) {
+    return a.score > b.score;
 }
 
 double dist(Coord a, Coord b) {
@@ -69,52 +76,7 @@ double batteryCalculation(Coord a, Coord b, double carriedWeight, double speed) 
     return batteryConsumption;
 }
 
-//무게를 고려한 그리디 경로 탐색 알고리즘
-vector<parcel> energyEfficientPath(vector<parcel>& parcels, double& totalDistance) {
-    vector<parcel> sortedParcels;
-    int n = parcels.size();
-    vector<bool> visited(n, false);
-    Coord currentPos = originPos;
-    double currentWeight = 0;
-    
-
-    // 에너지 소비 모델 파라미터
-    const double alpha = 1.0; // 거리에 대한 가중치
-    const double beta = 0.5;  // 무게에 대한 가중치
-
-    while (sortedParcels.size() < n) {
-        int bestNext = -1;
-        double minEnergyCost = numeric_limits<double>::max();
-
-        for (int i = 0; i < n; i++) {
-            if (!visited[i]) {
-                double d = dist(currentPos, parcels[i].parceldest);
-                double w = currentWeight + parcels[i].weight;
-                
-                // 에너지 비용 계산: a*d + B*w
-                double energyCost = alpha * d + beta * w;
-
-                if (energyCost < minEnergyCost) {
-                    minEnergyCost = energyCost;
-                    bestNext = i;
-                }
-            }
-        }
-
-        if (bestNext != -1) {
-            visited[bestNext] = true;
-            sortedParcels.push_back(parcels[bestNext]);
-            totalDistance = dist(currentPos, parcels[bestNext].parceldest);
-            currentPos = parcels[bestNext].parceldest;
-            currentWeight += parcels[bestNext].weight;
-        }
-    }
-
-    // 출발지로 돌아가는 에너지 비용 추가
-    totalDistance += dist(currentPos, originPos);
-
-    return sortedParcels;
-}
+//Add all the destinations in the series of parcels vector
 void addallDist(vector<parcel>& parcels) {
     double totalDist = 0;
     //add origin to first parcel
@@ -127,13 +89,6 @@ void addallDist(vector<parcel>& parcels) {
     totalDist += dist(parcels[parcels.size()-1].parceldest, originPos);
     cout << "add all distance: " << totalDist << endl;
 }
-
-//각 지점에 대한 거리와 현재 적재중인 택배의 무게를 고려하여 배터리 소모량을 계산
-//그럼 전체 택배 리스트에서 드론에 처음 몇개를 어떻게 조정할 것인가
-//이미 적재된 것에서 배터러 소모를 계산하고, 제외하면 거리 계산을 다시 해야하는 문제
-//택배는 랜덤한 순서로 생성되지만, 각 택배에 Deadline이 있다면 우선순위를 정할 수 있음
-//deadline와 시간 관계를 나타내는 코드가 필요함 - 시뮬타임과 deadline의 관계
-
 
 // Minimum Spanning Tree
 double calculateMST(const vector<vector<double>>& distances, const vector<bool>& included) {
@@ -178,6 +133,34 @@ double calculateMST(const vector<vector<double>>& distances, const vector<bool>&
 
     return mst_cost;
 }
+
+//중복 좌표 제거
+void remove_dupcoordinates(vector<parcel>& parcels, int& carriedParcels, int& totalparcel) {
+    dup = 0;
+    unordered_map<string, int> coord_map;
+
+    cout << "carriedParcels with Duplicates: " << parcels.size() << endl;
+
+    for (int i = 0; i < parcels.size(); i++) {
+        string coord = to_string(parcels[i].parceldest.x) + "," + to_string(parcels[i].parceldest.y);
+
+        if (coord_map.find(coord) == coord_map.end()) {
+            // 좌표가 처음 발견된 경우, 해당 좌표와 인덱스를 맵에 추가
+            coord_map[coord] = i;
+        } else {
+            // 좌표가 이미 존재하는 경우, 해당 택배 아이템을 제거
+            dup++;
+            parcels.erase(parcels.begin() + i);
+            i--;  // 인덱스를 조정하여 제거된 요소를 건너뛰지 않도록 함
+            carriedParcels--; //중복된 만큼 전체 택배 수를 감소
+            totalparcel--;
+        }
+    }
+
+    cout << "carriedParcels without Duplicates: " << parcels.size() << endl;
+}
+
+//-------------------------------------------------- Greedy Choice --------------------------------------------------
 
 //greedy algorithm for TSP
 vector<parcel> greedyTSP(vector<parcel>& parcels, double& distance){
@@ -258,31 +241,7 @@ vector<parcel> greedyTSP_B(vector<parcel>& parcels, double& distance, double car
     return sortedParcels;
 }
 
-//중복 좌표 제거
-void remove_dupcoordinates(vector<parcel>& parcels, int& carriedParcels, int& totalparcel) {
-    dup = 0;
-    unordered_map<string, int> coord_map;
-
-    cout << "carriedParcels with Duplicates: " << parcels.size() << endl;
-
-    for (int i = 0; i < parcels.size(); i++) {
-        string coord = to_string(parcels[i].parceldest.x) + "," + to_string(parcels[i].parceldest.y);
-
-        if (coord_map.find(coord) == coord_map.end()) {
-            // 좌표가 처음 발견된 경우, 해당 좌표와 인덱스를 맵에 추가
-            coord_map[coord] = i;
-        } else {
-            // 좌표가 이미 존재하는 경우, 해당 택배 아이템을 제거
-            dup++;
-            parcels.erase(parcels.begin() + i);
-            i--;  // 인덱스를 조정하여 제거된 요소를 건너뛰지 않도록 함
-            carriedParcels--; //중복된 만큼 전체 택배 수를 감소
-            totalparcel--;
-        }
-    }
-
-    cout << "carriedParcels without Duplicates: " << parcels.size() << endl;
-}
+//-------------------------------------------------- Branch and Bound --------------------------------------------------
 
 // 1-tree lower bound를 계산하는 함수
 double calculate1TreeLowerBound(const vector<vector<double>>& travel, int start, const vector<bool>& visited) {
@@ -424,6 +383,117 @@ vector<parcel> dfs_bnb(vector<parcel>& parcels, double& distance, int& carriedPa
     return sorted_parcels;
 }
 
+//Battery consumption based DFS
+void dfs_b(int start, int next, double value, vector<int>& visited, int n, vector<vector<double>>& travel, double& min_value, vector<int>& path) {
+    // 현재까지 방문한 노드 표시
+    vector<bool> is_visited(n, false);
+    for (int v : visited) is_visited[v] = true;
+
+    // 1-tree lower bound 계산
+    double lower_bound = value + calculate1TreeLowerBound(travel, next, is_visited);
+    
+    // 가지치기: 현재 경로의 lower bound가 지금까지의 최소값보다 크거나 같으면 탐색 중단
+    if (lower_bound > min_value) {
+        return;
+    }
+
+    // 모든 노드를 방문한 경우
+    if (visited.size() == n) {
+        // 시작점으로 돌아갈 수 있는지 확인
+        if (travel[next][start] != 0) {
+            double total_distance = value + travel[next][start];
+            // 더 짧은 경로를 찾은 경우 최소값과 최적 경로 갱신
+            if (total_distance < min_value) {
+                min_value = total_distance;
+                path = visited;
+            }
+        }
+        return;
+    }
+
+    // 다음 방문할 노드 탐색
+    for (int i = 0; i < n; i++) {
+        if (travel[next][i] != 0 && i != start && find(visited.begin(), visited.end(), i) == visited.end()) {
+            visited.push_back(i);
+            // 재귀적으로 DFS 수행
+            dfs(start, i, value + travel[next][i], visited, n, travel, min_value, path);
+            // 백트래킹
+            visited.pop_back();
+        }
+    }
+}
+
+// BnB Tsp
+vector<parcel> bnb_B(vector<parcel>& parcels) {
+
+    //numparcel 할당 문제---
+    cout << "carriedParcels: " << parcels.size() << endl; 
+
+    // 시작점을 (0,0)으로 설정하고 택배 리스트에 추가
+    parcel startParcel;
+    startParcel.parcelID = -1;
+    startParcel.parceldest = originPos;
+    parcels.insert(parcels.begin(), startParcel);
+    
+    // 택배 리스트를 출력
+    
+    for(int i=0; i<parcels.size(); i++) {
+        cout << "Parcel to solve" << parcels[i].parcelID << " : " << parcels[i].parceldest.x << " " << parcels[i].parceldest.y << endl;
+    }
+
+    cout << "After removing duplicates" << endl;
+
+    // 택배 리스트를 출력
+    for(int i=0; i<parcels.size(); i++) {
+        cout << "Parcel to solve" << parcels[i].parcelID << " : " << parcels[i].parceldest.x << " " << parcels[i].parceldest.y << endl;
+    }
+
+    // 택배의 수를 계산
+    int n = parcels.size();
+
+    // 각 택배 간의 에너지 소모량을 계사하여 행렬에 저장
+    vector<vector<double>> travel(n, vector<double>(n, 0));
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            travel[i][j] = batteryCalculation(parcels[i].parceldest, parcels[j].parceldest, parcels[j].weight, 1);
+        }
+    }
+
+    // 최소 소모량을 무한대로 초기화
+    double min_value = numeric_limits<double>::infinity();
+    // 최적 경로를 저장할 변수를 초기화
+    vector<int> path;
+    // 방문 리스트를 초기화하고, 시작점을 추가
+    vector<int> visited = {0};
+    double ans = 0;
+
+    // DFS를 시작
+    dfs(0, 0, 0, visited, n, travel, min_value, path);
+
+    // 최적 경로에 시작점으로 돌아오는 것 추가
+    path.push_back(0);
+
+    // 최적 경로에 따라 택배를 정렬 (시작점 제외)
+    vector<parcel> sorted_parcels;
+    for(int i = 1; i < path.size() - 1; i++) {
+        sorted_parcels.push_back(parcels[path[i]]);
+    }
+    
+    //print the sorted parcels
+    cout << "Energy BnB Sorted parcels: ";
+    for(int i=0; i<sorted_parcels.size(); i++) {
+        cout << sorted_parcels[i].parcelID << " ";
+    }
+    cout << endl;
+
+    //현재 들고있는 리스트에 대한 최소거리
+    cout << "Minimum Energy Consumption: " << min_value << endl;
+
+    // 정렬된 택배 리스트를 반환
+    return sorted_parcels;
+}
+
+//-------------------------------------------------- Dynamic Programming --------------------------------------------------
 //optimal path가 수행되는지 확인
 double dynamic(vector<parcel>& parcels, int pos, int visited, vector<vector<double>>& dp, vector<vector<double>>& distance, double currDist, double& ans, vector<int>& optimalPath, vector<int>& path) {
     path.push_back(pos); // add the current position to the path
@@ -501,35 +571,97 @@ vector<parcel> dp_tsp(vector<parcel>& parcels, double& totaldistance, int& carri
     return sortedParcels;
 }
 
-// Minimum Spanning Tree - Prim's Algorithm
-vector<parcel> mstTSP(vector<parcel>& parcels){
-    vector<parcel> sortedParcels = {};
+//-------------------------------------------------- Efficient Trajectory Design --------------------------------------------------
+
+// Efficient Drone Trajectory Design algorithm implementation
+// std::vector<parcel> efficientTrajectoryDesign(std::vector<parcel>& parcels, double& totalDistance);
+// MissionParcels, tspDistance, droneremainingbattery, getMaxSpeed()
+vector<parcel> efficientTrajectoryDesign(vector<parcel>& parcels, double& totalDistance, double speed) {
+    vector<parcel> sortedParcels;
+    if (parcels.empty()) return sortedParcels;
+
+    // Calculate total weight (W)
+    double totalWeight = 0;
+    for (const auto& p : parcels) {
+        totalWeight += p.weight;
+    }
+
+    // Calculate total distance (D)
+    double totalPathDistance = 0;
+    Coord currentPos = originPos;
+    for (const auto& p : parcels) {
+        totalPathDistance += dist(currentPos, p.parceldest);
+        currentPos = p.parceldest;
+    }
+    totalPathDistance += dist(currentPos, originPos); // Return to origin
+
+    // Constants for weight and distance coefficients
+    const double ALPHA = 0.6; // Weight coefficient
+    const double BETA = 0.4;  // Distance coefficient
+
+    // Calculate normalized values and estimation value for each parcel
+    vector<ParcelScore> parcelScores;
+
+    for (const auto& p : parcels) {
+        ParcelScore ps;
+        ps.p = p;
+        
+        // Normalize weight and distance
+        double normalizedWeight = p.weight / totalWeight;
+        double normalizedDist = dist(originPos, p.parceldest) / totalPathDistance;
+        
+        // Calculate estimation value
+        ps.score = (ALPHA * normalizedWeight + BETA * normalizedDist);
+        parcelScores.push_back(ps);
+    }
+
+    // Sort parcels based on their scores using the comparison function
+    sort(parcelScores.begin(), parcelScores.end(), sortByScore);
+
+    // Calculate optimal route based on sorted parcels
+    double energyConsumption = 0;
+    currentPos = originPos;
+    double currentWeight = 0;
     vector<bool> visited(parcels.size(), false);
-    Coord currPos = originPos;
-    double totalDist = 0;
-    while(sortedParcels.size() < parcels.size()) {
-        double minDist = -1;
-        int nextParcel = -1;
-        for(int i=0; i<parcels.size(); i++) {
-            if(!visited[i]) {
-                double d = dist(currPos, parcels[i].parceldest);
-                if(d < minDist || minDist == -1) {
-                    minDist = d;
-                    nextParcel = i;
+
+    while (sortedParcels.size() < parcels.size()) {
+        int bestNext = -1;
+        double minEnergy = numeric_limits<double>::max();
+
+        for (int i = 0; i < parcelScores.size(); i++) {
+            if (!visited[i]) {
+                // Calculate energy consumption for this option
+                double distToNext = dist(currentPos, parcelScores[i].p.parceldest);
+                double newWeight = currentWeight + parcelScores[i].p.weight;
+                double energyForThis = batteryCalculation(currentPos, parcelScores[i].p.parceldest, newWeight, speed);
+
+                if (energyForThis < minEnergy) {
+                    minEnergy = energyForThis;
+                    bestNext = i;
                 }
             }
         }
-        cout << "Current Position: " << currPos.x << ", " << currPos.y << " Next position: " << parcels[nextParcel].parceldest.x << ", " << parcels[nextParcel].parceldest.y << " Distance: " << dist(currPos, parcels[nextParcel].parceldest) << endl;
-        totalDist += minDist;
-        cout  << "minDist: " << minDist << " Total distance: " << totalDist << endl;
 
-        visited[nextParcel] = true;
-        sortedParcels.push_back(parcels[nextParcel]);
-        currPos = parcels[nextParcel].parceldest;
+        if (bestNext != -1) {
+            visited[bestNext] = true;
+            sortedParcels.push_back(parcelScores[bestNext].p);
+            energyConsumption += minEnergy;
+            
+            // Update current position and weight
+            currentPos = parcelScores[bestNext].p.parceldest;
+            currentWeight += parcelScores[bestNext].p.weight;
+            
+            // Add to total distance
+            totalDistance += dist(currentPos, parcelScores[bestNext].p.parceldest);
+        }
     }
 
-    totalDist += dist(currPos, originPos); //출발지로 돌아가는 거리
-    cout << "MST TSP distance: " << totalDist << endl;
+    // Add return to origin
+    totalDistance += dist(currentPos, originPos);
+    energyConsumption += batteryCalculation(currentPos, originPos, 0, speed);
+
+    cout << "Efficient Trajectory Design - Total Distance: " << totalDistance << endl;
+    cout << "Efficient Trajectory Design - Total Energy Consumption: " << energyConsumption << " mAh" << endl;
 
     return sortedParcels;
 }
@@ -849,11 +981,11 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
                 break;
             case 3:
                 // Minimum Spanning Tree
-                MissionParcels = mstTSP(MissionParcels);
+                
                 break;
             case 4:
                 //Greedy - battery consumption
-                MissionParcels = greedyTSP_B(MissionParcels, tspDistance, carriedWeight, getMaxSpeed());
+                MissionParcels = greedyTSP_B(MissionParcels, tspDistance, droneremainingbattery, getMaxSpeed());
                 //calculate the battery consumption
                 // batteryConsumption = 0;
                 cout << "battery capacity: " << droneremainingbattery << endl;
@@ -863,6 +995,21 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
                     cout << " destination of EEPD: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<"; " << endl;
                 }
                 break;
+            case 5:
+                MissionParcels = bnb_B(MissionParcels);
+
+                //print the destination of the parcels
+                for (unsigned int i = 0; i < MissionParcels.size(); i++){
+                    cout << " destination of Energy BnB: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<"; " << endl;
+                }
+                break;
+            case 6:
+                MissionParcels = efficientTrajectoryDesign(MissionParcels, tspDistance, getMaxSpeed());
+
+                //print the destination of the parcels
+                for (unsigned int i = 0; i < MissionParcels.size(); i++){
+                    cout << " destination of ETDS: " <<MissionParcels[i].parceldest.x <<"; "<<MissionParcels[i].parceldest.y <<"; " << endl;
+                }
         }
     }
     else{

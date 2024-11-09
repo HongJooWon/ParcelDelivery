@@ -19,8 +19,7 @@ out/clang-release//DroneNetMob.o: DroneNetMob.cc \
   ../inet4.5/src/inet/common/geometry/common/EulerAngles.h \
   ../inet4.5/src/inet/common/Units.h \
   ../inet4.5/src/inet/common/geometry/common/Quaternion.h \
-  ../inet4.5/src/inet/mobility/contract/IMobility.h \
-  DroneDeliveryAlgorithm.h
+  ../inet4.5/src/inet/mobility/contract/IMobility.h
 
 ../inet4.5/src/inet/common/INETMath.h:
 
@@ -67,5 +66,3 @@ DroneNetMob.h:
 ../inet4.5/src/inet/common/geometry/common/Quaternion.h:
 
 ../inet4.5/src/inet/mobility/contract/IMobility.h:
-
-DroneDeliveryAlgorithm.h:

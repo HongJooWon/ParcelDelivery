@@ -1,9 +1,9 @@
-file 9036 1728644942                                            
+file 9036 1730883028                                            
 version 3
-run CNPF-0-20241011-16:31:14-23956
+run CNPF-0-20241106-17:37:36-25788
 attr configname CNPF
-attr datetime 20241011-16:31:14
-attr datetimef 20241011-163114
+attr datetime 20241106-17:37:36
+attr datetimef 20241106-173736
 attr experiment CNPF
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -11,7 +11,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 23956
+attr processid 25788
 attr repetition 0
 attr replication #0
 attr resultdir results

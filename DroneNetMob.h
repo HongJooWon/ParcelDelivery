@@ -43,6 +43,11 @@ struct parcel{
     Coord parceldest;
 };
 
+struct ParcelScore {
+    parcel p;
+    double score;
+};
+
 class INET_API DroneNetMob : public LineSegmentsMobilityBase
 {
   protected:
@@ -93,10 +98,13 @@ class INET_API DroneNetMob : public LineSegmentsMobilityBase
     virtual double getMaxSpeed() const override;
     void destGen(int ndst);
     void parcelsDefinition (int nparcels);
+    // std::vector<parcel> efficientTrajectoryDesign(std::vector<parcel>& parcels, double& totalDistance);
+    // std::vector<parcel> efficientTrajectoryDesign();    
     // void parcelsDefinition (std::string filename);
     std::vector<parcel> droneParcelsSelectionFromSource(int parcelSel);
     Coord missionPathNextDest(Coord curpos);
     Coord destAssignment();
+    //std::vector<parcel> greedyTSP_B();
     double droneWeightCapacity;
     double droneremainingbattery;
     double carriedWeight;
