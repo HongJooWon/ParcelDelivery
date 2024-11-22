@@ -26,7 +26,7 @@
 
 //--------------------------------------------------
 
-
+using namespace std;
 namespace inet {
 
 /**
@@ -61,12 +61,22 @@ class INET_API DroneNetMob : public LineSegmentsMobilityBase
     cPar *oy = nullptr;
     cPar *oz = nullptr;
 
+    //delivery info
+    bool flag_original = false;
+    vector<Coord> dst; //Destination Positions
+    int gen = 0;
+    bool flagArrangedDepot = false;
+    bool OngoingMission = false;
+    bool isEnd = false;
+    vector<parcel> parcel_depot;
+    vector<parcel> shared_parcel_depot;  // 추가: 공유용 택배 리스트
+
     // state
     Quaternion quaternion;
     simtime_t previousChange;
     Coord sourcePosition;
     Coord destination; //BAM
-//    bool flagmovedtodst;
+    // bool flagmovedtodst;
     // double droneweightcapacity;
     // double droneremainingbattery;
     // double totalWeight;
@@ -110,6 +120,7 @@ class INET_API DroneNetMob : public LineSegmentsMobilityBase
     double carriedWeight;
     int selectionMethod;
     std::vector<parcel> MissionParcels;
+    std::vector<parcel> sortedParcels;
     double deliveryStartTime = 0;
     double deliveryEndTime =   0;
     double batteryConsumption = 0;

@@ -37,7 +37,6 @@ OBJS = \
     $O/Dest.o \
     $O/DroneDeliveryAlgorithm.o \
     $O/DroneNetMob.o \
-    $O/DroneNetMob11.o \
     $O/ParcelGenerator.o \
     $O/StatNodeMob.o \
     $O/TSPBnB.o
