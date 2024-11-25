@@ -48,6 +48,14 @@ struct ParcelScore {
     double score;
 };
 
+struct GroupedParcel {
+    vector<parcel> parcels;  // 같은 목적지의 택배들
+    double totalWeight;      // 해당 목적지 택배들의 총 무게
+    Coord dest;             // 공통 목적지
+    
+    GroupedParcel() : totalWeight(0) {}
+};
+
 class INET_API DroneNetMob : public LineSegmentsMobilityBase
 {
   protected:
