@@ -1,8 +1,8 @@
 version 3
-run CompareAll-0-20241119-19:50:38-33768
+run CompareAll-0-20241205-14:17:32-31972
 attr configname CompareAll
-attr datetime 20241119-19:50:38
-attr datetimef 20241119-195038
+attr datetime 20241205-14:17:32
+attr datetimef 20241205-141732
 attr experiment CompareAll
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -10,7 +10,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 33768
+attr processid 31972
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -23,13 +23,13 @@ config *.numdrones 3
 config **.drone*.mobility.typename DroneNetMob
 config **.drone[*].mobility.ndst 50
 config **.drone[*].mobility.nd 8
-config **.drone[*].mobility.npar 30
+config **.drone[*].mobility.npar 100
 config **.drone[*].mobility.initFromDisplayString false
 config **.drone[*].mobility.changeInterval "truncnormal(2s, 0.5s)"
 config **.drone[*].mobility.angleDelta "normal(0deg, 30deg)"
 config **.drone[*].mobility.speed 10mps
 config **.drone[*].mobility.remainingBattery 12800
-config **.drone[*].mobility.weightCapacity 100
+config **.drone[*].mobility.weightCapacity 200
 config **.drone[0].mobility.parcelSelectionMethod 0
 config **.drone[1].mobility.parcelSelectionMethod 1
 config **.drone[2].mobility.parcelSelectionMethod 2
@@ -75,8 +75,8 @@ attr unit s
 par ParcelDeliveryNetwork.drone[0].mobility faceForward true
 par ParcelDeliveryNetwork.drone[0].mobility ndst 50
 par ParcelDeliveryNetwork.drone[0].mobility nd 8
-par ParcelDeliveryNetwork.drone[0].mobility npar 30
-par ParcelDeliveryNetwork.drone[0].mobility weightCapacity 100
+par ParcelDeliveryNetwork.drone[0].mobility npar 100
+par ParcelDeliveryNetwork.drone[0].mobility weightCapacity 200
 par ParcelDeliveryNetwork.drone[0].mobility remainingBattery 12800
 par ParcelDeliveryNetwork.drone[0].mobility parcelSelectionMethod 0
 par ParcelDeliveryNetwork.drone[0].mobility initialX 0m
@@ -1309,8 +1309,8 @@ attr unit s
 par ParcelDeliveryNetwork.drone[1].mobility faceForward true
 par ParcelDeliveryNetwork.drone[1].mobility ndst 50
 par ParcelDeliveryNetwork.drone[1].mobility nd 8
-par ParcelDeliveryNetwork.drone[1].mobility npar 30
-par ParcelDeliveryNetwork.drone[1].mobility weightCapacity 100
+par ParcelDeliveryNetwork.drone[1].mobility npar 100
+par ParcelDeliveryNetwork.drone[1].mobility weightCapacity 200
 par ParcelDeliveryNetwork.drone[1].mobility remainingBattery 12800
 par ParcelDeliveryNetwork.drone[1].mobility parcelSelectionMethod 1
 par ParcelDeliveryNetwork.drone[1].mobility initialX 0m
@@ -2543,8 +2543,8 @@ attr unit s
 par ParcelDeliveryNetwork.drone[2].mobility faceForward true
 par ParcelDeliveryNetwork.drone[2].mobility ndst 50
 par ParcelDeliveryNetwork.drone[2].mobility nd 8
-par ParcelDeliveryNetwork.drone[2].mobility npar 30
-par ParcelDeliveryNetwork.drone[2].mobility weightCapacity 100
+par ParcelDeliveryNetwork.drone[2].mobility npar 100
+par ParcelDeliveryNetwork.drone[2].mobility weightCapacity 200
 par ParcelDeliveryNetwork.drone[2].mobility remainingBattery 12800
 par ParcelDeliveryNetwork.drone[2].mobility parcelSelectionMethod 2
 par ParcelDeliveryNetwork.drone[2].mobility initialX 0m

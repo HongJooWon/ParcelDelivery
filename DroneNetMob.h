@@ -13,6 +13,9 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <unordered_map>
+#include <string>
+
 //----------------------------------------------
 #ifdef _WIN32
 #ifdef INET_EXPORTS
@@ -119,13 +122,14 @@ class INET_API DroneNetMob : public LineSegmentsMobilityBase
     // std::vector<parcel> efficientTrajectoryDesign(std::vector<parcel>& parcels, double& totalDistance);
     // std::vector<parcel> efficientTrajectoryDesign();    
     // void parcelsDefinition (std::string filename);
+    //std::vector<parcel> balanceFirst(unordered_map<string, GroupedParcel>& parcelGroups, double& totalDistance, double speed, double& energy);
     std::vector<parcel> droneParcelsSelectionFromSource(int parcelSel);
     Coord missionPathNextDest(Coord curpos);
     Coord destAssignment();
     //std::vector<parcel> greedyTSP_B();
     double droneWeightCapacity;
     double droneremainingbattery;
-    double carriedWeight;
+    double carriedWeight; // 현재 적재 무게
     int selectionMethod;
     std::vector<parcel> MissionParcels;
     std::vector<parcel> sortedParcels;
@@ -133,7 +137,7 @@ class INET_API DroneNetMob : public LineSegmentsMobilityBase
     double deliveryEndTime =   0;
     double batteryConsumption = 0;
     double expectedBatteryConsumption = 0;
-    double tspDistance = 0;
+    double tspDistance = 0; //전체 거리
   
   private:
     simtime_t missionTime = 0;

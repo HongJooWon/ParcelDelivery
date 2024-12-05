@@ -1,9 +1,9 @@
-file 40794 1732513560                                           
+file 9038 1733371718                                            
 version 3
-run Basic-0-20241125-14:25:34-32504
+run Basic-0-20241205-13:08:20-33564
 attr configname Basic
-attr datetime 20241125-14:25:34
-attr datetimef 20241125-142534
+attr datetime 20241205-13:08:20
+attr datetimef 20241205-130820
 attr experiment Basic
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -11,7 +11,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 32504
+attr processid 33564
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -31,7 +31,7 @@ config **.drone[*].mobility.angleDelta "normal(0deg, 30deg)"
 config **.drone[*].mobility.speed 10mps
 config **.drone[*].mobility.remainingBattery 12800
 config **.drone[*].mobility.weightCapacity 100
-config **.drone[*].mobility.parcelSelectionMethod 0
+config **.drone[*].mobility.parcelSelectionMethod 2
 config **.drone[*].mobility.initialX 0m
 config **.drone[*].mobility.initialY 0m
 config **.drone[*].mobility.initialZ 0m
@@ -214,32 +214,4 @@ attr title "contention window"
 23	8994 20 0 0 0 0 2 0 0 0 0
 24	9014 11 0 0 0 0 1 31 31 31 961
 25	9025 11 0 0 0 0 1 31 31 31 961
-vector 26 ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.pendingQueue outgoingDataRate:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source throughput(packetPulled)
-attr title "outgoing datarate"
-attr unit bps
-vector 27 ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.pendingQueue incomingDataRate:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source throughput(packetPushStarted)
-attr title "incoming datarate"
-attr unit bps
-vector 28 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue outgoingDataRate:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source throughput(packetPulled)
-attr title "outgoing datarate"
-attr unit bps
-vector 29 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue incomingDataRate:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source throughput(packetPushStarted)
-attr title "incoming datarate"
-attr unit bps
-26	10060 7683 275 275 0.1 52.414680539829 525 0 0 0 0
-27	17743 7683 275 275 0.1 52.414680539829 525 0 0 0 0
-28	25426 7683 275 275 0.1 52.414680539829 525 0 0 0 0
-29	33109 7683 275 275 0.1 52.414680539829 525 0 0 0 0
 
