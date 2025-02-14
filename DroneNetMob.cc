@@ -21,6 +21,10 @@ Define_Module(DroneNetMob);
 Coord originPos = Coord(0, 0, 0);
 int parcelNum = 0;
 
+double weight_a = 0;  // 무게 가중치
+double weight_b = 0;   // 거리 가중치
+
+
 struct DeliveryState {
     vector<int> path;           // 현재까지의 경로 (그룹 인덱스)
     vector<parcel> selectedParcels;  // 각 그룹에서 선택된 택배들
@@ -238,7 +242,7 @@ vector<parcel> NearestFirst(vector<parcel>& parcels, double& distance, double sp
 
             // 거리와 에너지 계산 (목적지당 한 번만)
             totalDist += minDist;
-            energy += batteryCalculation(currPos, selectedGroup.dest, selectedGroup.totalWeight, speed);
+            //energy += batteryCalculation(currPos, selectedGroup.dest, selectedGroup.totalWeight, speed);
             
             currPos = selectedGroup.dest;
             visited[nextDest] = true;
@@ -302,10 +306,10 @@ vector<parcel> HeaviestFirst(vector<parcel>& parcels, double& distance, double s
     }
 
     totalDist += dist(currPos, originPos); //출발지로 돌아가는 거리
-    energy += batteryCalculation(currPos, originPos, 0, speed); //출발지로 돌아가는 배터리 소모까지 계산
-    distance += totalDist;
-    cout << "Heaviest-Greedy TSP distance: " << distance << endl;
-    cout << "Heaviest-Greedy TSP energy: " << energy << endl;
+    //energy += batteryCalculation(currPos, originPos, 0, speed); //출발지로 돌아가는 배터리 소모까지 계산
+    //distance += totalDist;
+    // cout << "Heaviest-Greedy TSP distance: " << distance << endl;
+    // cout << "Heaviest-Greedy TSP energy: " << energy << endl;
 
     return sortedParcels;
 }
@@ -639,8 +643,8 @@ vector<parcel> BalanceFirst(unordered_map<string, GroupedParcel>& parcelGroups, 
                     double w_i = p.weight / totalWeight;
                     double d_i = dist(currentPos, p.parceldest) / maxDistance;
                     
-                    const double ALPHA = 0.4;  // 무게 가중치
-                    const double BETA = 0.6;   // 거리 가중치
+                    double ALPHA = weight_a;  // 무게 가중치
+                    double BETA = weight_b;   // 거리 가중치
                     // 무게는 높을수록, 거리는 짧을수록 좋은 점수
                     double score = (ALPHA * w_i + BETA * (1.0 - d_i));
                     
@@ -701,18 +705,73 @@ vector<parcel> BalanceFirst(unordered_map<string, GroupedParcel>& parcelGroups, 
         currentEnergy += batteryCalculation(currentPos, originPos, 0, speed);
     }
 
-    // totalDistance += currentDistance;
-    // energy += currentEnergy;
     carriedWeight = currentWeight;
-
-    // cout << "\nBalance First Final Results:" << endl;
-    // cout << "Total parcels: " << selectedParcels.size() << endl;
-    // cout << "Total distance: " << currentDistance << endl;
-    // cout << "Total energy: " << currentEnergy << " mAh" << endl;
-    // cout << "Total weight: " << currentWeight << "/" << droneWeightCapacity << endl;
 
     return selectedParcels;
 }
+
+//----------------------------------Ratio-and-angle-based Search-----------------------------------------------
+
+// vector<parcel> RatioAngleBasedSearch(unordered_map<string, GroupedParcel>& parcelGroups, 
+//     double& totalDistance, double speed, double& energy, double& carriedWeight, 
+//     double& droneWeightCapacity) {
+    
+//     vector<parcel> selectedParcels;
+//     Coord currentPos = originPos;
+//     double currentWeight = 0;
+//     const double MAX_ANGLE = M_PI/12; // 15도
+
+//     vector<GroupedParcel*> remainingGroups;
+//     for (auto& group : parcelGroups) {
+//         remainingGroups.push_back(&group.second);
+//     }
+
+//     while (!remainingGroups.empty() && currentWeight < droneWeightCapacity) {
+//         vector<pair<double, pair<GroupedParcel*, parcel>>> scoredParcels;
+        
+//         // 각 그룹의 택배들에 대해 ratio와 angle 계산
+//         for (auto* group : remainingGroups) {
+//             for (const auto& p : group->parcels) {
+//                 if (currentWeight + p.weight <= droneWeightCapacity) {
+//                     // 거리/무게 비율 계산
+//                     double distance = dist(currentPos, p.parceldest);
+//                     double ratio = distance / p.weight;
+                    
+//                     // 각도 계산
+//                     double angle = calculateAngle(currentPos, p.parceldest);
+                    
+//                     // 각도가 허용 범위 내인 경우만 고려
+//                     if (abs(angle) <= MAX_ANGLE) {
+//                         double score = ratio; // 낮을수록 좋음
+//                         scoredParcels.push_back({score, {group, p}});
+//                     }
+//                 }
+//             }
+//         }
+
+//         if (scoredParcels.empty()) {
+//             break;
+//         }
+
+//         // ratio 기준으로 정렬 (오름차순)
+//         sort(scoredParcels.begin(), scoredParcels.end());
+
+//         // 최적의 택배 선택
+//         auto& bestChoice = scoredParcels[0];
+//         auto* parentGroup = bestChoice.second.first;
+//         auto& bestParcel = bestChoice.second.second;
+
+//         selectedParcels.push_back(bestParcel);
+//         currentWeight += bestParcel.weight;
+//         currentPos = bestParcel.parceldest;
+
+//         // 선택된 택배와 빈 그룹 제거
+//         updateGroups(remainingGroups, parentGroup, bestParcel);
+//     }
+
+//     carriedWeight = currentWeight;
+//     return selectedParcels;
+// }
 
 DroneNetMob::DroneNetMob()
 {
@@ -748,6 +807,8 @@ void DroneNetMob::initialize(int stage)
         droneremainingbattery =  (&par("remainingBattery"))->doubleValue();
         carriedWeight = 0;
         selectionMethod = (&par("parcelSelectionMethod"))->intValue();
+        weight_a = (&par("alpha_val"))->doubleValue();
+        weight_b = (&par("beta_val"))->doubleValue();
 
         //When it is the first drone
         if (strcmp(getParentModule()->getFullName(), "drone[0]") == 0){
@@ -1074,6 +1135,13 @@ vector<parcel> DroneNetMob::droneParcelsSelectionFromSource(int parcelSel){
 
             break;
         }
+
+        case 3: { // Ratio and Angle Based Search
+            // vector<parcel> result = RatioAngleBasedSearch(parcelGroups, tspDistance, getMaxSpeed(), batteryConsumption, carriedWeight, droneWeightCapacity);
+            // selectedParcels = result;
+
+            // break;
+        }
         
     }
 
@@ -1151,18 +1219,23 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
         missionTime = tspDistance / speedParameter->doubleValue();
 
 
-        // record the results
-        if(!ifstream("results/record_weight.csv")){
+        // 파일명에 weight_a와 weight_b 포함
+        stringstream filename;
+        filename << "results/record_weight_" << weight_a << "_" << weight_b << ".csv";
+        
+        // 파일이 존재하지 않으면 헤더 생성
+        if(!ifstream(filename.str())){
             ofstream resultFile;
-            resultFile.open ("results/record_weight.csv");
-            resultFile << "Selection Method, Number of Destinations, Distance, Energy, Time" << endl;
+            resultFile.open(filename.str());
+            resultFile << "Selection Method, Number of Destinations, Distance, Energy" << endl;
         }
 
+        // 결과 추가
         ofstream resultFile;
-        resultFile.open ("results/record_weight.csv", ios::app);
+        resultFile.open(filename.str(), ios::app);
         
         //add values
-        resultFile << selectionMethod << ", " << numdst->intValue() << ", " << tspDistance << ", " << batteryConsumption << ", " << missionTime << endl;
+        resultFile << selectionMethod << ", " << numdst->intValue() << ", " << tspDistance << ", " << batteryConsumption << endl;
 
         resultFile.close();
 

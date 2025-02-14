@@ -137,7 +137,7 @@ class INET_API DroneNetMob : public LineSegmentsMobilityBase
     double deliveryEndTime =   0;
     double batteryConsumption = 0;
     double expectedBatteryConsumption = 0;
-    double tspDistance = 0; //전체 거리
+    double tspDistance = 0; //전체 거리 
   
   private:
     simtime_t missionTime = 0;

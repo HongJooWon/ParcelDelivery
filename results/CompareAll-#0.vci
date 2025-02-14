@@ -1,9 +1,9 @@
-file 279101 1733375852                                          
+file 17206 1737434615                                           
 version 3
-run CompareAll-0-20241205-14:17:32-31972
+run CompareAll-0-20250121-13:43:25-2160
 attr configname CompareAll
-attr datetime 20241205-14:17:32
-attr datetimef 20241205-141732
+attr datetime 20250121-13:43:25
+attr datetimef 20250121-134325
 attr experiment CompareAll
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -11,13 +11,16 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network ParcelDeliveryNetwork
-attr processid 31972
+attr processid 2160
 attr repetition 0
 attr replication #0
 attr resultdir results
 attr runnumber 0
 attr seedset 0
 config image-path ../inet4.5/images
+config record-eventlog true
+config **.scalar-recording true
+config **.vector-recording true
 config network ParcelDeliveryNetwork
 config description "Multiple drones with different algorithms"
 config *.numdrones 3
@@ -25,6 +28,8 @@ config **.drone*.mobility.typename DroneNetMob
 config **.drone[*].mobility.ndst 50
 config **.drone[*].mobility.nd 8
 config **.drone[*].mobility.npar 100
+config **.drone[*].mobility.alpha_val 0.95
+config **.drone[*].mobility.beta_val 0.5
 config **.drone[*].mobility.initFromDisplayString false
 config **.drone[*].mobility.changeInterval "truncnormal(2s, 0.5s)"
 config **.drone[*].mobility.angleDelta "normal(0deg, 30deg)"
@@ -340,112 +345,56 @@ vector 51 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recoveryProcedure contention
 attr interpolationmode sample-hold
 attr recordingmode vector
 attr title "contention window"
-vector 52 ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.pendingQueue outgoingDataRate:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source throughput(packetPulled)
-attr title "outgoing datarate"
-attr unit bps
-vector 53 ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.pendingQueue incomingDataRate:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source throughput(packetPushStarted)
-attr title "incoming datarate"
-attr unit bps
-vector 54 ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess.pendingQueue outgoingDataRate:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source throughput(packetPulled)
-attr title "outgoing datarate"
-attr unit bps
-vector 55 ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess.pendingQueue incomingDataRate:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source throughput(packetPushStarted)
-attr title "incoming datarate"
-attr unit bps
-vector 56 ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess.pendingQueue outgoingDataRate:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source throughput(packetPulled)
-attr title "outgoing datarate"
-attr unit bps
-vector 57 ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess.pendingQueue incomingDataRate:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source throughput(packetPushStarted)
-attr title "incoming datarate"
-attr unit bps
-vector 58 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue outgoingDataRate:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source throughput(packetPulled)
-attr title "outgoing datarate"
-attr unit bps
-vector 59 ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue incomingDataRate:vector ETV
-attr interpolationmode linear
-attr recordingmode vector
-attr source throughput(packetPushStarted)
-attr title "incoming datarate"
-attr unit bps
-0	18025 18 0 0 0 0 2 0 0 0 0
-1	18043 45 0 0 0 0 5 0 0 0 0
-2	18088 45 0 0 0 0 5 0 0 0 0
-3	18133 18 0 0 0 0 2 0 0 0 0
-4	18151 18 0 0 0 0 2 0 0 0 0
-5	18169 9 0 0 0 0 1 0 0 0 0
-6	18178 9 0 0 0 0 1 0 0 0 0
-7	18187 9 0 0 0 0 1 0 0 0 0
-8	18196 18 0 0 0 0 2 0 0 0 0
-9	18214 45 0 0 0 0 5 0 0 0 0
-10	18259 50 0 0 0 0 5 0 0 0 0
-11	18309 20 0 0 0 0 2 0 0 0 0
-12	18329 20 0 0 0 0 2 0 0 0 0
-13	18349 10 0 0 0 0 1 0 0 0 0
-14	18359 10 0 0 0 0 1 0 0 0 0
-15	18369 10 0 0 0 0 1 0 0 0 0
-16	18379 20 0 0 0 0 2 0 0 0 0
-17	18399 50 0 0 0 0 5 0 0 0 0
-18	18449 50 0 0 0 0 5 0 0 0 0
-19	18499 20 0 0 0 0 2 0 0 0 0
-20	18519 20 0 0 0 0 2 0 0 0 0
-21	18539 10 0 0 0 0 1 0 0 0 0
-22	18549 10 0 0 0 0 1 0 0 0 0
-23	18559 10 0 0 0 0 1 0 0 0 0
-24	18569 20 0 0 0 0 2 0 0 0 0
-25	18589 50 0 0 0 0 5 0 0 0 0
-26	18639 50 0 0 0 0 5 0 0 0 0
-27	18689 20 0 0 0 0 2 0 0 0 0
-28	18709 20 0 0 0 0 2 0 0 0 0
-29	18729 10 0 0 0 0 1 0 0 0 0
-30	18739 10 0 0 0 0 1 0 0 0 0
-31	18749 10 0 0 0 0 1 0 0 0 0
-32	18759 30 0 0 0 0 3 0 2 2 4
-33	18789 10 0 0 0 0 1 0 0 0 0
-34	18799 30 0 0 0 0 3 0 2 2 4
-35	18829 10 0 0 0 0 1 0 0 0 0
-36	18839 30 0 0 0 0 3 0 2 2 4
-37	18869 10 0 0 0 0 1 0 0 0 0
-38	18879 30 0 0 0 0 3 0 2 2 4
-39	18909 10 0 0 0 0 1 0 0 0 0
-40	18919 10 0 0 0 0 1 1 1 1 1
-41	18929 20 0 0 0 0 2 0 0 0 0
-42	18949 10 0 0 0 0 1 1 1 1 1
-43	18959 20 0 0 0 0 2 0 0 0 0
-44	18979 10 0 0 0 0 1 1 1 1 1
-45	18989 20 0 0 0 0 2 0 0 0 0
-46	19009 10 0 0 0 0 1 1 1 1 1
-47	19019 20 0 0 0 0 2 0 0 0 0
-48	19039 11 0 0 0 0 1 31 31 31 961
-49	19050 11 0 0 0 0 1 31 31 31 961
-50	19061 11 0 0 0 0 1 31 31 31 961
-51	19072 11 0 0 0 0 1 31 31 31 961
-52	19083 32502 3154 3154 0.1 200 2000 0 0 0 0
-53	51585 32502 3154 3154 0.1 200 2000 0 0 0 0
-54	84087 32502 3154 3154 0.1 200 2000 0 0 0 0
-55	116589 32502 3154 3154 0.1 200 2000 0 0 0 0
-56	149091 32502 3154 3154 0.1 200 2000 0 0 0 0
-57	181593 32502 3154 3154 0.1 200 2000 0 0 0 0
-58	214095 32502 3154 3154 0.1 200 2000 0 0 0 0
-59	246597 32502 3154 3154 0.1 200 2000 0 0 0 0
+0	16146 18 0 0 0 0 2 0 0 0 0
+1	16164 45 0 0 0 0 5 0 0 0 0
+2	16209 45 0 0 0 0 5 0 0 0 0
+3	16254 18 0 0 0 0 2 0 0 0 0
+4	16272 18 0 0 0 0 2 0 0 0 0
+5	16290 9 0 0 0 0 1 0 0 0 0
+6	16299 9 0 0 0 0 1 0 0 0 0
+7	16308 9 0 0 0 0 1 0 0 0 0
+8	16317 18 0 0 0 0 2 0 0 0 0
+9	16335 45 0 0 0 0 5 0 0 0 0
+10	16380 50 0 0 0 0 5 0 0 0 0
+11	16430 20 0 0 0 0 2 0 0 0 0
+12	16450 20 0 0 0 0 2 0 0 0 0
+13	16470 10 0 0 0 0 1 0 0 0 0
+14	16480 10 0 0 0 0 1 0 0 0 0
+15	16490 10 0 0 0 0 1 0 0 0 0
+16	16500 20 0 0 0 0 2 0 0 0 0
+17	16520 50 0 0 0 0 5 0 0 0 0
+18	16570 50 0 0 0 0 5 0 0 0 0
+19	16620 20 0 0 0 0 2 0 0 0 0
+20	16640 20 0 0 0 0 2 0 0 0 0
+21	16660 10 0 0 0 0 1 0 0 0 0
+22	16670 10 0 0 0 0 1 0 0 0 0
+23	16680 10 0 0 0 0 1 0 0 0 0
+24	16690 20 0 0 0 0 2 0 0 0 0
+25	16710 50 0 0 0 0 5 0 0 0 0
+26	16760 50 0 0 0 0 5 0 0 0 0
+27	16810 20 0 0 0 0 2 0 0 0 0
+28	16830 20 0 0 0 0 2 0 0 0 0
+29	16850 10 0 0 0 0 1 0 0 0 0
+30	16860 10 0 0 0 0 1 0 0 0 0
+31	16870 10 0 0 0 0 1 0 0 0 0
+32	16880 30 0 0 0 0 3 0 2 2 4
+33	16910 10 0 0 0 0 1 0 0 0 0
+34	16920 30 0 0 0 0 3 0 2 2 4
+35	16950 10 0 0 0 0 1 0 0 0 0
+36	16960 30 0 0 0 0 3 0 2 2 4
+37	16990 10 0 0 0 0 1 0 0 0 0
+38	17000 30 0 0 0 0 3 0 2 2 4
+39	17030 10 0 0 0 0 1 0 0 0 0
+40	17040 10 0 0 0 0 1 1 1 1 1
+41	17050 20 0 0 0 0 2 0 0 0 0
+42	17070 10 0 0 0 0 1 1 1 1 1
+43	17080 20 0 0 0 0 2 0 0 0 0
+44	17100 10 0 0 0 0 1 1 1 1 1
+45	17110 20 0 0 0 0 2 0 0 0 0
+46	17130 10 0 0 0 0 1 1 1 1 1
+47	17140 20 0 0 0 0 2 0 0 0 0
+48	17160 11 0 0 0 0 1 31 31 31 961
+49	17171 11 0 0 0 0 1 31 31 31 961
+50	17182 11 0 0 0 0 1 31 31 31 961
+51	17193 11 0 0 0 0 1 31 31 31 961
 
