@@ -1,0 +1,1798 @@
+version 3
+run WeightScaling-31-20250305-21:12:57-5052
+attr configname WeightScaling
+attr datetime 20250305-21:12:57
+attr datetimef 20250305-211257
+attr experiment WeightScaling
+attr inifile omnetpp.ini
+attr iterationvars "$ndst=40, $alpha=0.55, $0=1-0.55"
+attr iterationvarsd ndst=40/alpha=0.55/1-0.55
+attr iterationvarsf ndst=40,alpha=0.55,1-0.55-
+attr measurement "$ndst=40, $alpha=0.55, $0=1-0.55"
+attr network ParcelDeliveryNetwork
+attr processid 5052
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 31
+attr seedset 31
+itervar alpha 0.55
+itervar ndst 40
+config cmdenv-express-mode false
+config cmdenv-redirect-output false
+config cmdenv-stop-batch-on-error false
+config image-path ../inet4.5/images
+config record-eventlog false
+config **.scalar-recording false
+config **.vector-recording false
+config network ParcelDeliveryNetwork
+config description "Multiple drones with different algorithms"
+config warmup-period 5s
+config *.numdrones 3
+config **.drone*.mobility.typename DroneNetMob
+config **.drone[*].mobility.ndst 40
+config **.drone[*].mobility.nd 8
+config **.drone[*].mobility.npar 200
+config **.drone[*].mobility.alpha_val 0.55
+config **.drone[*].mobility.beta_val 1-0.55
+config **.drone[*].mobility.initFromDisplayString false
+config **.drone[*].mobility.changeInterval "truncnormal(2s, 0.5s)"
+config **.drone[*].mobility.angleDelta "normal(0deg, 30deg)"
+config **.drone[*].mobility.speed 10mps
+config **.drone[*].mobility.remainingBattery 12800
+config **.drone[*].mobility.weightCapacity 200
+config **.drone[0].mobility.parcelSelectionMethod 0
+config **.drone[1].mobility.parcelSelectionMethod 1
+config **.drone[2].mobility.parcelSelectionMethod 2
+config **.drone[0].mobility.initialX 0m
+config **.drone[0].mobility.initialY 0m
+config **.drone[0].mobility.initialZ 0m
+config **.drone[1].mobility.initialX 0m
+config **.drone[1].mobility.initialY 0m
+config **.drone[1].mobility.initialZ 0m
+config **.drone[2].mobility.initialX 0m
+config **.drone[2].mobility.initialY 0m
+config **.drone[2].mobility.initialZ 0m
+config sim-time-limit 2000second
+config **.constraintAreaMinX 0m
+config **.constraintAreaMinY 0m
+config **.constraintAreaMinZ 0m
+config **.constraintAreaMaxX 600m
+config **.constraintAreaMaxY 400m
+config **.constraintAreaMaxZ 0m
+config **.updateInterval 0.5s
+
+par ParcelDeliveryNetwork.drone[0].radioIn[0].channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[0].mobility typename "\"DroneNetMob\""
+par ParcelDeliveryNetwork.drone[0].mobility subjectModule "\"^\""
+par ParcelDeliveryNetwork.drone[0].mobility coordinateSystemModule "\"\""
+par ParcelDeliveryNetwork.drone[0].mobility displayStringTextFormat "\"p: %p\\nv: %v\""
+attr mutable ""
+par ParcelDeliveryNetwork.drone[0].mobility updateDisplayString true
+par ParcelDeliveryNetwork.drone[0].mobility constraintAreaMinX 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[0].mobility constraintAreaMinY 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[0].mobility constraintAreaMinZ 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[0].mobility constraintAreaMaxX 600m
+attr unit m
+par ParcelDeliveryNetwork.drone[0].mobility constraintAreaMaxY 400m
+attr unit m
+par ParcelDeliveryNetwork.drone[0].mobility constraintAreaMaxZ 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[0].mobility updateInterval 0.5s
+attr unit s
+par ParcelDeliveryNetwork.drone[0].mobility faceForward true
+par ParcelDeliveryNetwork.drone[0].mobility ndst 40
+par ParcelDeliveryNetwork.drone[0].mobility nd 8
+par ParcelDeliveryNetwork.drone[0].mobility npar 200
+par ParcelDeliveryNetwork.drone[0].mobility weightCapacity 200
+par ParcelDeliveryNetwork.drone[0].mobility remainingBattery 12800
+par ParcelDeliveryNetwork.drone[0].mobility alpha_val 0.55
+par ParcelDeliveryNetwork.drone[0].mobility beta_val 0.45
+par ParcelDeliveryNetwork.drone[0].mobility parcelSelectionMethod 0
+par ParcelDeliveryNetwork.drone[0].mobility initialX 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[0].mobility initialY 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[0].mobility initialZ 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[0].mobility initialMovementHeading 102.979deg
+attr unit deg
+par ParcelDeliveryNetwork.drone[0].mobility initialMovementElevation 0deg
+attr unit deg
+par ParcelDeliveryNetwork.drone[0].mobility initFromDisplayString false
+par ParcelDeliveryNetwork.drone[0].mobility changeInterval "truncnormal(2s, 0.5s)"
+attr unit s
+par ParcelDeliveryNetwork.drone[0].mobility angleDelta "normal(0deg, 30deg)"
+attr unit deg
+par ParcelDeliveryNetwork.drone[0].mobility rotationAxisAngle 0deg
+attr unit deg
+par ParcelDeliveryNetwork.drone[0].mobility speed 10mps
+attr unit mps
+par ParcelDeliveryNetwork.drone[0].interfaceTable typename "\"inet.networklayer.common.InterfaceTable\""
+par ParcelDeliveryNetwork.drone[0].interfaceTable displayAddresses false
+par ParcelDeliveryNetwork.drone[0].cb typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[0].cb displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[0].cb forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[0].cb forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[0].bl typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[0].bl displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[0].bl forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[0].bl forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[0].li typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[0].li displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[0].li forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[0].li forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[0].lo[0].upperLayerIn.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[0].lo[0].lo.upperLayerOut.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[0].lo[0].lo typename "\"inet.linklayer.loopback.Loopback\""
+par ParcelDeliveryNetwork.drone[0].lo[0].lo interfaceTableModule "\"ParcelDeliveryNetwork.drone[0].interfaceTable\""
+par ParcelDeliveryNetwork.drone[0].lo[0].lo mtu 4470B
+attr unit B
+par ParcelDeliveryNetwork.drone[0].lo[0] typename "\"inet.linklayer.loopback.LoopbackInterface\""
+par ParcelDeliveryNetwork.drone[0].lo[0] displayStringTextFormat "\"%a (%i)\\n%m\""
+par ParcelDeliveryNetwork.drone[0].lo[0] recordPcap false
+par ParcelDeliveryNetwork.drone[0].lo[0] numPcapRecorders 0
+par ParcelDeliveryNetwork.drone[0].lo[0] interfaceTableModule "\"ParcelDeliveryNetwork.drone[0].interfaceTable\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].radioIn.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].llc.upperLayerOut.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].upperLayerIn.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mib typename "\"inet.linklayer.ieee80211.mib.Ieee80211Mib\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].llc typename "\"inet.linklayer.ieee80211.llc.Ieee80211LlcLpd\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].llc registerProtocol false
+par ParcelDeliveryNetwork.drone[0].wlan[0].mgmt typename "\"inet.linklayer.ieee80211.mgmt.Ieee80211MgmtAdhoc\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mgmt mibModule "\"ParcelDeliveryNetwork.drone[0].wlan[0].mib\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mgmt macModule "\"ParcelDeliveryNetwork.drone[0].wlan[0].mac\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mgmt interfaceTableModule "\"ParcelDeliveryNetwork.drone[0].interfaceTable\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.pendingQueue typename "\"inet.linklayer.ieee80211.mac.queue.PendingQueue\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.pendingQueue displayStringTextFormat "\"contains %p pk (%l) pushed %u\\npulled %o removed %r dropped %d\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.pendingQueue packetCapacity 100
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.pendingQueue dataCapacity -1b
+attr unit b
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.pendingQueue dropperClass "\"inet::queueing::PacketAtCollectionEndDropper\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.pendingQueue comparatorClass "\"inet::ieee80211::MgmtOverDataComparator\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.pendingQueue bufferModule "\"\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.inProgressFrames typename "\"inet.linklayer.ieee80211.mac.queue.InProgressFrames\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.inProgressFrames pendingQueueModule "\"^.pendingQueue\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.inProgressFrames originatorMacDataServiceModule "\"^.^.originatorMacDataService\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.inProgressFrames ackHandlerModule "\"^.^.ackHandler\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.contention typename "\"inet.linklayer.ieee80211.mac.contention.Contention\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.contention initialChannelBusy true
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess.contention backoffOptimization true
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess typename "\"inet.linklayer.ieee80211.mac.channelaccess.Dcaf\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess difsn -1
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess cwMin -1
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess cwMax -1
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.channelAccess rxModule "\"^.^.rx\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.originatorMacDataService.fragmentationPolicy typename "\"inet.linklayer.ieee80211.mac.fragmentation.BasicFragmentationPolicy\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.originatorMacDataService.fragmentationPolicy fragmentationThreshold 1500B
+attr unit B
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.originatorMacDataService typename "\"inet.linklayer.ieee80211.mac.originator.OriginatorMacDataService\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.recipientMacDataService typename "\"inet.linklayer.ieee80211.mac.recipient.RecipientMacDataService\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.rateSelection typename "\"inet.linklayer.ieee80211.mac.rateselection.RateSelection\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.rateSelection rateControlModule "\"^.rateControl\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.rateSelection multicastFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.rateSelection responseAckFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.rateSelection responseCtsFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.rateSelection dataFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.rateSelection dataFrameBandwidth "nan Hz"
+attr unit Hz
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.rateSelection dataFrameNumSpatialStreams -1
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.rateSelection mgmtFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.rateSelection controlFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.recoveryProcedure typename "\"inet.linklayer.ieee80211.mac.originator.NonQosRecoveryProcedure\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.recoveryProcedure cwCalculatorModule "\"^.channelAccess\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.recoveryProcedure rtsPolicyModule "\"^.rtsPolicy\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.recoveryProcedure shortRetryLimit 7
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.recoveryProcedure longRetryLimit 4
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.originatorProtectionMechanism typename "\"inet.linklayer.ieee80211.mac.protectionmechanism.OriginatorProtectionMechanism\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.originatorProtectionMechanism rateSelectionModule "\"^.rateSelection\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.ackHandler typename "\"inet.linklayer.ieee80211.mac.originator.AckHandler\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.originatorAckPolicy typename "\"inet.linklayer.ieee80211.mac.originator.OriginatorAckPolicy\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.originatorAckPolicy rateSelectionModule "\"^.rateSelection\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.originatorAckPolicy ackTimeout -1s
+attr unit s
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.recipientAckPolicy typename "\"inet.linklayer.ieee80211.mac.recipient.RecipientAckPolicy\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.recipientAckPolicy rateSelectionModule "\"^.rateSelection\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.rtsPolicy typename "\"inet.linklayer.ieee80211.mac.originator.RtsPolicy\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.rtsPolicy rateSelectionModule "\"^.rateSelection\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.rtsPolicy ctsTimeout -1s
+attr unit s
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.rtsPolicy rtsThreshold 2346B
+attr unit B
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.ctsPolicy typename "\"inet.linklayer.ieee80211.mac.recipient.CtsPolicy\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.ctsPolicy rxModule "\"^.^.rx\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf.ctsPolicy rateSelectionModule "\"^.rateSelection\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf typename "\"inet.linklayer.ieee80211.mac.coordinationfunction.Dcf\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf rxModule "\"^.rx\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.dcf txModule "\"^.tx\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.ds typename "\"inet.linklayer.ieee80211.mac.Ds\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.ds mibModule "\"ParcelDeliveryNetwork.drone[0].wlan[0].mib\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.rx typename "\"inet.linklayer.ieee80211.mac.Rx\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.tx typename "\"inet.linklayer.ieee80211.mac.Tx\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac.tx rxModule "\"^.rx\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac typename "\"inet.linklayer.ieee80211.mac.Ieee80211Mac\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac interfaceTableModule "\"ParcelDeliveryNetwork.drone[0].interfaceTable\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac mibModule "\"ParcelDeliveryNetwork.drone[0].wlan[0].mib\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac modeSet "\"g(mixed)\""
+attr enum a,b,g(erp),g(mixed),n(mixed-2.4Ghz),p,ac
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac fcsMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac initialRadioMode "\"receiver\""
+attr enum off,sleep,receiver,transmitter,transceiver
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac mtu 2304B
+attr unit B
+par ParcelDeliveryNetwork.drone[0].wlan[0].mac qosStation false
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.antenna typename "\"inet.physicallayer.wireless.common.antenna.IsotropicAntenna\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.antenna mobilityModule "\"^.^.^.mobility\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.antenna numAntennas 1
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.transmitter typename "\"inet.physicallayer.wireless.ieee80211.packetlevel.Ieee80211ScalarTransmitter\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.transmitter preambleDuration -1s
+attr unit s
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.transmitter headerLength 192b
+attr unit b
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.transmitter bitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.transmitter power 0.02W
+attr unit W
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.transmitter centerFrequency 2.412e+09Hz
+attr unit Hz
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.transmitter bandwidth "nan Hz"
+attr unit Hz
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.transmitter codeRate 1
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.transmitter modulation "\"BPSK\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.transmitter opMode "\"g(mixed)\""
+attr enum a,b,g(erp),g(mixed),n(mixed-2.4Ghz),p,ac
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.transmitter bandName "\"2.4 GHz\""
+attr enum "2.4 GHz,5 GHz,5 GHz (20 MHz),5 GHz (40 MHz),5 GHz (80 MHz),5 GHz (160 MHz),5.9 GHz"
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.transmitter channelNumber 0
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.receiver.errorModel typename "\"inet.physicallayer.wireless.ieee80211.packetlevel.errormodel.Ieee80211NistErrorModel\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.receiver.errorModel corruptionMode "\"packet\""
+attr enum packet,chunk,byte,bit
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.receiver.errorModel snirMode "\"min\""
+attr enum min,mean
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.receiver.errorModel snirOffset 0dB
+attr unit dB
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.receiver typename "\"inet.physicallayer.wireless.ieee80211.packetlevel.Ieee80211ScalarReceiver\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.receiver snirThreshold 4dB
+attr unit dB
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.receiver snirThresholdMode "\"min\""
+attr enum min,mean
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.receiver energyDetection -85dBm
+attr unit dBm
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.receiver sensitivity -85dBm
+attr unit dBm
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.receiver centerFrequency 2.412e+09Hz
+attr unit Hz
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.receiver bandwidth 2.2e+07Hz
+attr unit Hz
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.receiver modulation "\"BPSK\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.receiver opMode "\"g(mixed)\""
+attr enum a,b,g(erp),g(mixed),n(mixed-2.4Ghz),p,ac
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.receiver bandName "\"2.4 GHz\""
+attr enum "2.4 GHz,5 GHz,5 GHz (20 MHz),5 GHz (40 MHz),5 GHz (80 MHz),5 GHz (160 MHz),5.9 GHz"
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio.receiver channelNumber 0
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio typename "\"inet.physicallayer.wireless.ieee80211.packetlevel.Ieee80211ScalarRadio\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio radioMediumModule "\"radioMedium\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio energySourceModule "\"\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio initialRadioMode "\"off\""
+attr enum off,sleep,receiver,transmitter,transceiver
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio switchingTimes "\"ms 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\""
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio sendRawBytes false
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio separateTransmissionParts false
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio separateReceptionParts false
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio displayCommunicationRange false
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio displayInterferenceRange false
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio centerFrequency 2.412e+09Hz
+attr unit Hz
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio bandwidth "nan Hz"
+attr unit Hz
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio signalAnalogRepresentation "\"scalar\""
+attr enum scalar,dimensional
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio opMode "\"g(mixed)\""
+attr enum a,b,g(erp),g(mixed),n(mixed-2.4Ghz),p,ac
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio bandName "\"2.4 GHz\""
+attr enum "2.4 GHz,5 GHz,5 GHz (20 MHz),5 GHz (40 MHz),5 GHz (80 MHz),5 GHz (160 MHz),5.9 GHz"
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio channelNumber 0
+par ParcelDeliveryNetwork.drone[0].wlan[0].radio crcMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.drone[0].wlan[0] typename "\"inet.linklayer.ieee80211.Ieee80211Interface\""
+par ParcelDeliveryNetwork.drone[0].wlan[0] displayStringTextFormat "\"%a (%i)\\n%m\""
+par ParcelDeliveryNetwork.drone[0].wlan[0] recordPcap false
+par ParcelDeliveryNetwork.drone[0].wlan[0] numPcapRecorders 0
+par ParcelDeliveryNetwork.drone[0].wlan[0] interfaceTableModule "\"ParcelDeliveryNetwork.drone[0].interfaceTable\""
+par ParcelDeliveryNetwork.drone[0].wlan[0] energySourceModule "\"\""
+par ParcelDeliveryNetwork.drone[0].wlan[0] opMode "\"g(mixed)\""
+attr enum a,b,g(erp),g(mixed),n(mixed-2.4Ghz),p,ac
+par ParcelDeliveryNetwork.drone[0].wlan[0] address "\"0A-AA-00-00-00-01\""
+attr mutable ""
+par ParcelDeliveryNetwork.drone[0].wlan[0] protocol "\"\""
+par ParcelDeliveryNetwork.drone[0].wlan[0] bitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[0].ipv4.transportIn.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[0].ipv4.up.out[0].channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[0].ipv4.lp.out[2].channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[0].ipv4.ifIn.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[0].ipv4.configurator typename "\"inet.networklayer.configurator.ipv4.Ipv4NodeConfigurator\""
+par ParcelDeliveryNetwork.drone[0].ipv4.configurator interfaceTableModule "\"ParcelDeliveryNetwork.drone[0].interfaceTable\""
+par ParcelDeliveryNetwork.drone[0].ipv4.configurator routingTableModule "\"ParcelDeliveryNetwork.drone[0].ipv4.routingTable\""
+par ParcelDeliveryNetwork.drone[0].ipv4.configurator networkConfiguratorModule "\"configurator\""
+par ParcelDeliveryNetwork.drone[0].ipv4.configurator configureRoutingTable true
+par ParcelDeliveryNetwork.drone[0].ipv4.routingTable typename "\"inet.networklayer.ipv4.Ipv4RoutingTable\""
+par ParcelDeliveryNetwork.drone[0].ipv4.routingTable interfaceTableModule "\"ParcelDeliveryNetwork.drone[0].interfaceTable\""
+par ParcelDeliveryNetwork.drone[0].ipv4.routingTable routerId "\"auto\""
+par ParcelDeliveryNetwork.drone[0].ipv4.routingTable netmaskRoutes "\"*\""
+par ParcelDeliveryNetwork.drone[0].ipv4.routingTable forwarding true
+par ParcelDeliveryNetwork.drone[0].ipv4.routingTable multicastForwarding false
+par ParcelDeliveryNetwork.drone[0].ipv4.routingTable useAdminDist false
+par ParcelDeliveryNetwork.drone[0].ipv4.routingTable routingFile "\"\""
+par ParcelDeliveryNetwork.drone[0].ipv4.natTable typename "\"inet.networklayer.ipv4.Ipv4NatTable\""
+par ParcelDeliveryNetwork.drone[0].ipv4.natTable networkProtocolModule "\"^.ip\""
+par ParcelDeliveryNetwork.drone[0].ipv4.natTable config "<config/> at content:1"
+par ParcelDeliveryNetwork.drone[0].ipv4.up typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[0].ipv4.up displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[0].ipv4.up forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[0].ipv4.up forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[0].ipv4.igmp typename "\"inet.networklayer.ipv4.Igmpv2\""
+par ParcelDeliveryNetwork.drone[0].ipv4.igmp interfaceTableModule "\"ParcelDeliveryNetwork.drone[0].interfaceTable\""
+par ParcelDeliveryNetwork.drone[0].ipv4.igmp routingTableModule "\"ParcelDeliveryNetwork.drone[0].ipv4.routingTable\""
+par ParcelDeliveryNetwork.drone[0].ipv4.igmp crcMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.drone[0].ipv4.igmp enabled true
+par ParcelDeliveryNetwork.drone[0].ipv4.igmp robustnessVariable 2
+par ParcelDeliveryNetwork.drone[0].ipv4.igmp queryInterval 125s
+attr unit s
+par ParcelDeliveryNetwork.drone[0].ipv4.igmp queryResponseInterval 10s
+attr unit s
+par ParcelDeliveryNetwork.drone[0].ipv4.igmp groupMembershipInterval 260s
+attr unit s
+par ParcelDeliveryNetwork.drone[0].ipv4.igmp otherQuerierPresentInterval 255s
+attr unit s
+par ParcelDeliveryNetwork.drone[0].ipv4.igmp startupQueryInterval 31.25s
+attr unit s
+par ParcelDeliveryNetwork.drone[0].ipv4.igmp startupQueryCount 2
+par ParcelDeliveryNetwork.drone[0].ipv4.igmp lastMemberQueryInterval 1s
+attr unit s
+par ParcelDeliveryNetwork.drone[0].ipv4.igmp lastMemberQueryCount 2
+par ParcelDeliveryNetwork.drone[0].ipv4.igmp unsolicitedReportInterval 10s
+attr unit s
+par ParcelDeliveryNetwork.drone[0].ipv4.icmp typename "\"inet.networklayer.ipv4.Icmp\""
+par ParcelDeliveryNetwork.drone[0].ipv4.icmp interfaceTableModule "\"ParcelDeliveryNetwork.drone[0].interfaceTable\""
+par ParcelDeliveryNetwork.drone[0].ipv4.icmp routingTableModule "\"ParcelDeliveryNetwork.drone[0].ipv4.routingTable\""
+par ParcelDeliveryNetwork.drone[0].ipv4.icmp crcMode "\"declared\""
+attr enum declared,computed
+attr mutable ""
+par ParcelDeliveryNetwork.drone[0].ipv4.icmp quoteLength 8B
+attr mutable ""
+attr unit B
+par ParcelDeliveryNetwork.drone[0].ipv4.mp typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[0].ipv4.mp displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[0].ipv4.mp forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[0].ipv4.mp forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[0].ipv4.ip typename "\"inet.networklayer.ipv4.Ipv4\""
+par ParcelDeliveryNetwork.drone[0].ipv4.ip interfaceTableModule "\"ParcelDeliveryNetwork.drone[0].interfaceTable\""
+par ParcelDeliveryNetwork.drone[0].ipv4.ip routingTableModule "\"ParcelDeliveryNetwork.drone[0].ipv4.routingTable\""
+par ParcelDeliveryNetwork.drone[0].ipv4.ip arpModule "\"ParcelDeliveryNetwork.drone[0].ipv4.arp\""
+par ParcelDeliveryNetwork.drone[0].ipv4.ip icmpModule "\"ParcelDeliveryNetwork.drone[0].ipv4.icmp\""
+par ParcelDeliveryNetwork.drone[0].ipv4.ip crcMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.drone[0].ipv4.ip timeToLive 32
+par ParcelDeliveryNetwork.drone[0].ipv4.ip multicastTimeToLive 32
+par ParcelDeliveryNetwork.drone[0].ipv4.ip fragmentTimeout 60s
+attr unit s
+par ParcelDeliveryNetwork.drone[0].ipv4.ip limitedBroadcast false
+par ParcelDeliveryNetwork.drone[0].ipv4.ip directBroadcastInterfaces "\"\""
+par ParcelDeliveryNetwork.drone[0].ipv4.arp typename "\"inet.networklayer.arp.ipv4.Arp\""
+par ParcelDeliveryNetwork.drone[0].ipv4.arp interfaceTableModule "\"ParcelDeliveryNetwork.drone[0].interfaceTable\""
+par ParcelDeliveryNetwork.drone[0].ipv4.arp routingTableModule "\"ParcelDeliveryNetwork.drone[0].ipv4.routingTable\""
+par ParcelDeliveryNetwork.drone[0].ipv4.arp retryTimeout 1s
+attr unit s
+par ParcelDeliveryNetwork.drone[0].ipv4.arp retryCount 3
+par ParcelDeliveryNetwork.drone[0].ipv4.arp cacheTimeout 120s
+attr unit s
+par ParcelDeliveryNetwork.drone[0].ipv4.arp proxyArpInterfaces "\"\""
+par ParcelDeliveryNetwork.drone[0].ipv4.lp typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[0].ipv4.lp displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[0].ipv4.lp forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[0].ipv4.lp forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[0].ipv4 typename "\"inet.networklayer.ipv4.Ipv4NetworkLayer\""
+par ParcelDeliveryNetwork.drone[0].ipv4 forwarding true
+par ParcelDeliveryNetwork.drone[0].ipv4 multicastForwarding false
+par ParcelDeliveryNetwork.drone[0].ipv4 interfaceTableModule "\"ParcelDeliveryNetwork.drone[0].interfaceTable\""
+par ParcelDeliveryNetwork.drone[0].ipv4 displayStringTextFormat "\"%i\""
+par ParcelDeliveryNetwork.drone[0].nl typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[0].nl displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[0].nl forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[0].nl forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[0].udp typename "\"inet.transportlayer.udp.Udp\""
+par ParcelDeliveryNetwork.drone[0].udp interfaceTableModule "\"ParcelDeliveryNetwork.drone[0].interfaceTable\""
+par ParcelDeliveryNetwork.drone[0].udp icmpModule "\"^.ipv4.icmp\""
+par ParcelDeliveryNetwork.drone[0].udp icmpv6Module "\"^.ipv6.icmpv6\""
+par ParcelDeliveryNetwork.drone[0].udp crcMode "\"declared\""
+attr enum disabled,declared,computed
+par ParcelDeliveryNetwork.drone[0].udp defaultMulticastLoop true
+par ParcelDeliveryNetwork.drone[0].tcp typename "\"inet.transportlayer.tcp.Tcp\""
+par ParcelDeliveryNetwork.drone[0].tcp crcMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.drone[0].tcp advertisedWindow 7504
+par ParcelDeliveryNetwork.drone[0].tcp delayedAcksEnabled false
+par ParcelDeliveryNetwork.drone[0].tcp nagleEnabled true
+par ParcelDeliveryNetwork.drone[0].tcp limitedTransmitEnabled false
+par ParcelDeliveryNetwork.drone[0].tcp increasedIWEnabled false
+par ParcelDeliveryNetwork.drone[0].tcp sackSupport false
+par ParcelDeliveryNetwork.drone[0].tcp windowScalingSupport false
+par ParcelDeliveryNetwork.drone[0].tcp windowScalingFactor -1
+par ParcelDeliveryNetwork.drone[0].tcp timestampSupport false
+par ParcelDeliveryNetwork.drone[0].tcp mss 536
+par ParcelDeliveryNetwork.drone[0].tcp msl 120s
+attr unit s
+par ParcelDeliveryNetwork.drone[0].tcp tcpAlgorithmClass "\"TcpReno\""
+attr enum TcpVegas,TcpWestwood,TcpNewReno,TcpReno,TcpTahoe,TcpNoCongestionControl
+par ParcelDeliveryNetwork.drone[0].tcp useDataNotification false
+par ParcelDeliveryNetwork.drone[0].tcp dupthresh 3
+par ParcelDeliveryNetwork.drone[0].tcp initialSsthresh 4294967295
+par ParcelDeliveryNetwork.drone[0].tcp stopOperationExtraTime 0s
+attr unit s
+par ParcelDeliveryNetwork.drone[0].tcp stopOperationTimeout 2s
+attr unit s
+par ParcelDeliveryNetwork.drone[0].tcp ecnWillingness false
+par ParcelDeliveryNetwork.drone[0].tcp dctcpGamma 0.0625
+par ParcelDeliveryNetwork.drone[0].tn typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[0].tn displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[0].tn forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[0].tn forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[0].at typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[0].at displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[0].at forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[0].at forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[0] typename "\"inet.examples.mobility.DroneHost\""
+par ParcelDeliveryNetwork.drone[0] hasStatus false
+par ParcelDeliveryNetwork.drone[0] osgModel "\"\""
+par ParcelDeliveryNetwork.drone[0] osgModelColor "\"\""
+par ParcelDeliveryNetwork.drone[0] canvasImage "\"\""
+par ParcelDeliveryNetwork.drone[0] canvasImageColor "\"\""
+par ParcelDeliveryNetwork.drone[0] recordPcap false
+par ParcelDeliveryNetwork.drone[0] numPcapRecorders 0
+par ParcelDeliveryNetwork.drone[0] numLoInterfaces 1
+par ParcelDeliveryNetwork.drone[0] numWlanInterfaces 1
+par ParcelDeliveryNetwork.drone[0] numEthInterfaces 0
+par ParcelDeliveryNetwork.drone[0] numPppInterfaces 0
+par ParcelDeliveryNetwork.drone[0] numTunInterfaces 0
+par ParcelDeliveryNetwork.drone[0] numVirtInterfaces 0
+par ParcelDeliveryNetwork.drone[0] fcsMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.drone[0] hasIpv4 true
+par ParcelDeliveryNetwork.drone[0] hasIpv6 false
+par ParcelDeliveryNetwork.drone[0] hasGn false
+par ParcelDeliveryNetwork.drone[0] forwarding true
+par ParcelDeliveryNetwork.drone[0] multicastForwarding false
+par ParcelDeliveryNetwork.drone[0] hasUdp true
+par ParcelDeliveryNetwork.drone[0] hasTcp true
+par ParcelDeliveryNetwork.drone[0] hasSctp false
+par ParcelDeliveryNetwork.drone[0] numApps 0
+par ParcelDeliveryNetwork.drone[0] weightCapacity 10
+par ParcelDeliveryNetwork.drone[0] batteryCapacity 20
+par ParcelDeliveryNetwork.drone[0] parcelSelecitionMethod 2
+par ParcelDeliveryNetwork.drone[1].radioIn[0].channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[1].mobility typename "\"DroneNetMob\""
+par ParcelDeliveryNetwork.drone[1].mobility subjectModule "\"^\""
+par ParcelDeliveryNetwork.drone[1].mobility coordinateSystemModule "\"\""
+par ParcelDeliveryNetwork.drone[1].mobility displayStringTextFormat "\"p: %p\\nv: %v\""
+attr mutable ""
+par ParcelDeliveryNetwork.drone[1].mobility updateDisplayString true
+par ParcelDeliveryNetwork.drone[1].mobility constraintAreaMinX 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[1].mobility constraintAreaMinY 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[1].mobility constraintAreaMinZ 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[1].mobility constraintAreaMaxX 600m
+attr unit m
+par ParcelDeliveryNetwork.drone[1].mobility constraintAreaMaxY 400m
+attr unit m
+par ParcelDeliveryNetwork.drone[1].mobility constraintAreaMaxZ 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[1].mobility updateInterval 0.5s
+attr unit s
+par ParcelDeliveryNetwork.drone[1].mobility faceForward true
+par ParcelDeliveryNetwork.drone[1].mobility ndst 40
+par ParcelDeliveryNetwork.drone[1].mobility nd 8
+par ParcelDeliveryNetwork.drone[1].mobility npar 200
+par ParcelDeliveryNetwork.drone[1].mobility weightCapacity 200
+par ParcelDeliveryNetwork.drone[1].mobility remainingBattery 12800
+par ParcelDeliveryNetwork.drone[1].mobility alpha_val 0.55
+par ParcelDeliveryNetwork.drone[1].mobility beta_val 0.45
+par ParcelDeliveryNetwork.drone[1].mobility parcelSelectionMethod 1
+par ParcelDeliveryNetwork.drone[1].mobility initialX 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[1].mobility initialY 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[1].mobility initialZ 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[1].mobility initialMovementHeading 10.437deg
+attr unit deg
+par ParcelDeliveryNetwork.drone[1].mobility initialMovementElevation 0deg
+attr unit deg
+par ParcelDeliveryNetwork.drone[1].mobility initFromDisplayString false
+par ParcelDeliveryNetwork.drone[1].mobility changeInterval "truncnormal(2s, 0.5s)"
+attr unit s
+par ParcelDeliveryNetwork.drone[1].mobility angleDelta "normal(0deg, 30deg)"
+attr unit deg
+par ParcelDeliveryNetwork.drone[1].mobility rotationAxisAngle 0deg
+attr unit deg
+par ParcelDeliveryNetwork.drone[1].mobility speed 10mps
+attr unit mps
+par ParcelDeliveryNetwork.drone[1].interfaceTable typename "\"inet.networklayer.common.InterfaceTable\""
+par ParcelDeliveryNetwork.drone[1].interfaceTable displayAddresses false
+par ParcelDeliveryNetwork.drone[1].cb typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[1].cb displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[1].cb forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[1].cb forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[1].bl typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[1].bl displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[1].bl forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[1].bl forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[1].li typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[1].li displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[1].li forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[1].li forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[1].lo[0].upperLayerIn.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[1].lo[0].lo.upperLayerOut.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[1].lo[0].lo typename "\"inet.linklayer.loopback.Loopback\""
+par ParcelDeliveryNetwork.drone[1].lo[0].lo interfaceTableModule "\"ParcelDeliveryNetwork.drone[1].interfaceTable\""
+par ParcelDeliveryNetwork.drone[1].lo[0].lo mtu 4470B
+attr unit B
+par ParcelDeliveryNetwork.drone[1].lo[0] typename "\"inet.linklayer.loopback.LoopbackInterface\""
+par ParcelDeliveryNetwork.drone[1].lo[0] displayStringTextFormat "\"%a (%i)\\n%m\""
+par ParcelDeliveryNetwork.drone[1].lo[0] recordPcap false
+par ParcelDeliveryNetwork.drone[1].lo[0] numPcapRecorders 0
+par ParcelDeliveryNetwork.drone[1].lo[0] interfaceTableModule "\"ParcelDeliveryNetwork.drone[1].interfaceTable\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].radioIn.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].llc.upperLayerOut.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].upperLayerIn.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mib typename "\"inet.linklayer.ieee80211.mib.Ieee80211Mib\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].llc typename "\"inet.linklayer.ieee80211.llc.Ieee80211LlcLpd\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].llc registerProtocol false
+par ParcelDeliveryNetwork.drone[1].wlan[0].mgmt typename "\"inet.linklayer.ieee80211.mgmt.Ieee80211MgmtAdhoc\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mgmt mibModule "\"ParcelDeliveryNetwork.drone[1].wlan[0].mib\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mgmt macModule "\"ParcelDeliveryNetwork.drone[1].wlan[0].mac\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mgmt interfaceTableModule "\"ParcelDeliveryNetwork.drone[1].interfaceTable\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess.pendingQueue typename "\"inet.linklayer.ieee80211.mac.queue.PendingQueue\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess.pendingQueue displayStringTextFormat "\"contains %p pk (%l) pushed %u\\npulled %o removed %r dropped %d\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess.pendingQueue packetCapacity 100
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess.pendingQueue dataCapacity -1b
+attr unit b
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess.pendingQueue dropperClass "\"inet::queueing::PacketAtCollectionEndDropper\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess.pendingQueue comparatorClass "\"inet::ieee80211::MgmtOverDataComparator\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess.pendingQueue bufferModule "\"\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess.inProgressFrames typename "\"inet.linklayer.ieee80211.mac.queue.InProgressFrames\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess.inProgressFrames pendingQueueModule "\"^.pendingQueue\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess.inProgressFrames originatorMacDataServiceModule "\"^.^.originatorMacDataService\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess.inProgressFrames ackHandlerModule "\"^.^.ackHandler\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess.contention typename "\"inet.linklayer.ieee80211.mac.contention.Contention\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess.contention initialChannelBusy true
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess.contention backoffOptimization true
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess typename "\"inet.linklayer.ieee80211.mac.channelaccess.Dcaf\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess difsn -1
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess cwMin -1
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess cwMax -1
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.channelAccess rxModule "\"^.^.rx\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.originatorMacDataService.fragmentationPolicy typename "\"inet.linklayer.ieee80211.mac.fragmentation.BasicFragmentationPolicy\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.originatorMacDataService.fragmentationPolicy fragmentationThreshold 1500B
+attr unit B
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.originatorMacDataService typename "\"inet.linklayer.ieee80211.mac.originator.OriginatorMacDataService\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.recipientMacDataService typename "\"inet.linklayer.ieee80211.mac.recipient.RecipientMacDataService\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.rateSelection typename "\"inet.linklayer.ieee80211.mac.rateselection.RateSelection\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.rateSelection rateControlModule "\"^.rateControl\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.rateSelection multicastFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.rateSelection responseAckFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.rateSelection responseCtsFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.rateSelection dataFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.rateSelection dataFrameBandwidth "nan Hz"
+attr unit Hz
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.rateSelection dataFrameNumSpatialStreams -1
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.rateSelection mgmtFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.rateSelection controlFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.recoveryProcedure typename "\"inet.linklayer.ieee80211.mac.originator.NonQosRecoveryProcedure\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.recoveryProcedure cwCalculatorModule "\"^.channelAccess\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.recoveryProcedure rtsPolicyModule "\"^.rtsPolicy\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.recoveryProcedure shortRetryLimit 7
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.recoveryProcedure longRetryLimit 4
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.originatorProtectionMechanism typename "\"inet.linklayer.ieee80211.mac.protectionmechanism.OriginatorProtectionMechanism\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.originatorProtectionMechanism rateSelectionModule "\"^.rateSelection\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.ackHandler typename "\"inet.linklayer.ieee80211.mac.originator.AckHandler\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.originatorAckPolicy typename "\"inet.linklayer.ieee80211.mac.originator.OriginatorAckPolicy\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.originatorAckPolicy rateSelectionModule "\"^.rateSelection\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.originatorAckPolicy ackTimeout -1s
+attr unit s
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.recipientAckPolicy typename "\"inet.linklayer.ieee80211.mac.recipient.RecipientAckPolicy\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.recipientAckPolicy rateSelectionModule "\"^.rateSelection\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.rtsPolicy typename "\"inet.linklayer.ieee80211.mac.originator.RtsPolicy\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.rtsPolicy rateSelectionModule "\"^.rateSelection\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.rtsPolicy ctsTimeout -1s
+attr unit s
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.rtsPolicy rtsThreshold 2346B
+attr unit B
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.ctsPolicy typename "\"inet.linklayer.ieee80211.mac.recipient.CtsPolicy\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.ctsPolicy rxModule "\"^.^.rx\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf.ctsPolicy rateSelectionModule "\"^.rateSelection\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf typename "\"inet.linklayer.ieee80211.mac.coordinationfunction.Dcf\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf rxModule "\"^.rx\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.dcf txModule "\"^.tx\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.ds typename "\"inet.linklayer.ieee80211.mac.Ds\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.ds mibModule "\"ParcelDeliveryNetwork.drone[1].wlan[0].mib\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.rx typename "\"inet.linklayer.ieee80211.mac.Rx\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.tx typename "\"inet.linklayer.ieee80211.mac.Tx\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac.tx rxModule "\"^.rx\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac typename "\"inet.linklayer.ieee80211.mac.Ieee80211Mac\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac interfaceTableModule "\"ParcelDeliveryNetwork.drone[1].interfaceTable\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac mibModule "\"ParcelDeliveryNetwork.drone[1].wlan[0].mib\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac modeSet "\"g(mixed)\""
+attr enum a,b,g(erp),g(mixed),n(mixed-2.4Ghz),p,ac
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac fcsMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac initialRadioMode "\"receiver\""
+attr enum off,sleep,receiver,transmitter,transceiver
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac mtu 2304B
+attr unit B
+par ParcelDeliveryNetwork.drone[1].wlan[0].mac qosStation false
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.antenna typename "\"inet.physicallayer.wireless.common.antenna.IsotropicAntenna\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.antenna mobilityModule "\"^.^.^.mobility\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.antenna numAntennas 1
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.transmitter typename "\"inet.physicallayer.wireless.ieee80211.packetlevel.Ieee80211ScalarTransmitter\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.transmitter preambleDuration -1s
+attr unit s
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.transmitter headerLength 192b
+attr unit b
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.transmitter bitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.transmitter power 0.02W
+attr unit W
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.transmitter centerFrequency 2.412e+09Hz
+attr unit Hz
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.transmitter bandwidth "nan Hz"
+attr unit Hz
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.transmitter codeRate 1
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.transmitter modulation "\"BPSK\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.transmitter opMode "\"g(mixed)\""
+attr enum a,b,g(erp),g(mixed),n(mixed-2.4Ghz),p,ac
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.transmitter bandName "\"2.4 GHz\""
+attr enum "2.4 GHz,5 GHz,5 GHz (20 MHz),5 GHz (40 MHz),5 GHz (80 MHz),5 GHz (160 MHz),5.9 GHz"
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.transmitter channelNumber 0
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.receiver.errorModel typename "\"inet.physicallayer.wireless.ieee80211.packetlevel.errormodel.Ieee80211NistErrorModel\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.receiver.errorModel corruptionMode "\"packet\""
+attr enum packet,chunk,byte,bit
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.receiver.errorModel snirMode "\"min\""
+attr enum min,mean
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.receiver.errorModel snirOffset 0dB
+attr unit dB
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.receiver typename "\"inet.physicallayer.wireless.ieee80211.packetlevel.Ieee80211ScalarReceiver\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.receiver snirThreshold 4dB
+attr unit dB
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.receiver snirThresholdMode "\"min\""
+attr enum min,mean
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.receiver energyDetection -85dBm
+attr unit dBm
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.receiver sensitivity -85dBm
+attr unit dBm
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.receiver centerFrequency 2.412e+09Hz
+attr unit Hz
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.receiver bandwidth 2.2e+07Hz
+attr unit Hz
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.receiver modulation "\"BPSK\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.receiver opMode "\"g(mixed)\""
+attr enum a,b,g(erp),g(mixed),n(mixed-2.4Ghz),p,ac
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.receiver bandName "\"2.4 GHz\""
+attr enum "2.4 GHz,5 GHz,5 GHz (20 MHz),5 GHz (40 MHz),5 GHz (80 MHz),5 GHz (160 MHz),5.9 GHz"
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio.receiver channelNumber 0
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio typename "\"inet.physicallayer.wireless.ieee80211.packetlevel.Ieee80211ScalarRadio\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio radioMediumModule "\"radioMedium\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio energySourceModule "\"\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio initialRadioMode "\"off\""
+attr enum off,sleep,receiver,transmitter,transceiver
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio switchingTimes "\"ms 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\""
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio sendRawBytes false
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio separateTransmissionParts false
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio separateReceptionParts false
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio displayCommunicationRange false
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio displayInterferenceRange false
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio centerFrequency 2.412e+09Hz
+attr unit Hz
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio bandwidth "nan Hz"
+attr unit Hz
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio signalAnalogRepresentation "\"scalar\""
+attr enum scalar,dimensional
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio opMode "\"g(mixed)\""
+attr enum a,b,g(erp),g(mixed),n(mixed-2.4Ghz),p,ac
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio bandName "\"2.4 GHz\""
+attr enum "2.4 GHz,5 GHz,5 GHz (20 MHz),5 GHz (40 MHz),5 GHz (80 MHz),5 GHz (160 MHz),5.9 GHz"
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio channelNumber 0
+par ParcelDeliveryNetwork.drone[1].wlan[0].radio crcMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.drone[1].wlan[0] typename "\"inet.linklayer.ieee80211.Ieee80211Interface\""
+par ParcelDeliveryNetwork.drone[1].wlan[0] displayStringTextFormat "\"%a (%i)\\n%m\""
+par ParcelDeliveryNetwork.drone[1].wlan[0] recordPcap false
+par ParcelDeliveryNetwork.drone[1].wlan[0] numPcapRecorders 0
+par ParcelDeliveryNetwork.drone[1].wlan[0] interfaceTableModule "\"ParcelDeliveryNetwork.drone[1].interfaceTable\""
+par ParcelDeliveryNetwork.drone[1].wlan[0] energySourceModule "\"\""
+par ParcelDeliveryNetwork.drone[1].wlan[0] opMode "\"g(mixed)\""
+attr enum a,b,g(erp),g(mixed),n(mixed-2.4Ghz),p,ac
+par ParcelDeliveryNetwork.drone[1].wlan[0] address "\"0A-AA-00-00-00-02\""
+attr mutable ""
+par ParcelDeliveryNetwork.drone[1].wlan[0] protocol "\"\""
+par ParcelDeliveryNetwork.drone[1].wlan[0] bitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[1].ipv4.transportIn.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[1].ipv4.up.out[0].channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[1].ipv4.lp.out[2].channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[1].ipv4.ifIn.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[1].ipv4.configurator typename "\"inet.networklayer.configurator.ipv4.Ipv4NodeConfigurator\""
+par ParcelDeliveryNetwork.drone[1].ipv4.configurator interfaceTableModule "\"ParcelDeliveryNetwork.drone[1].interfaceTable\""
+par ParcelDeliveryNetwork.drone[1].ipv4.configurator routingTableModule "\"ParcelDeliveryNetwork.drone[1].ipv4.routingTable\""
+par ParcelDeliveryNetwork.drone[1].ipv4.configurator networkConfiguratorModule "\"configurator\""
+par ParcelDeliveryNetwork.drone[1].ipv4.configurator configureRoutingTable true
+par ParcelDeliveryNetwork.drone[1].ipv4.routingTable typename "\"inet.networklayer.ipv4.Ipv4RoutingTable\""
+par ParcelDeliveryNetwork.drone[1].ipv4.routingTable interfaceTableModule "\"ParcelDeliveryNetwork.drone[1].interfaceTable\""
+par ParcelDeliveryNetwork.drone[1].ipv4.routingTable routerId "\"auto\""
+par ParcelDeliveryNetwork.drone[1].ipv4.routingTable netmaskRoutes "\"*\""
+par ParcelDeliveryNetwork.drone[1].ipv4.routingTable forwarding true
+par ParcelDeliveryNetwork.drone[1].ipv4.routingTable multicastForwarding false
+par ParcelDeliveryNetwork.drone[1].ipv4.routingTable useAdminDist false
+par ParcelDeliveryNetwork.drone[1].ipv4.routingTable routingFile "\"\""
+par ParcelDeliveryNetwork.drone[1].ipv4.natTable typename "\"inet.networklayer.ipv4.Ipv4NatTable\""
+par ParcelDeliveryNetwork.drone[1].ipv4.natTable networkProtocolModule "\"^.ip\""
+par ParcelDeliveryNetwork.drone[1].ipv4.natTable config "<config/> at content:1"
+par ParcelDeliveryNetwork.drone[1].ipv4.up typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[1].ipv4.up displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[1].ipv4.up forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[1].ipv4.up forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[1].ipv4.igmp typename "\"inet.networklayer.ipv4.Igmpv2\""
+par ParcelDeliveryNetwork.drone[1].ipv4.igmp interfaceTableModule "\"ParcelDeliveryNetwork.drone[1].interfaceTable\""
+par ParcelDeliveryNetwork.drone[1].ipv4.igmp routingTableModule "\"ParcelDeliveryNetwork.drone[1].ipv4.routingTable\""
+par ParcelDeliveryNetwork.drone[1].ipv4.igmp crcMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.drone[1].ipv4.igmp enabled true
+par ParcelDeliveryNetwork.drone[1].ipv4.igmp robustnessVariable 2
+par ParcelDeliveryNetwork.drone[1].ipv4.igmp queryInterval 125s
+attr unit s
+par ParcelDeliveryNetwork.drone[1].ipv4.igmp queryResponseInterval 10s
+attr unit s
+par ParcelDeliveryNetwork.drone[1].ipv4.igmp groupMembershipInterval 260s
+attr unit s
+par ParcelDeliveryNetwork.drone[1].ipv4.igmp otherQuerierPresentInterval 255s
+attr unit s
+par ParcelDeliveryNetwork.drone[1].ipv4.igmp startupQueryInterval 31.25s
+attr unit s
+par ParcelDeliveryNetwork.drone[1].ipv4.igmp startupQueryCount 2
+par ParcelDeliveryNetwork.drone[1].ipv4.igmp lastMemberQueryInterval 1s
+attr unit s
+par ParcelDeliveryNetwork.drone[1].ipv4.igmp lastMemberQueryCount 2
+par ParcelDeliveryNetwork.drone[1].ipv4.igmp unsolicitedReportInterval 10s
+attr unit s
+par ParcelDeliveryNetwork.drone[1].ipv4.icmp typename "\"inet.networklayer.ipv4.Icmp\""
+par ParcelDeliveryNetwork.drone[1].ipv4.icmp interfaceTableModule "\"ParcelDeliveryNetwork.drone[1].interfaceTable\""
+par ParcelDeliveryNetwork.drone[1].ipv4.icmp routingTableModule "\"ParcelDeliveryNetwork.drone[1].ipv4.routingTable\""
+par ParcelDeliveryNetwork.drone[1].ipv4.icmp crcMode "\"declared\""
+attr enum declared,computed
+attr mutable ""
+par ParcelDeliveryNetwork.drone[1].ipv4.icmp quoteLength 8B
+attr mutable ""
+attr unit B
+par ParcelDeliveryNetwork.drone[1].ipv4.mp typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[1].ipv4.mp displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[1].ipv4.mp forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[1].ipv4.mp forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[1].ipv4.ip typename "\"inet.networklayer.ipv4.Ipv4\""
+par ParcelDeliveryNetwork.drone[1].ipv4.ip interfaceTableModule "\"ParcelDeliveryNetwork.drone[1].interfaceTable\""
+par ParcelDeliveryNetwork.drone[1].ipv4.ip routingTableModule "\"ParcelDeliveryNetwork.drone[1].ipv4.routingTable\""
+par ParcelDeliveryNetwork.drone[1].ipv4.ip arpModule "\"ParcelDeliveryNetwork.drone[1].ipv4.arp\""
+par ParcelDeliveryNetwork.drone[1].ipv4.ip icmpModule "\"ParcelDeliveryNetwork.drone[1].ipv4.icmp\""
+par ParcelDeliveryNetwork.drone[1].ipv4.ip crcMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.drone[1].ipv4.ip timeToLive 32
+par ParcelDeliveryNetwork.drone[1].ipv4.ip multicastTimeToLive 32
+par ParcelDeliveryNetwork.drone[1].ipv4.ip fragmentTimeout 60s
+attr unit s
+par ParcelDeliveryNetwork.drone[1].ipv4.ip limitedBroadcast false
+par ParcelDeliveryNetwork.drone[1].ipv4.ip directBroadcastInterfaces "\"\""
+par ParcelDeliveryNetwork.drone[1].ipv4.arp typename "\"inet.networklayer.arp.ipv4.Arp\""
+par ParcelDeliveryNetwork.drone[1].ipv4.arp interfaceTableModule "\"ParcelDeliveryNetwork.drone[1].interfaceTable\""
+par ParcelDeliveryNetwork.drone[1].ipv4.arp routingTableModule "\"ParcelDeliveryNetwork.drone[1].ipv4.routingTable\""
+par ParcelDeliveryNetwork.drone[1].ipv4.arp retryTimeout 1s
+attr unit s
+par ParcelDeliveryNetwork.drone[1].ipv4.arp retryCount 3
+par ParcelDeliveryNetwork.drone[1].ipv4.arp cacheTimeout 120s
+attr unit s
+par ParcelDeliveryNetwork.drone[1].ipv4.arp proxyArpInterfaces "\"\""
+par ParcelDeliveryNetwork.drone[1].ipv4.lp typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[1].ipv4.lp displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[1].ipv4.lp forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[1].ipv4.lp forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[1].ipv4 typename "\"inet.networklayer.ipv4.Ipv4NetworkLayer\""
+par ParcelDeliveryNetwork.drone[1].ipv4 forwarding true
+par ParcelDeliveryNetwork.drone[1].ipv4 multicastForwarding false
+par ParcelDeliveryNetwork.drone[1].ipv4 interfaceTableModule "\"ParcelDeliveryNetwork.drone[1].interfaceTable\""
+par ParcelDeliveryNetwork.drone[1].ipv4 displayStringTextFormat "\"%i\""
+par ParcelDeliveryNetwork.drone[1].nl typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[1].nl displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[1].nl forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[1].nl forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[1].udp typename "\"inet.transportlayer.udp.Udp\""
+par ParcelDeliveryNetwork.drone[1].udp interfaceTableModule "\"ParcelDeliveryNetwork.drone[1].interfaceTable\""
+par ParcelDeliveryNetwork.drone[1].udp icmpModule "\"^.ipv4.icmp\""
+par ParcelDeliveryNetwork.drone[1].udp icmpv6Module "\"^.ipv6.icmpv6\""
+par ParcelDeliveryNetwork.drone[1].udp crcMode "\"declared\""
+attr enum disabled,declared,computed
+par ParcelDeliveryNetwork.drone[1].udp defaultMulticastLoop true
+par ParcelDeliveryNetwork.drone[1].tcp typename "\"inet.transportlayer.tcp.Tcp\""
+par ParcelDeliveryNetwork.drone[1].tcp crcMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.drone[1].tcp advertisedWindow 7504
+par ParcelDeliveryNetwork.drone[1].tcp delayedAcksEnabled false
+par ParcelDeliveryNetwork.drone[1].tcp nagleEnabled true
+par ParcelDeliveryNetwork.drone[1].tcp limitedTransmitEnabled false
+par ParcelDeliveryNetwork.drone[1].tcp increasedIWEnabled false
+par ParcelDeliveryNetwork.drone[1].tcp sackSupport false
+par ParcelDeliveryNetwork.drone[1].tcp windowScalingSupport false
+par ParcelDeliveryNetwork.drone[1].tcp windowScalingFactor -1
+par ParcelDeliveryNetwork.drone[1].tcp timestampSupport false
+par ParcelDeliveryNetwork.drone[1].tcp mss 536
+par ParcelDeliveryNetwork.drone[1].tcp msl 120s
+attr unit s
+par ParcelDeliveryNetwork.drone[1].tcp tcpAlgorithmClass "\"TcpReno\""
+attr enum TcpVegas,TcpWestwood,TcpNewReno,TcpReno,TcpTahoe,TcpNoCongestionControl
+par ParcelDeliveryNetwork.drone[1].tcp useDataNotification false
+par ParcelDeliveryNetwork.drone[1].tcp dupthresh 3
+par ParcelDeliveryNetwork.drone[1].tcp initialSsthresh 4294967295
+par ParcelDeliveryNetwork.drone[1].tcp stopOperationExtraTime 0s
+attr unit s
+par ParcelDeliveryNetwork.drone[1].tcp stopOperationTimeout 2s
+attr unit s
+par ParcelDeliveryNetwork.drone[1].tcp ecnWillingness false
+par ParcelDeliveryNetwork.drone[1].tcp dctcpGamma 0.0625
+par ParcelDeliveryNetwork.drone[1].tn typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[1].tn displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[1].tn forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[1].tn forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[1].at typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[1].at displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[1].at forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[1].at forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[1] typename "\"inet.examples.mobility.DroneHost\""
+par ParcelDeliveryNetwork.drone[1] hasStatus false
+par ParcelDeliveryNetwork.drone[1] osgModel "\"\""
+par ParcelDeliveryNetwork.drone[1] osgModelColor "\"\""
+par ParcelDeliveryNetwork.drone[1] canvasImage "\"\""
+par ParcelDeliveryNetwork.drone[1] canvasImageColor "\"\""
+par ParcelDeliveryNetwork.drone[1] recordPcap false
+par ParcelDeliveryNetwork.drone[1] numPcapRecorders 0
+par ParcelDeliveryNetwork.drone[1] numLoInterfaces 1
+par ParcelDeliveryNetwork.drone[1] numWlanInterfaces 1
+par ParcelDeliveryNetwork.drone[1] numEthInterfaces 0
+par ParcelDeliveryNetwork.drone[1] numPppInterfaces 0
+par ParcelDeliveryNetwork.drone[1] numTunInterfaces 0
+par ParcelDeliveryNetwork.drone[1] numVirtInterfaces 0
+par ParcelDeliveryNetwork.drone[1] fcsMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.drone[1] hasIpv4 true
+par ParcelDeliveryNetwork.drone[1] hasIpv6 false
+par ParcelDeliveryNetwork.drone[1] hasGn false
+par ParcelDeliveryNetwork.drone[1] forwarding true
+par ParcelDeliveryNetwork.drone[1] multicastForwarding false
+par ParcelDeliveryNetwork.drone[1] hasUdp true
+par ParcelDeliveryNetwork.drone[1] hasTcp true
+par ParcelDeliveryNetwork.drone[1] hasSctp false
+par ParcelDeliveryNetwork.drone[1] numApps 0
+par ParcelDeliveryNetwork.drone[1] weightCapacity 10
+par ParcelDeliveryNetwork.drone[1] batteryCapacity 20
+par ParcelDeliveryNetwork.drone[1] parcelSelecitionMethod 2
+par ParcelDeliveryNetwork.drone[2].radioIn[0].channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[2].mobility typename "\"DroneNetMob\""
+par ParcelDeliveryNetwork.drone[2].mobility subjectModule "\"^\""
+par ParcelDeliveryNetwork.drone[2].mobility coordinateSystemModule "\"\""
+par ParcelDeliveryNetwork.drone[2].mobility displayStringTextFormat "\"p: %p\\nv: %v\""
+attr mutable ""
+par ParcelDeliveryNetwork.drone[2].mobility updateDisplayString true
+par ParcelDeliveryNetwork.drone[2].mobility constraintAreaMinX 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[2].mobility constraintAreaMinY 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[2].mobility constraintAreaMinZ 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[2].mobility constraintAreaMaxX 600m
+attr unit m
+par ParcelDeliveryNetwork.drone[2].mobility constraintAreaMaxY 400m
+attr unit m
+par ParcelDeliveryNetwork.drone[2].mobility constraintAreaMaxZ 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[2].mobility updateInterval 0.5s
+attr unit s
+par ParcelDeliveryNetwork.drone[2].mobility faceForward true
+par ParcelDeliveryNetwork.drone[2].mobility ndst 40
+par ParcelDeliveryNetwork.drone[2].mobility nd 8
+par ParcelDeliveryNetwork.drone[2].mobility npar 200
+par ParcelDeliveryNetwork.drone[2].mobility weightCapacity 200
+par ParcelDeliveryNetwork.drone[2].mobility remainingBattery 12800
+par ParcelDeliveryNetwork.drone[2].mobility alpha_val 0.55
+par ParcelDeliveryNetwork.drone[2].mobility beta_val 0.45
+par ParcelDeliveryNetwork.drone[2].mobility parcelSelectionMethod 2
+par ParcelDeliveryNetwork.drone[2].mobility initialX 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[2].mobility initialY 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[2].mobility initialZ 0m
+attr unit m
+par ParcelDeliveryNetwork.drone[2].mobility initialMovementHeading 344.918deg
+attr unit deg
+par ParcelDeliveryNetwork.drone[2].mobility initialMovementElevation 0deg
+attr unit deg
+par ParcelDeliveryNetwork.drone[2].mobility initFromDisplayString false
+par ParcelDeliveryNetwork.drone[2].mobility changeInterval "truncnormal(2s, 0.5s)"
+attr unit s
+par ParcelDeliveryNetwork.drone[2].mobility angleDelta "normal(0deg, 30deg)"
+attr unit deg
+par ParcelDeliveryNetwork.drone[2].mobility rotationAxisAngle 0deg
+attr unit deg
+par ParcelDeliveryNetwork.drone[2].mobility speed 10mps
+attr unit mps
+par ParcelDeliveryNetwork.drone[2].interfaceTable typename "\"inet.networklayer.common.InterfaceTable\""
+par ParcelDeliveryNetwork.drone[2].interfaceTable displayAddresses false
+par ParcelDeliveryNetwork.drone[2].cb typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[2].cb displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[2].cb forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[2].cb forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[2].bl typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[2].bl displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[2].bl forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[2].bl forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[2].li typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[2].li displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[2].li forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[2].li forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[2].lo[0].upperLayerIn.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[2].lo[0].lo.upperLayerOut.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[2].lo[0].lo typename "\"inet.linklayer.loopback.Loopback\""
+par ParcelDeliveryNetwork.drone[2].lo[0].lo interfaceTableModule "\"ParcelDeliveryNetwork.drone[2].interfaceTable\""
+par ParcelDeliveryNetwork.drone[2].lo[0].lo mtu 4470B
+attr unit B
+par ParcelDeliveryNetwork.drone[2].lo[0] typename "\"inet.linklayer.loopback.LoopbackInterface\""
+par ParcelDeliveryNetwork.drone[2].lo[0] displayStringTextFormat "\"%a (%i)\\n%m\""
+par ParcelDeliveryNetwork.drone[2].lo[0] recordPcap false
+par ParcelDeliveryNetwork.drone[2].lo[0] numPcapRecorders 0
+par ParcelDeliveryNetwork.drone[2].lo[0] interfaceTableModule "\"ParcelDeliveryNetwork.drone[2].interfaceTable\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].radioIn.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].llc.upperLayerOut.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].upperLayerIn.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mib typename "\"inet.linklayer.ieee80211.mib.Ieee80211Mib\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].llc typename "\"inet.linklayer.ieee80211.llc.Ieee80211LlcLpd\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].llc registerProtocol false
+par ParcelDeliveryNetwork.drone[2].wlan[0].mgmt typename "\"inet.linklayer.ieee80211.mgmt.Ieee80211MgmtAdhoc\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mgmt mibModule "\"ParcelDeliveryNetwork.drone[2].wlan[0].mib\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mgmt macModule "\"ParcelDeliveryNetwork.drone[2].wlan[0].mac\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mgmt interfaceTableModule "\"ParcelDeliveryNetwork.drone[2].interfaceTable\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess.pendingQueue typename "\"inet.linklayer.ieee80211.mac.queue.PendingQueue\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess.pendingQueue displayStringTextFormat "\"contains %p pk (%l) pushed %u\\npulled %o removed %r dropped %d\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess.pendingQueue packetCapacity 100
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess.pendingQueue dataCapacity -1b
+attr unit b
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess.pendingQueue dropperClass "\"inet::queueing::PacketAtCollectionEndDropper\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess.pendingQueue comparatorClass "\"inet::ieee80211::MgmtOverDataComparator\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess.pendingQueue bufferModule "\"\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess.inProgressFrames typename "\"inet.linklayer.ieee80211.mac.queue.InProgressFrames\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess.inProgressFrames pendingQueueModule "\"^.pendingQueue\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess.inProgressFrames originatorMacDataServiceModule "\"^.^.originatorMacDataService\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess.inProgressFrames ackHandlerModule "\"^.^.ackHandler\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess.contention typename "\"inet.linklayer.ieee80211.mac.contention.Contention\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess.contention initialChannelBusy true
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess.contention backoffOptimization true
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess typename "\"inet.linklayer.ieee80211.mac.channelaccess.Dcaf\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess difsn -1
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess cwMin -1
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess cwMax -1
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.channelAccess rxModule "\"^.^.rx\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.originatorMacDataService.fragmentationPolicy typename "\"inet.linklayer.ieee80211.mac.fragmentation.BasicFragmentationPolicy\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.originatorMacDataService.fragmentationPolicy fragmentationThreshold 1500B
+attr unit B
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.originatorMacDataService typename "\"inet.linklayer.ieee80211.mac.originator.OriginatorMacDataService\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.recipientMacDataService typename "\"inet.linklayer.ieee80211.mac.recipient.RecipientMacDataService\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.rateSelection typename "\"inet.linklayer.ieee80211.mac.rateselection.RateSelection\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.rateSelection rateControlModule "\"^.rateControl\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.rateSelection multicastFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.rateSelection responseAckFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.rateSelection responseCtsFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.rateSelection dataFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.rateSelection dataFrameBandwidth "nan Hz"
+attr unit Hz
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.rateSelection dataFrameNumSpatialStreams -1
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.rateSelection mgmtFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.rateSelection controlFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.recoveryProcedure typename "\"inet.linklayer.ieee80211.mac.originator.NonQosRecoveryProcedure\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.recoveryProcedure cwCalculatorModule "\"^.channelAccess\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.recoveryProcedure rtsPolicyModule "\"^.rtsPolicy\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.recoveryProcedure shortRetryLimit 7
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.recoveryProcedure longRetryLimit 4
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.originatorProtectionMechanism typename "\"inet.linklayer.ieee80211.mac.protectionmechanism.OriginatorProtectionMechanism\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.originatorProtectionMechanism rateSelectionModule "\"^.rateSelection\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.ackHandler typename "\"inet.linklayer.ieee80211.mac.originator.AckHandler\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.originatorAckPolicy typename "\"inet.linklayer.ieee80211.mac.originator.OriginatorAckPolicy\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.originatorAckPolicy rateSelectionModule "\"^.rateSelection\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.originatorAckPolicy ackTimeout -1s
+attr unit s
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.recipientAckPolicy typename "\"inet.linklayer.ieee80211.mac.recipient.RecipientAckPolicy\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.recipientAckPolicy rateSelectionModule "\"^.rateSelection\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.rtsPolicy typename "\"inet.linklayer.ieee80211.mac.originator.RtsPolicy\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.rtsPolicy rateSelectionModule "\"^.rateSelection\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.rtsPolicy ctsTimeout -1s
+attr unit s
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.rtsPolicy rtsThreshold 2346B
+attr unit B
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.ctsPolicy typename "\"inet.linklayer.ieee80211.mac.recipient.CtsPolicy\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.ctsPolicy rxModule "\"^.^.rx\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf.ctsPolicy rateSelectionModule "\"^.rateSelection\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf typename "\"inet.linklayer.ieee80211.mac.coordinationfunction.Dcf\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf rxModule "\"^.rx\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.dcf txModule "\"^.tx\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.ds typename "\"inet.linklayer.ieee80211.mac.Ds\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.ds mibModule "\"ParcelDeliveryNetwork.drone[2].wlan[0].mib\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.rx typename "\"inet.linklayer.ieee80211.mac.Rx\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.tx typename "\"inet.linklayer.ieee80211.mac.Tx\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac.tx rxModule "\"^.rx\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac typename "\"inet.linklayer.ieee80211.mac.Ieee80211Mac\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac interfaceTableModule "\"ParcelDeliveryNetwork.drone[2].interfaceTable\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac mibModule "\"ParcelDeliveryNetwork.drone[2].wlan[0].mib\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac modeSet "\"g(mixed)\""
+attr enum a,b,g(erp),g(mixed),n(mixed-2.4Ghz),p,ac
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac fcsMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac initialRadioMode "\"receiver\""
+attr enum off,sleep,receiver,transmitter,transceiver
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac mtu 2304B
+attr unit B
+par ParcelDeliveryNetwork.drone[2].wlan[0].mac qosStation false
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.antenna typename "\"inet.physicallayer.wireless.common.antenna.IsotropicAntenna\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.antenna mobilityModule "\"^.^.^.mobility\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.antenna numAntennas 1
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.transmitter typename "\"inet.physicallayer.wireless.ieee80211.packetlevel.Ieee80211ScalarTransmitter\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.transmitter preambleDuration -1s
+attr unit s
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.transmitter headerLength 192b
+attr unit b
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.transmitter bitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.transmitter power 0.02W
+attr unit W
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.transmitter centerFrequency 2.412e+09Hz
+attr unit Hz
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.transmitter bandwidth "nan Hz"
+attr unit Hz
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.transmitter codeRate 1
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.transmitter modulation "\"BPSK\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.transmitter opMode "\"g(mixed)\""
+attr enum a,b,g(erp),g(mixed),n(mixed-2.4Ghz),p,ac
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.transmitter bandName "\"2.4 GHz\""
+attr enum "2.4 GHz,5 GHz,5 GHz (20 MHz),5 GHz (40 MHz),5 GHz (80 MHz),5 GHz (160 MHz),5.9 GHz"
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.transmitter channelNumber 0
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.receiver.errorModel typename "\"inet.physicallayer.wireless.ieee80211.packetlevel.errormodel.Ieee80211NistErrorModel\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.receiver.errorModel corruptionMode "\"packet\""
+attr enum packet,chunk,byte,bit
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.receiver.errorModel snirMode "\"min\""
+attr enum min,mean
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.receiver.errorModel snirOffset 0dB
+attr unit dB
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.receiver typename "\"inet.physicallayer.wireless.ieee80211.packetlevel.Ieee80211ScalarReceiver\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.receiver snirThreshold 4dB
+attr unit dB
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.receiver snirThresholdMode "\"min\""
+attr enum min,mean
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.receiver energyDetection -85dBm
+attr unit dBm
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.receiver sensitivity -85dBm
+attr unit dBm
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.receiver centerFrequency 2.412e+09Hz
+attr unit Hz
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.receiver bandwidth 2.2e+07Hz
+attr unit Hz
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.receiver modulation "\"BPSK\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.receiver opMode "\"g(mixed)\""
+attr enum a,b,g(erp),g(mixed),n(mixed-2.4Ghz),p,ac
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.receiver bandName "\"2.4 GHz\""
+attr enum "2.4 GHz,5 GHz,5 GHz (20 MHz),5 GHz (40 MHz),5 GHz (80 MHz),5 GHz (160 MHz),5.9 GHz"
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio.receiver channelNumber 0
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio typename "\"inet.physicallayer.wireless.ieee80211.packetlevel.Ieee80211ScalarRadio\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio radioMediumModule "\"radioMedium\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio energySourceModule "\"\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio initialRadioMode "\"off\""
+attr enum off,sleep,receiver,transmitter,transceiver
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio switchingTimes "\"ms 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\""
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio sendRawBytes false
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio separateTransmissionParts false
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio separateReceptionParts false
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio displayCommunicationRange false
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio displayInterferenceRange false
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio centerFrequency 2.412e+09Hz
+attr unit Hz
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio bandwidth "nan Hz"
+attr unit Hz
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio signalAnalogRepresentation "\"scalar\""
+attr enum scalar,dimensional
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio opMode "\"g(mixed)\""
+attr enum a,b,g(erp),g(mixed),n(mixed-2.4Ghz),p,ac
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio bandName "\"2.4 GHz\""
+attr enum "2.4 GHz,5 GHz,5 GHz (20 MHz),5 GHz (40 MHz),5 GHz (80 MHz),5 GHz (160 MHz),5.9 GHz"
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio channelNumber 0
+par ParcelDeliveryNetwork.drone[2].wlan[0].radio crcMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.drone[2].wlan[0] typename "\"inet.linklayer.ieee80211.Ieee80211Interface\""
+par ParcelDeliveryNetwork.drone[2].wlan[0] displayStringTextFormat "\"%a (%i)\\n%m\""
+par ParcelDeliveryNetwork.drone[2].wlan[0] recordPcap false
+par ParcelDeliveryNetwork.drone[2].wlan[0] numPcapRecorders 0
+par ParcelDeliveryNetwork.drone[2].wlan[0] interfaceTableModule "\"ParcelDeliveryNetwork.drone[2].interfaceTable\""
+par ParcelDeliveryNetwork.drone[2].wlan[0] energySourceModule "\"\""
+par ParcelDeliveryNetwork.drone[2].wlan[0] opMode "\"g(mixed)\""
+attr enum a,b,g(erp),g(mixed),n(mixed-2.4Ghz),p,ac
+par ParcelDeliveryNetwork.drone[2].wlan[0] address "\"0A-AA-00-00-00-03\""
+attr mutable ""
+par ParcelDeliveryNetwork.drone[2].wlan[0] protocol "\"\""
+par ParcelDeliveryNetwork.drone[2].wlan[0] bitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.drone[2].ipv4.transportIn.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[2].ipv4.up.out[0].channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[2].ipv4.lp.out[2].channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[2].ipv4.ifIn.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.drone[2].ipv4.configurator typename "\"inet.networklayer.configurator.ipv4.Ipv4NodeConfigurator\""
+par ParcelDeliveryNetwork.drone[2].ipv4.configurator interfaceTableModule "\"ParcelDeliveryNetwork.drone[2].interfaceTable\""
+par ParcelDeliveryNetwork.drone[2].ipv4.configurator routingTableModule "\"ParcelDeliveryNetwork.drone[2].ipv4.routingTable\""
+par ParcelDeliveryNetwork.drone[2].ipv4.configurator networkConfiguratorModule "\"configurator\""
+par ParcelDeliveryNetwork.drone[2].ipv4.configurator configureRoutingTable true
+par ParcelDeliveryNetwork.drone[2].ipv4.routingTable typename "\"inet.networklayer.ipv4.Ipv4RoutingTable\""
+par ParcelDeliveryNetwork.drone[2].ipv4.routingTable interfaceTableModule "\"ParcelDeliveryNetwork.drone[2].interfaceTable\""
+par ParcelDeliveryNetwork.drone[2].ipv4.routingTable routerId "\"auto\""
+par ParcelDeliveryNetwork.drone[2].ipv4.routingTable netmaskRoutes "\"*\""
+par ParcelDeliveryNetwork.drone[2].ipv4.routingTable forwarding true
+par ParcelDeliveryNetwork.drone[2].ipv4.routingTable multicastForwarding false
+par ParcelDeliveryNetwork.drone[2].ipv4.routingTable useAdminDist false
+par ParcelDeliveryNetwork.drone[2].ipv4.routingTable routingFile "\"\""
+par ParcelDeliveryNetwork.drone[2].ipv4.natTable typename "\"inet.networklayer.ipv4.Ipv4NatTable\""
+par ParcelDeliveryNetwork.drone[2].ipv4.natTable networkProtocolModule "\"^.ip\""
+par ParcelDeliveryNetwork.drone[2].ipv4.natTable config "<config/> at content:1"
+par ParcelDeliveryNetwork.drone[2].ipv4.up typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[2].ipv4.up displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[2].ipv4.up forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[2].ipv4.up forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[2].ipv4.igmp typename "\"inet.networklayer.ipv4.Igmpv2\""
+par ParcelDeliveryNetwork.drone[2].ipv4.igmp interfaceTableModule "\"ParcelDeliveryNetwork.drone[2].interfaceTable\""
+par ParcelDeliveryNetwork.drone[2].ipv4.igmp routingTableModule "\"ParcelDeliveryNetwork.drone[2].ipv4.routingTable\""
+par ParcelDeliveryNetwork.drone[2].ipv4.igmp crcMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.drone[2].ipv4.igmp enabled true
+par ParcelDeliveryNetwork.drone[2].ipv4.igmp robustnessVariable 2
+par ParcelDeliveryNetwork.drone[2].ipv4.igmp queryInterval 125s
+attr unit s
+par ParcelDeliveryNetwork.drone[2].ipv4.igmp queryResponseInterval 10s
+attr unit s
+par ParcelDeliveryNetwork.drone[2].ipv4.igmp groupMembershipInterval 260s
+attr unit s
+par ParcelDeliveryNetwork.drone[2].ipv4.igmp otherQuerierPresentInterval 255s
+attr unit s
+par ParcelDeliveryNetwork.drone[2].ipv4.igmp startupQueryInterval 31.25s
+attr unit s
+par ParcelDeliveryNetwork.drone[2].ipv4.igmp startupQueryCount 2
+par ParcelDeliveryNetwork.drone[2].ipv4.igmp lastMemberQueryInterval 1s
+attr unit s
+par ParcelDeliveryNetwork.drone[2].ipv4.igmp lastMemberQueryCount 2
+par ParcelDeliveryNetwork.drone[2].ipv4.igmp unsolicitedReportInterval 10s
+attr unit s
+par ParcelDeliveryNetwork.drone[2].ipv4.icmp typename "\"inet.networklayer.ipv4.Icmp\""
+par ParcelDeliveryNetwork.drone[2].ipv4.icmp interfaceTableModule "\"ParcelDeliveryNetwork.drone[2].interfaceTable\""
+par ParcelDeliveryNetwork.drone[2].ipv4.icmp routingTableModule "\"ParcelDeliveryNetwork.drone[2].ipv4.routingTable\""
+par ParcelDeliveryNetwork.drone[2].ipv4.icmp crcMode "\"declared\""
+attr enum declared,computed
+attr mutable ""
+par ParcelDeliveryNetwork.drone[2].ipv4.icmp quoteLength 8B
+attr mutable ""
+attr unit B
+par ParcelDeliveryNetwork.drone[2].ipv4.mp typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[2].ipv4.mp displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[2].ipv4.mp forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[2].ipv4.mp forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[2].ipv4.ip typename "\"inet.networklayer.ipv4.Ipv4\""
+par ParcelDeliveryNetwork.drone[2].ipv4.ip interfaceTableModule "\"ParcelDeliveryNetwork.drone[2].interfaceTable\""
+par ParcelDeliveryNetwork.drone[2].ipv4.ip routingTableModule "\"ParcelDeliveryNetwork.drone[2].ipv4.routingTable\""
+par ParcelDeliveryNetwork.drone[2].ipv4.ip arpModule "\"ParcelDeliveryNetwork.drone[2].ipv4.arp\""
+par ParcelDeliveryNetwork.drone[2].ipv4.ip icmpModule "\"ParcelDeliveryNetwork.drone[2].ipv4.icmp\""
+par ParcelDeliveryNetwork.drone[2].ipv4.ip crcMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.drone[2].ipv4.ip timeToLive 32
+par ParcelDeliveryNetwork.drone[2].ipv4.ip multicastTimeToLive 32
+par ParcelDeliveryNetwork.drone[2].ipv4.ip fragmentTimeout 60s
+attr unit s
+par ParcelDeliveryNetwork.drone[2].ipv4.ip limitedBroadcast false
+par ParcelDeliveryNetwork.drone[2].ipv4.ip directBroadcastInterfaces "\"\""
+par ParcelDeliveryNetwork.drone[2].ipv4.arp typename "\"inet.networklayer.arp.ipv4.Arp\""
+par ParcelDeliveryNetwork.drone[2].ipv4.arp interfaceTableModule "\"ParcelDeliveryNetwork.drone[2].interfaceTable\""
+par ParcelDeliveryNetwork.drone[2].ipv4.arp routingTableModule "\"ParcelDeliveryNetwork.drone[2].ipv4.routingTable\""
+par ParcelDeliveryNetwork.drone[2].ipv4.arp retryTimeout 1s
+attr unit s
+par ParcelDeliveryNetwork.drone[2].ipv4.arp retryCount 3
+par ParcelDeliveryNetwork.drone[2].ipv4.arp cacheTimeout 120s
+attr unit s
+par ParcelDeliveryNetwork.drone[2].ipv4.arp proxyArpInterfaces "\"\""
+par ParcelDeliveryNetwork.drone[2].ipv4.lp typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[2].ipv4.lp displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[2].ipv4.lp forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[2].ipv4.lp forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[2].ipv4 typename "\"inet.networklayer.ipv4.Ipv4NetworkLayer\""
+par ParcelDeliveryNetwork.drone[2].ipv4 forwarding true
+par ParcelDeliveryNetwork.drone[2].ipv4 multicastForwarding false
+par ParcelDeliveryNetwork.drone[2].ipv4 interfaceTableModule "\"ParcelDeliveryNetwork.drone[2].interfaceTable\""
+par ParcelDeliveryNetwork.drone[2].ipv4 displayStringTextFormat "\"%i\""
+par ParcelDeliveryNetwork.drone[2].nl typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[2].nl displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[2].nl forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[2].nl forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[2].udp typename "\"inet.transportlayer.udp.Udp\""
+par ParcelDeliveryNetwork.drone[2].udp interfaceTableModule "\"ParcelDeliveryNetwork.drone[2].interfaceTable\""
+par ParcelDeliveryNetwork.drone[2].udp icmpModule "\"^.ipv4.icmp\""
+par ParcelDeliveryNetwork.drone[2].udp icmpv6Module "\"^.ipv6.icmpv6\""
+par ParcelDeliveryNetwork.drone[2].udp crcMode "\"declared\""
+attr enum disabled,declared,computed
+par ParcelDeliveryNetwork.drone[2].udp defaultMulticastLoop true
+par ParcelDeliveryNetwork.drone[2].tcp typename "\"inet.transportlayer.tcp.Tcp\""
+par ParcelDeliveryNetwork.drone[2].tcp crcMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.drone[2].tcp advertisedWindow 7504
+par ParcelDeliveryNetwork.drone[2].tcp delayedAcksEnabled false
+par ParcelDeliveryNetwork.drone[2].tcp nagleEnabled true
+par ParcelDeliveryNetwork.drone[2].tcp limitedTransmitEnabled false
+par ParcelDeliveryNetwork.drone[2].tcp increasedIWEnabled false
+par ParcelDeliveryNetwork.drone[2].tcp sackSupport false
+par ParcelDeliveryNetwork.drone[2].tcp windowScalingSupport false
+par ParcelDeliveryNetwork.drone[2].tcp windowScalingFactor -1
+par ParcelDeliveryNetwork.drone[2].tcp timestampSupport false
+par ParcelDeliveryNetwork.drone[2].tcp mss 536
+par ParcelDeliveryNetwork.drone[2].tcp msl 120s
+attr unit s
+par ParcelDeliveryNetwork.drone[2].tcp tcpAlgorithmClass "\"TcpReno\""
+attr enum TcpVegas,TcpWestwood,TcpNewReno,TcpReno,TcpTahoe,TcpNoCongestionControl
+par ParcelDeliveryNetwork.drone[2].tcp useDataNotification false
+par ParcelDeliveryNetwork.drone[2].tcp dupthresh 3
+par ParcelDeliveryNetwork.drone[2].tcp initialSsthresh 4294967295
+par ParcelDeliveryNetwork.drone[2].tcp stopOperationExtraTime 0s
+attr unit s
+par ParcelDeliveryNetwork.drone[2].tcp stopOperationTimeout 2s
+attr unit s
+par ParcelDeliveryNetwork.drone[2].tcp ecnWillingness false
+par ParcelDeliveryNetwork.drone[2].tcp dctcpGamma 0.0625
+par ParcelDeliveryNetwork.drone[2].tn typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[2].tn displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[2].tn forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[2].tn forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[2].at typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.drone[2].at displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.drone[2].at forwardServiceRegistration true
+par ParcelDeliveryNetwork.drone[2].at forwardProtocolRegistration true
+par ParcelDeliveryNetwork.drone[2] typename "\"inet.examples.mobility.DroneHost\""
+par ParcelDeliveryNetwork.drone[2] hasStatus false
+par ParcelDeliveryNetwork.drone[2] osgModel "\"\""
+par ParcelDeliveryNetwork.drone[2] osgModelColor "\"\""
+par ParcelDeliveryNetwork.drone[2] canvasImage "\"\""
+par ParcelDeliveryNetwork.drone[2] canvasImageColor "\"\""
+par ParcelDeliveryNetwork.drone[2] recordPcap false
+par ParcelDeliveryNetwork.drone[2] numPcapRecorders 0
+par ParcelDeliveryNetwork.drone[2] numLoInterfaces 1
+par ParcelDeliveryNetwork.drone[2] numWlanInterfaces 1
+par ParcelDeliveryNetwork.drone[2] numEthInterfaces 0
+par ParcelDeliveryNetwork.drone[2] numPppInterfaces 0
+par ParcelDeliveryNetwork.drone[2] numTunInterfaces 0
+par ParcelDeliveryNetwork.drone[2] numVirtInterfaces 0
+par ParcelDeliveryNetwork.drone[2] fcsMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.drone[2] hasIpv4 true
+par ParcelDeliveryNetwork.drone[2] hasIpv6 false
+par ParcelDeliveryNetwork.drone[2] hasGn false
+par ParcelDeliveryNetwork.drone[2] forwarding true
+par ParcelDeliveryNetwork.drone[2] multicastForwarding false
+par ParcelDeliveryNetwork.drone[2] hasUdp true
+par ParcelDeliveryNetwork.drone[2] hasTcp true
+par ParcelDeliveryNetwork.drone[2] hasSctp false
+par ParcelDeliveryNetwork.drone[2] numApps 0
+par ParcelDeliveryNetwork.drone[2] weightCapacity 10
+par ParcelDeliveryNetwork.drone[2] batteryCapacity 20
+par ParcelDeliveryNetwork.drone[2] parcelSelecitionMethod 2
+par ParcelDeliveryNetwork.radioMedium.propagation typename "\"inet.physicallayer.wireless.common.propagation.ConstantSpeedPropagation\""
+par ParcelDeliveryNetwork.radioMedium.propagation propagationSpeed 2.99792e+08mps
+attr unit mps
+par ParcelDeliveryNetwork.radioMedium.propagation ignoreMovementDuringTransmission true
+par ParcelDeliveryNetwork.radioMedium.propagation ignoreMovementDuringPropagation true
+par ParcelDeliveryNetwork.radioMedium.propagation ignoreMovementDuringReception true
+par ParcelDeliveryNetwork.radioMedium.analogModel typename "\"inet.physicallayer.wireless.common.analogmodel.packetlevel.ScalarAnalogModel\""
+par ParcelDeliveryNetwork.radioMedium.analogModel ignorePartialInterference false
+par ParcelDeliveryNetwork.radioMedium.backgroundNoise typename "\"inet.physicallayer.wireless.common.backgroundnoise.IsotropicScalarBackgroundNoise\""
+par ParcelDeliveryNetwork.radioMedium.backgroundNoise power -110dBm
+attr unit dBm
+par ParcelDeliveryNetwork.radioMedium.backgroundNoise bandwidth "nan Hz"
+attr unit Hz
+par ParcelDeliveryNetwork.radioMedium.pathLoss typename "\"inet.physicallayer.wireless.common.pathloss.FreeSpacePathLoss\""
+par ParcelDeliveryNetwork.radioMedium.pathLoss alpha 2
+par ParcelDeliveryNetwork.radioMedium.pathLoss systemLoss 0dB
+attr unit dB
+par ParcelDeliveryNetwork.radioMedium.mediumLimitCache typename "\"inet.physicallayer.wireless.common.medium.MediumLimitCache\""
+par ParcelDeliveryNetwork.radioMedium.mediumLimitCache centerFrequency 2.4e+09Hz
+attr unit Hz
+par ParcelDeliveryNetwork.radioMedium.mediumLimitCache maxSpeed "nan mps"
+attr unit mps
+par ParcelDeliveryNetwork.radioMedium.mediumLimitCache maxTransmissionPower "nan W"
+attr unit W
+par ParcelDeliveryNetwork.radioMedium.mediumLimitCache minInterferencePower -110dBm
+attr unit dBm
+par ParcelDeliveryNetwork.radioMedium.mediumLimitCache minReceptionPower -85dBm
+attr unit dBm
+par ParcelDeliveryNetwork.radioMedium.mediumLimitCache maxAntennaGain 0dB
+attr unit dB
+par ParcelDeliveryNetwork.radioMedium.mediumLimitCache minInterferenceTime 1e-12s
+attr unit s
+par ParcelDeliveryNetwork.radioMedium.mediumLimitCache maxTransmissionDuration 0.01s
+attr unit s
+par ParcelDeliveryNetwork.radioMedium.mediumLimitCache maxCommunicationRange "nan m"
+attr unit m
+par ParcelDeliveryNetwork.radioMedium.mediumLimitCache maxInterferenceRange "nan m"
+attr unit m
+par ParcelDeliveryNetwork.radioMedium.communicationCache typename "\"inet.physicallayer.wireless.common.communicationcache.VectorCommunicationCache\""
+par ParcelDeliveryNetwork.radioMedium typename "\"inet.physicallayer.wireless.ieee80211.packetlevel.Ieee80211ScalarRadioMedium\""
+par ParcelDeliveryNetwork.radioMedium physicalEnvironmentModule "\"physicalEnvironment\""
+par ParcelDeliveryNetwork.radioMedium signalAnalogRepresentation "\"scalar\""
+attr enum unitDisk,scalar,dimensional
+par ParcelDeliveryNetwork.radioMedium rangeFilter "\"\""
+par ParcelDeliveryNetwork.radioMedium radioModeFilter false
+par ParcelDeliveryNetwork.radioMedium listeningFilter false
+par ParcelDeliveryNetwork.radioMedium macAddressFilter false
+par ParcelDeliveryNetwork.radioMedium recordTransmissionLog false
+par ParcelDeliveryNetwork.radioMedium recordReceptionLog false
+par ParcelDeliveryNetwork.routingTableRecorder typename "\"inet.networklayer.ipv4.RoutingTableRecorder\""
+par ParcelDeliveryNetwork.routingTableRecorder enabled true
+par ParcelDeliveryNetwork.configurator typename "\"inet.networklayer.configurator.ipv4.Ipv4NetworkConfigurator\""
+par ParcelDeliveryNetwork.configurator minLinkWeight 0.001
+par ParcelDeliveryNetwork.configurator configureIsolatedNetworksSeparatly false
+par ParcelDeliveryNetwork.configurator config "<config>...</config> at content:1"
+par ParcelDeliveryNetwork.configurator assignAddresses true
+par ParcelDeliveryNetwork.configurator assignUniqueAddresses true
+par ParcelDeliveryNetwork.configurator assignDisjunctSubnetAddresses true
+par ParcelDeliveryNetwork.configurator addStaticRoutes true
+par ParcelDeliveryNetwork.configurator addDefaultRoutes true
+par ParcelDeliveryNetwork.configurator addSubnetRoutes true
+par ParcelDeliveryNetwork.configurator addDirectRoutes true
+par ParcelDeliveryNetwork.configurator optimizeRoutes true
+par ParcelDeliveryNetwork.configurator dumpTopology false
+par ParcelDeliveryNetwork.configurator dumpLinks false
+par ParcelDeliveryNetwork.configurator dumpAddresses false
+par ParcelDeliveryNetwork.configurator dumpRoutes false
+par ParcelDeliveryNetwork.configurator dumpConfig "\"\""
+par ParcelDeliveryNetwork.gcs.radioIn[0].channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.gcs.mobility typename "\"inet.mobility.static.StationaryMobility\""
+par ParcelDeliveryNetwork.gcs.mobility subjectModule "\"^\""
+par ParcelDeliveryNetwork.gcs.mobility coordinateSystemModule "\"\""
+par ParcelDeliveryNetwork.gcs.mobility displayStringTextFormat "\"p: %p\\nv: %v\""
+attr mutable ""
+par ParcelDeliveryNetwork.gcs.mobility updateDisplayString true
+par ParcelDeliveryNetwork.gcs.mobility constraintAreaMinX 0m
+attr unit m
+par ParcelDeliveryNetwork.gcs.mobility constraintAreaMinY 0m
+attr unit m
+par ParcelDeliveryNetwork.gcs.mobility constraintAreaMinZ 0m
+attr unit m
+par ParcelDeliveryNetwork.gcs.mobility constraintAreaMaxX 600m
+attr unit m
+par ParcelDeliveryNetwork.gcs.mobility constraintAreaMaxY 400m
+attr unit m
+par ParcelDeliveryNetwork.gcs.mobility constraintAreaMaxZ 0m
+attr unit m
+par ParcelDeliveryNetwork.gcs.mobility initialX 193.4m
+attr unit m
+par ParcelDeliveryNetwork.gcs.mobility initialY 308.125m
+attr unit m
+par ParcelDeliveryNetwork.gcs.mobility initialZ 0m
+attr unit m
+par ParcelDeliveryNetwork.gcs.mobility initialLatitude "nan deg"
+attr unit deg
+par ParcelDeliveryNetwork.gcs.mobility initialLongitude "nan deg"
+attr unit deg
+par ParcelDeliveryNetwork.gcs.mobility initialAltitude 0m
+attr unit m
+par ParcelDeliveryNetwork.gcs.mobility initialHeading 0deg
+attr unit deg
+par ParcelDeliveryNetwork.gcs.mobility initialElevation 0deg
+attr unit deg
+par ParcelDeliveryNetwork.gcs.mobility initialBank 0deg
+attr unit deg
+par ParcelDeliveryNetwork.gcs.mobility initFromDisplayString true
+par ParcelDeliveryNetwork.gcs.mobility updateFromDisplayString true
+par ParcelDeliveryNetwork.gcs.interfaceTable typename "\"inet.networklayer.common.InterfaceTable\""
+par ParcelDeliveryNetwork.gcs.interfaceTable displayAddresses false
+par ParcelDeliveryNetwork.gcs.cb typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.gcs.cb displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.gcs.cb forwardServiceRegistration true
+par ParcelDeliveryNetwork.gcs.cb forwardProtocolRegistration true
+par ParcelDeliveryNetwork.gcs.bl typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.gcs.bl displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.gcs.bl forwardServiceRegistration true
+par ParcelDeliveryNetwork.gcs.bl forwardProtocolRegistration true
+par ParcelDeliveryNetwork.gcs.li typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.gcs.li displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.gcs.li forwardServiceRegistration true
+par ParcelDeliveryNetwork.gcs.li forwardProtocolRegistration true
+par ParcelDeliveryNetwork.gcs.lo[0].upperLayerIn.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.gcs.lo[0].lo.upperLayerOut.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.gcs.lo[0].lo typename "\"inet.linklayer.loopback.Loopback\""
+par ParcelDeliveryNetwork.gcs.lo[0].lo interfaceTableModule "\"ParcelDeliveryNetwork.gcs.interfaceTable\""
+par ParcelDeliveryNetwork.gcs.lo[0].lo mtu 4470B
+attr unit B
+par ParcelDeliveryNetwork.gcs.lo[0] typename "\"inet.linklayer.loopback.LoopbackInterface\""
+par ParcelDeliveryNetwork.gcs.lo[0] displayStringTextFormat "\"%a (%i)\\n%m\""
+par ParcelDeliveryNetwork.gcs.lo[0] recordPcap false
+par ParcelDeliveryNetwork.gcs.lo[0] numPcapRecorders 0
+par ParcelDeliveryNetwork.gcs.lo[0] interfaceTableModule "\"ParcelDeliveryNetwork.gcs.interfaceTable\""
+par ParcelDeliveryNetwork.gcs.wlan[0].radioIn.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.gcs.wlan[0].llc.upperLayerOut.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.gcs.wlan[0].upperLayerIn.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mib typename "\"inet.linklayer.ieee80211.mib.Ieee80211Mib\""
+par ParcelDeliveryNetwork.gcs.wlan[0].llc typename "\"inet.linklayer.ieee80211.llc.Ieee80211LlcLpd\""
+par ParcelDeliveryNetwork.gcs.wlan[0].llc registerProtocol false
+par ParcelDeliveryNetwork.gcs.wlan[0].mgmt typename "\"inet.linklayer.ieee80211.mgmt.Ieee80211MgmtAdhoc\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mgmt mibModule "\"ParcelDeliveryNetwork.gcs.wlan[0].mib\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mgmt macModule "\"ParcelDeliveryNetwork.gcs.wlan[0].mac\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mgmt interfaceTableModule "\"ParcelDeliveryNetwork.gcs.interfaceTable\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue typename "\"inet.linklayer.ieee80211.mac.queue.PendingQueue\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue displayStringTextFormat "\"contains %p pk (%l) pushed %u\\npulled %o removed %r dropped %d\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue packetCapacity 100
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue dataCapacity -1b
+attr unit b
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue dropperClass "\"inet::queueing::PacketAtCollectionEndDropper\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue comparatorClass "\"inet::ieee80211::MgmtOverDataComparator\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.pendingQueue bufferModule "\"\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.inProgressFrames typename "\"inet.linklayer.ieee80211.mac.queue.InProgressFrames\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.inProgressFrames pendingQueueModule "\"^.pendingQueue\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.inProgressFrames originatorMacDataServiceModule "\"^.^.originatorMacDataService\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.inProgressFrames ackHandlerModule "\"^.^.ackHandler\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.contention typename "\"inet.linklayer.ieee80211.mac.contention.Contention\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.contention initialChannelBusy true
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess.contention backoffOptimization true
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess typename "\"inet.linklayer.ieee80211.mac.channelaccess.Dcaf\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess difsn -1
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess cwMin -1
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess cwMax -1
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.channelAccess rxModule "\"^.^.rx\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.originatorMacDataService.fragmentationPolicy typename "\"inet.linklayer.ieee80211.mac.fragmentation.BasicFragmentationPolicy\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.originatorMacDataService.fragmentationPolicy fragmentationThreshold 1500B
+attr unit B
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.originatorMacDataService typename "\"inet.linklayer.ieee80211.mac.originator.OriginatorMacDataService\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recipientMacDataService typename "\"inet.linklayer.ieee80211.mac.recipient.RecipientMacDataService\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.rateSelection typename "\"inet.linklayer.ieee80211.mac.rateselection.RateSelection\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.rateSelection rateControlModule "\"^.rateControl\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.rateSelection multicastFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.rateSelection responseAckFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.rateSelection responseCtsFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.rateSelection dataFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.rateSelection dataFrameBandwidth "nan Hz"
+attr unit Hz
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.rateSelection dataFrameNumSpatialStreams -1
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.rateSelection mgmtFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.rateSelection controlFrameBitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recoveryProcedure typename "\"inet.linklayer.ieee80211.mac.originator.NonQosRecoveryProcedure\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recoveryProcedure cwCalculatorModule "\"^.channelAccess\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recoveryProcedure rtsPolicyModule "\"^.rtsPolicy\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recoveryProcedure shortRetryLimit 7
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recoveryProcedure longRetryLimit 4
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.originatorProtectionMechanism typename "\"inet.linklayer.ieee80211.mac.protectionmechanism.OriginatorProtectionMechanism\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.originatorProtectionMechanism rateSelectionModule "\"^.rateSelection\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.ackHandler typename "\"inet.linklayer.ieee80211.mac.originator.AckHandler\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.originatorAckPolicy typename "\"inet.linklayer.ieee80211.mac.originator.OriginatorAckPolicy\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.originatorAckPolicy rateSelectionModule "\"^.rateSelection\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.originatorAckPolicy ackTimeout -1s
+attr unit s
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recipientAckPolicy typename "\"inet.linklayer.ieee80211.mac.recipient.RecipientAckPolicy\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.recipientAckPolicy rateSelectionModule "\"^.rateSelection\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.rtsPolicy typename "\"inet.linklayer.ieee80211.mac.originator.RtsPolicy\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.rtsPolicy rateSelectionModule "\"^.rateSelection\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.rtsPolicy ctsTimeout -1s
+attr unit s
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.rtsPolicy rtsThreshold 2346B
+attr unit B
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.ctsPolicy typename "\"inet.linklayer.ieee80211.mac.recipient.CtsPolicy\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.ctsPolicy rxModule "\"^.^.rx\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf.ctsPolicy rateSelectionModule "\"^.rateSelection\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf typename "\"inet.linklayer.ieee80211.mac.coordinationfunction.Dcf\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf rxModule "\"^.rx\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.dcf txModule "\"^.tx\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.ds typename "\"inet.linklayer.ieee80211.mac.Ds\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.ds mibModule "\"ParcelDeliveryNetwork.gcs.wlan[0].mib\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.rx typename "\"inet.linklayer.ieee80211.mac.Rx\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.tx typename "\"inet.linklayer.ieee80211.mac.Tx\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac.tx rxModule "\"^.rx\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac typename "\"inet.linklayer.ieee80211.mac.Ieee80211Mac\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac interfaceTableModule "\"ParcelDeliveryNetwork.gcs.interfaceTable\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac mibModule "\"ParcelDeliveryNetwork.gcs.wlan[0].mib\""
+par ParcelDeliveryNetwork.gcs.wlan[0].mac modeSet "\"g(mixed)\""
+attr enum a,b,g(erp),g(mixed),n(mixed-2.4Ghz),p,ac
+par ParcelDeliveryNetwork.gcs.wlan[0].mac fcsMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.gcs.wlan[0].mac initialRadioMode "\"receiver\""
+attr enum off,sleep,receiver,transmitter,transceiver
+par ParcelDeliveryNetwork.gcs.wlan[0].mac mtu 2304B
+attr unit B
+par ParcelDeliveryNetwork.gcs.wlan[0].mac qosStation false
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.antenna typename "\"inet.physicallayer.wireless.common.antenna.IsotropicAntenna\""
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.antenna mobilityModule "\"^.^.^.mobility\""
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.antenna numAntennas 1
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.transmitter typename "\"inet.physicallayer.wireless.ieee80211.packetlevel.Ieee80211ScalarTransmitter\""
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.transmitter preambleDuration -1s
+attr unit s
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.transmitter headerLength 192b
+attr unit b
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.transmitter bitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.transmitter power 0.02W
+attr unit W
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.transmitter centerFrequency 2.412e+09Hz
+attr unit Hz
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.transmitter bandwidth "nan Hz"
+attr unit Hz
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.transmitter codeRate 1
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.transmitter modulation "\"BPSK\""
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.transmitter opMode "\"g(mixed)\""
+attr enum a,b,g(erp),g(mixed),n(mixed-2.4Ghz),p,ac
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.transmitter bandName "\"2.4 GHz\""
+attr enum "2.4 GHz,5 GHz,5 GHz (20 MHz),5 GHz (40 MHz),5 GHz (80 MHz),5 GHz (160 MHz),5.9 GHz"
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.transmitter channelNumber 0
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.receiver.errorModel typename "\"inet.physicallayer.wireless.ieee80211.packetlevel.errormodel.Ieee80211NistErrorModel\""
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.receiver.errorModel corruptionMode "\"packet\""
+attr enum packet,chunk,byte,bit
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.receiver.errorModel snirMode "\"min\""
+attr enum min,mean
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.receiver.errorModel snirOffset 0dB
+attr unit dB
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.receiver typename "\"inet.physicallayer.wireless.ieee80211.packetlevel.Ieee80211ScalarReceiver\""
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.receiver snirThreshold 4dB
+attr unit dB
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.receiver snirThresholdMode "\"min\""
+attr enum min,mean
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.receiver energyDetection -85dBm
+attr unit dBm
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.receiver sensitivity -85dBm
+attr unit dBm
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.receiver centerFrequency 2.412e+09Hz
+attr unit Hz
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.receiver bandwidth 2.2e+07Hz
+attr unit Hz
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.receiver modulation "\"BPSK\""
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.receiver opMode "\"g(mixed)\""
+attr enum a,b,g(erp),g(mixed),n(mixed-2.4Ghz),p,ac
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.receiver bandName "\"2.4 GHz\""
+attr enum "2.4 GHz,5 GHz,5 GHz (20 MHz),5 GHz (40 MHz),5 GHz (80 MHz),5 GHz (160 MHz),5.9 GHz"
+par ParcelDeliveryNetwork.gcs.wlan[0].radio.receiver channelNumber 0
+par ParcelDeliveryNetwork.gcs.wlan[0].radio typename "\"inet.physicallayer.wireless.ieee80211.packetlevel.Ieee80211ScalarRadio\""
+par ParcelDeliveryNetwork.gcs.wlan[0].radio radioMediumModule "\"radioMedium\""
+par ParcelDeliveryNetwork.gcs.wlan[0].radio energySourceModule "\"\""
+par ParcelDeliveryNetwork.gcs.wlan[0].radio initialRadioMode "\"off\""
+attr enum off,sleep,receiver,transmitter,transceiver
+par ParcelDeliveryNetwork.gcs.wlan[0].radio switchingTimes "\"ms 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\""
+par ParcelDeliveryNetwork.gcs.wlan[0].radio sendRawBytes false
+par ParcelDeliveryNetwork.gcs.wlan[0].radio separateTransmissionParts false
+par ParcelDeliveryNetwork.gcs.wlan[0].radio separateReceptionParts false
+par ParcelDeliveryNetwork.gcs.wlan[0].radio displayCommunicationRange false
+par ParcelDeliveryNetwork.gcs.wlan[0].radio displayInterferenceRange false
+par ParcelDeliveryNetwork.gcs.wlan[0].radio centerFrequency 2.412e+09Hz
+attr unit Hz
+par ParcelDeliveryNetwork.gcs.wlan[0].radio bandwidth "nan Hz"
+attr unit Hz
+par ParcelDeliveryNetwork.gcs.wlan[0].radio signalAnalogRepresentation "\"scalar\""
+attr enum scalar,dimensional
+par ParcelDeliveryNetwork.gcs.wlan[0].radio opMode "\"g(mixed)\""
+attr enum a,b,g(erp),g(mixed),n(mixed-2.4Ghz),p,ac
+par ParcelDeliveryNetwork.gcs.wlan[0].radio bandName "\"2.4 GHz\""
+attr enum "2.4 GHz,5 GHz,5 GHz (20 MHz),5 GHz (40 MHz),5 GHz (80 MHz),5 GHz (160 MHz),5.9 GHz"
+par ParcelDeliveryNetwork.gcs.wlan[0].radio channelNumber 0
+par ParcelDeliveryNetwork.gcs.wlan[0].radio crcMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.gcs.wlan[0] typename "\"inet.linklayer.ieee80211.Ieee80211Interface\""
+par ParcelDeliveryNetwork.gcs.wlan[0] displayStringTextFormat "\"%a (%i)\\n%m\""
+par ParcelDeliveryNetwork.gcs.wlan[0] recordPcap false
+par ParcelDeliveryNetwork.gcs.wlan[0] numPcapRecorders 0
+par ParcelDeliveryNetwork.gcs.wlan[0] interfaceTableModule "\"ParcelDeliveryNetwork.gcs.interfaceTable\""
+par ParcelDeliveryNetwork.gcs.wlan[0] energySourceModule "\"\""
+par ParcelDeliveryNetwork.gcs.wlan[0] opMode "\"g(mixed)\""
+attr enum a,b,g(erp),g(mixed),n(mixed-2.4Ghz),p,ac
+par ParcelDeliveryNetwork.gcs.wlan[0] address "\"0A-AA-00-00-00-04\""
+attr mutable ""
+par ParcelDeliveryNetwork.gcs.wlan[0] protocol "\"\""
+par ParcelDeliveryNetwork.gcs.wlan[0] bitrate -1bps
+attr unit bps
+par ParcelDeliveryNetwork.gcs.ipv4.transportIn.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.gcs.ipv4.up.out[0].channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.gcs.ipv4.lp.out[2].channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.gcs.ipv4.ifIn.channel typename "\"ned.IdealChannel\""
+par ParcelDeliveryNetwork.gcs.ipv4.configurator typename "\"inet.networklayer.configurator.ipv4.Ipv4NodeConfigurator\""
+par ParcelDeliveryNetwork.gcs.ipv4.configurator interfaceTableModule "\"ParcelDeliveryNetwork.gcs.interfaceTable\""
+par ParcelDeliveryNetwork.gcs.ipv4.configurator routingTableModule "\"ParcelDeliveryNetwork.gcs.ipv4.routingTable\""
+par ParcelDeliveryNetwork.gcs.ipv4.configurator networkConfiguratorModule "\"configurator\""
+par ParcelDeliveryNetwork.gcs.ipv4.configurator configureRoutingTable true
+par ParcelDeliveryNetwork.gcs.ipv4.routingTable typename "\"inet.networklayer.ipv4.Ipv4RoutingTable\""
+par ParcelDeliveryNetwork.gcs.ipv4.routingTable interfaceTableModule "\"ParcelDeliveryNetwork.gcs.interfaceTable\""
+par ParcelDeliveryNetwork.gcs.ipv4.routingTable routerId "\"auto\""
+par ParcelDeliveryNetwork.gcs.ipv4.routingTable netmaskRoutes "\"*\""
+par ParcelDeliveryNetwork.gcs.ipv4.routingTable forwarding true
+par ParcelDeliveryNetwork.gcs.ipv4.routingTable multicastForwarding false
+par ParcelDeliveryNetwork.gcs.ipv4.routingTable useAdminDist false
+par ParcelDeliveryNetwork.gcs.ipv4.routingTable routingFile "\"\""
+par ParcelDeliveryNetwork.gcs.ipv4.natTable typename "\"inet.networklayer.ipv4.Ipv4NatTable\""
+par ParcelDeliveryNetwork.gcs.ipv4.natTable networkProtocolModule "\"^.ip\""
+par ParcelDeliveryNetwork.gcs.ipv4.natTable config "<config/> at content:1"
+par ParcelDeliveryNetwork.gcs.ipv4.up typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.gcs.ipv4.up displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.gcs.ipv4.up forwardServiceRegistration true
+par ParcelDeliveryNetwork.gcs.ipv4.up forwardProtocolRegistration true
+par ParcelDeliveryNetwork.gcs.ipv4.igmp typename "\"inet.networklayer.ipv4.Igmpv2\""
+par ParcelDeliveryNetwork.gcs.ipv4.igmp interfaceTableModule "\"ParcelDeliveryNetwork.gcs.interfaceTable\""
+par ParcelDeliveryNetwork.gcs.ipv4.igmp routingTableModule "\"ParcelDeliveryNetwork.gcs.ipv4.routingTable\""
+par ParcelDeliveryNetwork.gcs.ipv4.igmp crcMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.gcs.ipv4.igmp enabled true
+par ParcelDeliveryNetwork.gcs.ipv4.igmp robustnessVariable 2
+par ParcelDeliveryNetwork.gcs.ipv4.igmp queryInterval 125s
+attr unit s
+par ParcelDeliveryNetwork.gcs.ipv4.igmp queryResponseInterval 10s
+attr unit s
+par ParcelDeliveryNetwork.gcs.ipv4.igmp groupMembershipInterval 260s
+attr unit s
+par ParcelDeliveryNetwork.gcs.ipv4.igmp otherQuerierPresentInterval 255s
+attr unit s
+par ParcelDeliveryNetwork.gcs.ipv4.igmp startupQueryInterval 31.25s
+attr unit s
+par ParcelDeliveryNetwork.gcs.ipv4.igmp startupQueryCount 2
+par ParcelDeliveryNetwork.gcs.ipv4.igmp lastMemberQueryInterval 1s
+attr unit s
+par ParcelDeliveryNetwork.gcs.ipv4.igmp lastMemberQueryCount 2
+par ParcelDeliveryNetwork.gcs.ipv4.igmp unsolicitedReportInterval 10s
+attr unit s
+par ParcelDeliveryNetwork.gcs.ipv4.icmp typename "\"inet.networklayer.ipv4.Icmp\""
+par ParcelDeliveryNetwork.gcs.ipv4.icmp interfaceTableModule "\"ParcelDeliveryNetwork.gcs.interfaceTable\""
+par ParcelDeliveryNetwork.gcs.ipv4.icmp routingTableModule "\"ParcelDeliveryNetwork.gcs.ipv4.routingTable\""
+par ParcelDeliveryNetwork.gcs.ipv4.icmp crcMode "\"declared\""
+attr enum declared,computed
+attr mutable ""
+par ParcelDeliveryNetwork.gcs.ipv4.icmp quoteLength 8B
+attr mutable ""
+attr unit B
+par ParcelDeliveryNetwork.gcs.ipv4.mp typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.gcs.ipv4.mp displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.gcs.ipv4.mp forwardServiceRegistration true
+par ParcelDeliveryNetwork.gcs.ipv4.mp forwardProtocolRegistration true
+par ParcelDeliveryNetwork.gcs.ipv4.ip typename "\"inet.networklayer.ipv4.Ipv4\""
+par ParcelDeliveryNetwork.gcs.ipv4.ip interfaceTableModule "\"ParcelDeliveryNetwork.gcs.interfaceTable\""
+par ParcelDeliveryNetwork.gcs.ipv4.ip routingTableModule "\"ParcelDeliveryNetwork.gcs.ipv4.routingTable\""
+par ParcelDeliveryNetwork.gcs.ipv4.ip arpModule "\"ParcelDeliveryNetwork.gcs.ipv4.arp\""
+par ParcelDeliveryNetwork.gcs.ipv4.ip icmpModule "\"ParcelDeliveryNetwork.gcs.ipv4.icmp\""
+par ParcelDeliveryNetwork.gcs.ipv4.ip crcMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.gcs.ipv4.ip timeToLive 32
+par ParcelDeliveryNetwork.gcs.ipv4.ip multicastTimeToLive 32
+par ParcelDeliveryNetwork.gcs.ipv4.ip fragmentTimeout 60s
+attr unit s
+par ParcelDeliveryNetwork.gcs.ipv4.ip limitedBroadcast false
+par ParcelDeliveryNetwork.gcs.ipv4.ip directBroadcastInterfaces "\"\""
+par ParcelDeliveryNetwork.gcs.ipv4.arp typename "\"inet.networklayer.arp.ipv4.Arp\""
+par ParcelDeliveryNetwork.gcs.ipv4.arp interfaceTableModule "\"ParcelDeliveryNetwork.gcs.interfaceTable\""
+par ParcelDeliveryNetwork.gcs.ipv4.arp routingTableModule "\"ParcelDeliveryNetwork.gcs.ipv4.routingTable\""
+par ParcelDeliveryNetwork.gcs.ipv4.arp retryTimeout 1s
+attr unit s
+par ParcelDeliveryNetwork.gcs.ipv4.arp retryCount 3
+par ParcelDeliveryNetwork.gcs.ipv4.arp cacheTimeout 120s
+attr unit s
+par ParcelDeliveryNetwork.gcs.ipv4.arp proxyArpInterfaces "\"\""
+par ParcelDeliveryNetwork.gcs.ipv4.lp typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.gcs.ipv4.lp displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.gcs.ipv4.lp forwardServiceRegistration true
+par ParcelDeliveryNetwork.gcs.ipv4.lp forwardProtocolRegistration true
+par ParcelDeliveryNetwork.gcs.ipv4 typename "\"inet.networklayer.ipv4.Ipv4NetworkLayer\""
+par ParcelDeliveryNetwork.gcs.ipv4 forwarding true
+par ParcelDeliveryNetwork.gcs.ipv4 multicastForwarding false
+par ParcelDeliveryNetwork.gcs.ipv4 interfaceTableModule "\"ParcelDeliveryNetwork.gcs.interfaceTable\""
+par ParcelDeliveryNetwork.gcs.ipv4 displayStringTextFormat "\"%i\""
+par ParcelDeliveryNetwork.gcs.nl typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.gcs.nl displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.gcs.nl forwardServiceRegistration true
+par ParcelDeliveryNetwork.gcs.nl forwardProtocolRegistration true
+par ParcelDeliveryNetwork.gcs.udp typename "\"inet.transportlayer.udp.Udp\""
+par ParcelDeliveryNetwork.gcs.udp interfaceTableModule "\"ParcelDeliveryNetwork.gcs.interfaceTable\""
+par ParcelDeliveryNetwork.gcs.udp icmpModule "\"^.ipv4.icmp\""
+par ParcelDeliveryNetwork.gcs.udp icmpv6Module "\"^.ipv6.icmpv6\""
+par ParcelDeliveryNetwork.gcs.udp crcMode "\"declared\""
+attr enum disabled,declared,computed
+par ParcelDeliveryNetwork.gcs.udp defaultMulticastLoop true
+par ParcelDeliveryNetwork.gcs.tcp typename "\"inet.transportlayer.tcp.Tcp\""
+par ParcelDeliveryNetwork.gcs.tcp crcMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.gcs.tcp advertisedWindow 7504
+par ParcelDeliveryNetwork.gcs.tcp delayedAcksEnabled false
+par ParcelDeliveryNetwork.gcs.tcp nagleEnabled true
+par ParcelDeliveryNetwork.gcs.tcp limitedTransmitEnabled false
+par ParcelDeliveryNetwork.gcs.tcp increasedIWEnabled false
+par ParcelDeliveryNetwork.gcs.tcp sackSupport false
+par ParcelDeliveryNetwork.gcs.tcp windowScalingSupport false
+par ParcelDeliveryNetwork.gcs.tcp windowScalingFactor -1
+par ParcelDeliveryNetwork.gcs.tcp timestampSupport false
+par ParcelDeliveryNetwork.gcs.tcp mss 536
+par ParcelDeliveryNetwork.gcs.tcp msl 120s
+attr unit s
+par ParcelDeliveryNetwork.gcs.tcp tcpAlgorithmClass "\"TcpReno\""
+attr enum TcpVegas,TcpWestwood,TcpNewReno,TcpReno,TcpTahoe,TcpNoCongestionControl
+par ParcelDeliveryNetwork.gcs.tcp useDataNotification false
+par ParcelDeliveryNetwork.gcs.tcp dupthresh 3
+par ParcelDeliveryNetwork.gcs.tcp initialSsthresh 4294967295
+par ParcelDeliveryNetwork.gcs.tcp stopOperationExtraTime 0s
+attr unit s
+par ParcelDeliveryNetwork.gcs.tcp stopOperationTimeout 2s
+attr unit s
+par ParcelDeliveryNetwork.gcs.tcp ecnWillingness false
+par ParcelDeliveryNetwork.gcs.tcp dctcpGamma 0.0625
+par ParcelDeliveryNetwork.gcs.tn typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.gcs.tn displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.gcs.tn forwardServiceRegistration true
+par ParcelDeliveryNetwork.gcs.tn forwardProtocolRegistration true
+par ParcelDeliveryNetwork.gcs.at typename "\"inet.common.MessageDispatcher\""
+par ParcelDeliveryNetwork.gcs.at displayStringTextFormat "\"processed %p pk (%l)\""
+par ParcelDeliveryNetwork.gcs.at forwardServiceRegistration true
+par ParcelDeliveryNetwork.gcs.at forwardProtocolRegistration true
+par ParcelDeliveryNetwork.gcs typename "\"inet.node.inet.AdhocHost\""
+par ParcelDeliveryNetwork.gcs hasStatus false
+par ParcelDeliveryNetwork.gcs osgModel "\"\""
+par ParcelDeliveryNetwork.gcs osgModelColor "\"\""
+par ParcelDeliveryNetwork.gcs canvasImage "\"\""
+par ParcelDeliveryNetwork.gcs canvasImageColor "\"\""
+par ParcelDeliveryNetwork.gcs recordPcap false
+par ParcelDeliveryNetwork.gcs numPcapRecorders 0
+par ParcelDeliveryNetwork.gcs numLoInterfaces 1
+par ParcelDeliveryNetwork.gcs numWlanInterfaces 1
+par ParcelDeliveryNetwork.gcs numEthInterfaces 0
+par ParcelDeliveryNetwork.gcs numPppInterfaces 0
+par ParcelDeliveryNetwork.gcs numTunInterfaces 0
+par ParcelDeliveryNetwork.gcs numVirtInterfaces 0
+par ParcelDeliveryNetwork.gcs fcsMode "\"declared\""
+attr enum declared,computed
+par ParcelDeliveryNetwork.gcs hasIpv4 true
+par ParcelDeliveryNetwork.gcs hasIpv6 false
+par ParcelDeliveryNetwork.gcs hasGn false
+par ParcelDeliveryNetwork.gcs forwarding true
+par ParcelDeliveryNetwork.gcs multicastForwarding false
+par ParcelDeliveryNetwork.gcs hasUdp true
+par ParcelDeliveryNetwork.gcs hasTcp true
+par ParcelDeliveryNetwork.gcs hasSctp false
+par ParcelDeliveryNetwork.gcs numApps 0
+par ParcelDeliveryNetwork typename "\"ParcelDeliveryNetwork\""
+par ParcelDeliveryNetwork numdrones 3
+

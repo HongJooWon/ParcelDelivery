@@ -385,7 +385,9 @@ double calculate1TreeLowerBound(const vector<vector<double>>& travel, int start,
     return one_tree_cost;
 }
 
-void dfs(int start, int next, double value, vector<int>& visited, int n, vector<vector<double>>& travel, double& min_value, vector<int>& path) {
+void dfs(int start, int next, double value, vector<int>& visited, 
+         int n, vector<vector<double>>& travel, double& min_value, 
+         vector<int>& path) {
     // 현재까지 방문한 노드 표시
     vector<bool> is_visited(n, false);
     for (int v : visited) is_visited[v] = true;
@@ -393,8 +395,8 @@ void dfs(int start, int next, double value, vector<int>& visited, int n, vector<
     // 1-tree lower bound 계산
     double lower_bound = value + calculate1TreeLowerBound(travel, next, is_visited);
     
-    // 가지치기: 현재 경로의 lower bound가 지금까지의 최소값보다 크거나 같으면 탐색 중단
-    if (lower_bound > min_value) {
+    // 가지치기: 현재 경로의 lower bound가 지금까지의 최소값보다 크면 탐색 중단
+    if (lower_bound >= min_value) {
         return;
     }
 
@@ -414,89 +416,83 @@ void dfs(int start, int next, double value, vector<int>& visited, int n, vector<
 
     // 다음 방문할 노드 탐색
     for (int i = 0; i < n; i++) {
-        if (travel[next][i] != 0 && i != start && find(visited.begin(), visited.end(), i) == visited.end()) {
+        if (travel[next][i] != 0 && i != start && 
+            find(visited.begin(), visited.end(), i) == visited.end()) {
             visited.push_back(i);
-            // 재귀적으로 DFS 수행
             dfs(start, i, value + travel[next][i], visited, n, travel, min_value, path);
-            // 백트래킹
             visited.pop_back();
         }
     }
 }
 
-// BnB Tsp
-vector<parcel> dfs_bnb(vector<parcel>& parcels, double& distance, int& carriedParcels) {
-
-    //numparcel 할당 문제---
-    cout << "carriedParcels: " << parcels.size() << endl; 
-
-    // 시작점을 (0,0)으로 설정하고 택배 리스트에 추가
+// BnB Tsp - distance based
+vector<parcel> dfs_bnb(unordered_map<string, GroupedParcel>& parcelGroups, 
+                       double weightCapacity) { 
+    vector<parcel> allParcels;
+    vector<GroupedParcel*> groupPtrs;
+    
+    // 시작점 추가
     parcel startParcel;
     startParcel.parcelID = -1;
     startParcel.parceldest = originPos;
-    parcels.insert(parcels.begin(), startParcel);
+    allParcels.push_back(startParcel);
     
-    // 택배 리스트를 출력
-    
-    for(int i=0; i<parcels.size(); i++) {
-        cout << "Parcel to solve" << parcels[i].parcelID << " : " << parcels[i].parceldest.x << " " << parcels[i].parceldest.y << endl;
-    }
-
-    //remove_dupcoordinates(parcels, carriedParcels);
-
-    cout << "After removing duplicates" << endl;
-
-    // 택배 리스트를 출력
-    for(int i=0; i<parcels.size(); i++) {
-        cout << "Parcel to solve" << parcels[i].parcelID << " : " << parcels[i].parceldest.x << " " << parcels[i].parceldest.y << endl;
-    }
-
-    // 택배의 수를 계산
-    int n = parcels.size();
-
-    // 각 택배 간의 거리를 계산하여 행렬에 저장
-    vector<vector<double>> travel(n, vector<double>(n, 0));
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
-            travel[i][j] = dist(parcels[i].parceldest, parcels[j].parceldest);
+    // 그룹화된 택배들을 단일 벡터로 변환
+    for (auto& group : parcelGroups) {
+        groupPtrs.push_back(&group.second);
+        if (!group.second.parcels.empty()) {
+            allParcels.push_back(group.second.parcels[0]);
         }
     }
 
-    // 최단 거리를 무한대로 초기화
-    double min_value = numeric_limits<double>::infinity();
-    // 최적 경로를 저장할 변수를 초기화
+    int n = allParcels.size();
+    
+    cout << "Total groups to process: " << n-1 << endl;
+
+    // 각 그룹 간의 거리를 계산하여 행렬에 저장
+    vector<vector<double>> distanceMatrix(n, vector<double>(n, 0));
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            distanceMatrix[i][j] = dist(allParcels[i].parceldest, allParcels[j].parceldest);
+        }
+    }
+
+    // BnB 알고리즘 실행
+    double min_distance = numeric_limits<double>::infinity();
     vector<int> path;
-    // 방문 리스트를 초기화하고, 시작점을 추가
     vector<int> visited = {0};
-    double ans = 0;
+    
+    // DFS 시작
+    dfs(0, 0, 0, visited, n, distanceMatrix, min_distance, path);
+    path.push_back(0);  // 시작점으로 돌아오는 경로 추가
 
-    // DFS를 시작
-    dfs(0, 0, 0, visited, n, travel, min_value, path);
-
-    // 최적 경로에 시작점으로 돌아오는 것 추가
-    path.push_back(0);
-
-    // 최적 경로에 따라 택배를 정렬 (시작점 제외)
+    // 최적 경로에 따라 택배를 정렬
     vector<parcel> sorted_parcels;
     for(int i = 1; i < path.size() - 1; i++) {
-        sorted_parcels.push_back(parcels[path[i]]);
+        int groupIndex = path[i];
+        // 해당 그룹의 모든 택배를 순서대로 추가
+        GroupedParcel* selectedGroup = groupPtrs[groupIndex - 1];  // -1은 시작점 보정
+        for (const auto& p : selectedGroup->parcels) {
+            sorted_parcels.push_back(p);
+        }
     }
     
-    //print the sorted parcels
-    cout << "BnB Sorted parcels: ";
-    for(int i=0; i<sorted_parcels.size(); i++) {
-        cout << sorted_parcels[i].parcelID << " ";
+    // 결과 출력
+    cout << "\nBnB Algorithm Results:" << endl;
+    cout << "Total groups visited: " << path.size() - 2 << endl;  // 시작점과 끝점 제외
+    cout << "Total parcels selected: " << sorted_parcels.size() << endl;
+    cout << "Minimum distance path length: " << min_distance << endl;
+    
+    // 경로 세부 정보 출력
+    cout << "\nDelivery Route Details:" << endl;
+    for(int i = 1; i < path.size() - 1; i++) {
+        int groupIndex = path[i];
+        GroupedParcel* group = groupPtrs[groupIndex - 1];
+        cout << "Group at (" << group->dest.x << "," << group->dest.y 
+             << "): " << group->parcels.size() << " parcels, "
+             << "total weight: " << group->totalWeight << endl;
     }
-    cout << endl;
 
-    //현재 들고있는 리스트에 대한 최소거리
-    cout << "Minimum distance: " << min_value << endl;
-
-    //현재까지 축적된 거리
-    distance += min_value;
-    cout << "BnB total distance increased: " << distance << endl;
-
-    // 정렬된 택배 리스트를 반환
     return sorted_parcels;
 }
 
@@ -1136,11 +1132,19 @@ vector<parcel> DroneNetMob::droneParcelsSelectionFromSource(int parcelSel){
             break;
         }
 
-        case 3: { // Ratio and Angle Based Search
-            // vector<parcel> result = RatioAngleBasedSearch(parcelGroups, tspDistance, getMaxSpeed(), batteryConsumption, carriedWeight, droneWeightCapacity);
-            // selectedParcels = result;
+        case 3: { // Branch and Bound
+            vector<parcel> result = dfs_bnb(parcelGroups, droneWeightCapacity);
+            selectedParcels = result;
 
-            // break;
+            carriedWeight = 0;
+            for (const auto& p : result) {
+                carriedWeight += p.weight;
+            }
+            
+            cout << "Initial carried weight: " << carriedWeight << endl;
+            cout << "Number of parcels selected: " << result.size() << endl;
+
+            break;
         }
         
     }
@@ -1221,13 +1225,18 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
 
         // 파일명에 weight_a와 weight_b 포함
         stringstream filename;
-        filename << "results/record_weight_" << weight_a << "_" << weight_b << ".csv";
-        
+
+        if(selectionMethod == 3){
+            filename << "results/record_BNB.csv";
+        } else {
+            filename << "results/record_weight_" << weight_a << "_" << weight_b << ".csv";
+        }
+
         // 파일이 존재하지 않으면 헤더 생성
         if(!ifstream(filename.str())){
             ofstream resultFile;
             resultFile.open(filename.str());
-            resultFile << "Selection Method, Number of Destinations, Distance, Energy" << endl;
+            resultFile << "Selection Method, Number of Destinations, Number of Parcels, Distance, Energy" << endl;
         }
 
         // 결과 추가
@@ -1235,7 +1244,7 @@ Coord DroneNetMob::missionPathNextDest(Coord cpos){
         resultFile.open(filename.str(), ios::app);
         
         //add values
-        resultFile << selectionMethod << ", " << numdst->intValue() << ", " << tspDistance << ", " << batteryConsumption << endl;
+        resultFile << selectionMethod << ", " << numdst->intValue() << ", " << (&par("npar"))->intValue() << ", " << tspDistance << ", " << batteryConsumption << endl;
 
         resultFile.close();
 
